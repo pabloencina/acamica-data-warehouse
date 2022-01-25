@@ -30,16 +30,7 @@ export const CustomerListToolbar = (props) => (
         Contacts
       </Typography>
       <Box sx={{ m: 1 }} >
-        <Button variant="contained"
-          startIcon={(<UploadIcon fontSize="small" alignItems= "center"/>)}
-          sx={{ mr: 2 }}
-        >
-        </Button>
 
-        <Button color="primary" sx={{ m: 1 }}
-          variant="contained" >
-          Export Contacts
-        </Button>
         <Button sx={{ m: 1 }}
           color="primary"
           variant="contained"

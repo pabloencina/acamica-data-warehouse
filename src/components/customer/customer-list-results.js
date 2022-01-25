@@ -117,9 +117,7 @@ export const CustomerListResults = ({ customers, ...rest }) => {
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>
-                <TableCell>
-                  preferred channel
-                </TableCell>
+                
                 <TableCell>
                   interests
                   <Button

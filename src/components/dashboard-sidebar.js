@@ -26,7 +26,7 @@ const items = [
     title: 'Contacts'
   },
   {
-    href: '/products',
+    href: '/',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Companies'
   },
