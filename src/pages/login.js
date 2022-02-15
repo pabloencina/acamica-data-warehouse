@@ -4,12 +4,11 @@ import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+//import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 
 const Login = () => {
-  const router = useRouter();
-
+  //const router = useRouter();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -45,11 +44,6 @@ const Login = () => {
         }}
       >
         <Container maxWidth="sm">
-          <NextLink href="/" passHref>
-            <Button component="a" startIcon={<ArrowBackIcon fontSize="small" />}>
-              Dashboard
-            </Button>
-          </NextLink>
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography color="textPrimary" variant="h4">
@@ -100,6 +94,7 @@ const Login = () => {
                 size="large"
                 type="submit"
                 variant="contained"
+               // href="customers"
               >
                 Sign In Now
               </Button>
