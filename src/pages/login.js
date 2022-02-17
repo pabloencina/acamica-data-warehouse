@@ -6,9 +6,19 @@ import * as Yup from "yup";
 import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
 //import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 
 const Login = () => {
   //const router = useRouter();
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [user, setUser] = useState(null);
+
+  // useEffect(() => {
+  //   console.log(email);
+  //   console.log(password);
+  // }, []);
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -18,14 +28,16 @@ const Login = () => {
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
-    onSubmit: async () => {
+    onSubmit: async (values) => {
       // router.push('/customers');
-      const postLogin = await axios.post("http://localhost:3500/login", {})
-      // const postLogin = await fetch("http://localhost:3500/login", { method: "POST" });
-      console.log(postLogin);
-
-      // const getResponse = await axios.get("https://jsonplaceholder.typicode.com/todos")
-      // console.log(getResponse)
+      
+      const loginResponse = await axios.post("http://localhost:3500/login", {
+        email: values.email,
+        password: values.password,
+      });
+      window.localStorage.setItem('token', loginResponse.data); 
+      let myToken = window.localStorage.getItem('token');
+      console.log(myToken);
     },
   });
 
@@ -94,7 +106,7 @@ const Login = () => {
                 size="large"
                 type="submit"
                 variant="contained"
-               // href="customers"
+                // href="customers"
               >
                 Sign In Now
               </Button>
