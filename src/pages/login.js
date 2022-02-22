@@ -29,7 +29,6 @@ const Login = () => {
       password: Yup.string().max(255).required("Password is required"),
     }),
     onSubmit: async (values) => {
-      // router.push('/customers');
       
       const loginResponse = await axios.post("http://localhost:3500/login", {
         email: values.email,
@@ -37,7 +36,6 @@ const Login = () => {
       });
       window.localStorage.setItem('token', loginResponse.data); 
       let myToken = window.localStorage.getItem('token');
-      console.log(myToken);
     },
   });
 

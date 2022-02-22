@@ -26,17 +26,17 @@ const items = [
     title: 'Contacts'
   },
   {
-    href: '/',
+    href: '/companies',
     icon: (<ShoppingBagIcon fontSize="small" />),
     title: 'Companies'
   },
   {
-    href: '/account',
+    href: '/users',
     icon: (<UserIcon fontSize="small" />),
     title: 'Users'
   },
   {
-    href: '/settings',
+    href: '/region',
     icon: (<CogIcon fontSize="small" />),
     title: 'Region/city'
   },
