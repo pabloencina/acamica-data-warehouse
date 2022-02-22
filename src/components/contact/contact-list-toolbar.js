@@ -11,7 +11,7 @@ import { Search as SearchIcon } from '../../icons/search';
 import { upLoad as UploadIcon } from '../../icons/upload';
 //import { Download as DownloadIcon } from '../../icons/download';
 
-export const CustomerListToolbar = (props) => (
+export const ContactListToolbar = (props) => (
   <Box {...props}>
     
     <Box
@@ -57,7 +57,7 @@ export const CustomerListToolbar = (props) => (
                   </InputAdornment>
                 )
               }}
-              placeholder="Search customer"
+              placeholder="Search contact"
               variant="outlined"
             />
           </Box>

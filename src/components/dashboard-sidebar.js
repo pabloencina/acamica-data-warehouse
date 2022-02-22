@@ -21,7 +21,7 @@ import { NavItem } from './nav-item';
 const items = [
 
   {
-    href: '/customers',
+    href: '/contacts',
     icon: (<UsersIcon fontSize="small" />),
     title: 'Contacts'
   },
