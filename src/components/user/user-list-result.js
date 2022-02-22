@@ -89,21 +89,21 @@ export const UserListResults = ({ users, ...rest }) => {
                 </TableCell>
 
                 <TableCell>
-                  Contact
+                  Name
                   <Button
                   startIcon={(<Impexpicons />)}
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>
                 <TableCell>
-                  Region/city
+                  Surname
                   <Button
                   startIcon={(<Impexpicons />)}
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>
                 <TableCell>
-                  Company
+                  Email
                   <Button
                   startIcon={(<Impexpicons />)}
                   sx={{ mr: 1 }}
@@ -111,20 +111,13 @@ export const UserListResults = ({ users, ...rest }) => {
                 </TableCell>
                 
                 <TableCell>
-                  Position
+                  Profile
                   <Button
                   startIcon={(<Impexpicons />)}
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>
                 
-                <TableCell>
-                  interests
-                  <Button
-                  startIcon={(<Impexpicons />)}
-                  sx={{ mr: 1 }}
-                ></Button>
-                </TableCell>
                 <TableCell>
                   Actions
                 </TableCell>
@@ -166,17 +159,15 @@ export const UserListResults = ({ users, ...rest }) => {
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {user.email}
+                    {user.surname}
                   </TableCell>
                   <TableCell>
-                    {`${user.address.city}, ${user.address.state}, ${user.address.country}`}
+                    {`${user.email}`}
                   </TableCell>
                   <TableCell>
-                    {user.phone}
+                    {user.profile}
                   </TableCell>
-                  <TableCell>
-                    {format(user.createdAt, 'dd/MM/yyyy')}
-                  </TableCell>
+                  
                 </TableRow>
               ))}
             </TableBody>

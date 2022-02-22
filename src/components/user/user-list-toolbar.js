@@ -27,7 +27,7 @@ import {
           sx={{ m: 1 }}
           variant="h6"
         >
-          Contacts
+          Users
         </Typography>
         <Box sx={{ m: 1 }} >
   
@@ -35,7 +35,7 @@ import {
             color="primary"
             variant="contained"
           >
-            Add Contact
+            Add User
           </Button>
         </Box>
       </Box>
