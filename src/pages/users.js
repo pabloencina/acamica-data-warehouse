@@ -8,7 +8,7 @@ import { users } from "src/__mocks__/users";
 const Users = () => (
   <>
     <Head>
-      <title>Users | Material Kitttttttttt</title>
+      <title>Users | Material Kit</title>
     </Head>
     <Box
       component="main"

@@ -1,39 +1,44 @@
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    TextField,
-    InputAdornment,
-    SvgIcon, Typography
-  } from '@mui/material';
-  import { Search as SearchIcon } from '../../icons/search';
-  import { upLoad as UploadIcon } from '../../icons/upload';
-  //import { Download as DownloadIcon } from '../../icons/download';
-  
-  export const UserListToolbar = (props) => (
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  InputAdornment,
+  SvgIcon,
+  Typography,
+} from "@mui/material";
+import { Search as SearchIcon } from "../../icons/search";
+//import { upLoad as UploadIcon } from '../../icons/upload';
+//import { BrowserRouter as Router, Routes } from "react-router-dom";
+import Register from "src/pages/register";
+//import { Download as DownloadIcon } from '../../icons/download';
+import { useRouter } from "next/router";
+
+export const UserListToolbar = (props) => {
+  const router = useRouter();
+  return (
     <Box {...props}>
-      
       <Box
         sx={{
-          alignItems: 'center',
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexWrap: 'wrap',
-          m: -1
+          alignItems: "center",
+          display: "flex",
+          justifyContent: "space-between",
+          flexWrap: "wrap",
+          m: -1,
         }}
       >
-        <Typography
-          sx={{ m: 1 }}
-          variant="h6"
-        >
+        <Typography sx={{ m: 1 }} variant="h6">
           Users
         </Typography>
-        <Box sx={{ m: 1 }} >
-  
-          <Button sx={{ m: 1 }}
+        <Box sx={{ m: 1 }}>
+          <Button
+            sx={{ m: 1 }}
             color="primary"
             variant="contained"
+            onClick={() => {
+              router.push("/account");
+            }}
           >
             Add User
           </Button>
@@ -48,14 +53,11 @@ import {
                 InputProps={{
                   startAdornment: (
                     <InputAdornment position="start">
-                      <SvgIcon
-                        color="action"
-                        fontSize="small"
-                      >
+                      <SvgIcon color="action" fontSize="small">
                         <SearchIcon />
                       </SvgIcon>
                     </InputAdornment>
-                  )
+                  ),
                 }}
                 placeholder="Search user"
                 variant="outlined"
@@ -66,4 +68,4 @@ import {
       </Box>
     </Box>
   );
-  
+};
