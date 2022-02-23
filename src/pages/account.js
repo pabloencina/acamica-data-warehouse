@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { Box, Container, Grid, Typography } from '@mui/material';
-import { AccountProfile } from '../components/account/account-profile';
+//import { AccountProfile } from '../components/account/account-profile';
 import { AccountProfileDetails } from '../components/account/account-profile-details';
 import { DashboardLayout } from '../components/dashboard-layout';
 
@@ -8,7 +8,7 @@ const Account = () => (
   <>
     <Head>
       <title>
-        Account | Material Kit
+        User | Material Kit
       </title>
     </Head>
     <Box
@@ -23,19 +23,19 @@ const Account = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Account
+          Create user
         </Typography>
         <Grid
           container
-          spacing={3}
+          spacing={1}
         >
           <Grid
             item
-            lg={4}
-            md={6}
-            xs={12}
+            lg={2}
+            md={2}
+            xs={2}
           >
-            <AccountProfile />
+          
           </Grid>
           <Grid
             item
