@@ -8,11 +8,7 @@ import {
   SvgIcon,
   Typography,
 } from "@mui/material";
-import { Search as SearchIcon } from "../../icons/search";
-//import { upLoad as UploadIcon } from '../../icons/upload';
-//import { BrowserRouter as Router, Routes } from "react-router-dom";
-import Register from "src/pages/register";
-//import { Download as DownloadIcon } from '../../icons/download';
+import { Search as SearchIcon } from "../../icons/search"
 import { useRouter } from "next/router";
 
 export const UserListToolbar = (props) => {

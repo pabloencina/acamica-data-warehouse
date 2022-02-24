@@ -1,9 +1,7 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import { format } from 'date-fns';
 import {
-  Avatar,
   Box,
   Button,
   Card,
@@ -144,12 +142,6 @@ export const UserListResults = ({ users, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={user.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(user.name)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
