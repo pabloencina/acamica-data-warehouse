@@ -14,13 +14,12 @@ import {
   TableRow,
   Typography
 } from '@mui/material';
-import { getInitials } from '../../utils/get-initials';
 import SwapVertIcon from '@mui/icons-material/SwapVert';
 
 const Impexpicons = SwapVertIcon
 
-export const UserListResults = ({ users, ...rest }) => {
-
+export const UserListResults = ({ users: users, ...rest }) => {
+  
   const [selectedUserIds, setSelectedUserIds] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
