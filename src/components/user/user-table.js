@@ -2,23 +2,42 @@ import * as React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
-    { field: '_id', hide: true },
-  { field: 'name', headerName: 'First name', width: 130 },
-  { field: 'surname', headerName: 'Last name', width: 130 },
+  {
+    field: '_id',
+    hide: true
+  },
+  {
+    field: 'name',
+    headerName: 'Name',
+    width: 175
+  },
+  {
+    field: 'surname',
+    headerName: 'Surname',
+    width: 200
+  },
 
   {
     field: 'email',
-    headerName: 'Age',
-    type: 'email'
+    headerName: 'Email',
+    type: 'email',
+    width: 300,
   },
   {
     field: 'profile',
-    headerName: 'Full name',
-    description: 'This column has a value getter and is not sortable.',
-    sortable: false,
-    width: 160,
-    valueGetter: (params) =>
-      `${params.row.firstName || ''} ${params.row.lastName || ''}`,
+    headerName: 'Profile',
+    sortable: true,
+    width: 150,
+  },
+  {
+    field: 'password',
+    headerName: 'Password',
+    hide: true
+  },
+  {
+    field: 'actions',
+    headerName: 'Actions',
+    width: 200,
   },
 ];
 
