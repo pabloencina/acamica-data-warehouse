@@ -85,7 +85,7 @@ export const UserListResults = ({ users: users, ...rest }) => {
                   />
                 </TableCell>
 
-                <TableCell>
+                <TableCell width={200}>
                   Name
                   <Button
                   startIcon={(<Impexpicons />)}

@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { DataGrid, GridApi, GridCellValue } from '@mui/x-data-grid';
 import Button from '@mui/material/Button';
+import { IconButton, Tooltip } from '@mui/material';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 const columns = [
   {
     field: 'name',
     headerName: 'Name',
-    width: 175
+    width: 175 
   },
   {
     field: 'surname',
@@ -52,11 +55,20 @@ const columns = [
 
         return alert(JSON.stringify(thisRow, null, 4));
       };
-// https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
+      // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
       return (
         <div>
-          <Button onClick={onClick}>Edit</Button>
-          <Button onClick={onClick}>Delete</Button>
+          <Tooltip title="Edit">
+            <IconButton onClick={onClick}>
+              <EditOutlinedIcon fontSize="big" />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Delete">
+            <IconButton onClick={onClick}>
+              <DeleteOutlineIcon />
+            </IconButton>
+          </Tooltip>
         </div>
       );
     }

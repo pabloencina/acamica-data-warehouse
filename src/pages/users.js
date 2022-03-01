@@ -10,7 +10,6 @@ import { DashboardLayout } from "../components/dashboard-layout";
 // import { users } from "src/__mocks__/users";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "src/services/users";
-import { FontAwesomeSvgIconDemo } from "src/components/user/user-actions";
 
 
 const Users = () => {
