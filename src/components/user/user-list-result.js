@@ -117,6 +117,10 @@ export const UserListResults = ({ users: users, ...rest }) => {
                 
                 <TableCell>
                   Actions
+                  <Button
+                  startIcon={(<Impexpicons />)}
+                  sx={{ mr: 1 }}
+                ></Button>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -157,6 +161,9 @@ export const UserListResults = ({ users: users, ...rest }) => {
                   </TableCell>
                   <TableCell>
                     {user.profile}
+                  </TableCell>
+                  <TableCell>
+                    {user.actions}
                   </TableCell>
                   
                 </TableRow>

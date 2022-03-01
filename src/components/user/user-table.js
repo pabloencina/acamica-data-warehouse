@@ -1,11 +1,8 @@
 import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid, GridApi, GridCellValue } from '@mui/x-data-grid';
+import Button from '@mui/material/Button';
 
 const columns = [
-  {
-    field: '_id',
-    hide: true
-  },
   {
     field: 'name',
     headerName: 'Name',
@@ -16,7 +13,6 @@ const columns = [
     headerName: 'Surname',
     width: 200
   },
-
   {
     field: 'email',
     headerName: 'Email',
@@ -29,15 +25,41 @@ const columns = [
     sortable: true,
     width: 150,
   },
+  // {
+  //   field: 'actions',
+  //   headerName: 'Actions',
+  //   width: 200,
+  //   sortable: false,
+  // },
   {
-    field: 'password',
-    headerName: 'Password',
-    hide: true
-  },
-  {
-    field: 'actions',
-    headerName: 'Actions',
+    field: "action",
+    headerName: "Action",
     width: 200,
+    sortable: false,
+    renderCell: (params) => {
+      const onClick = (e) => {
+        e.stopPropagation(); // don't select this row after clicking
+
+        const api = params.api;
+        const thisRow = {};
+
+        api
+          .getAllColumns()
+          .filter((c) => c.field !== "__check__" && !!c)
+          .forEach(
+            (c) => (thisRow[c.field] = params.getValue(params.id, c.field))
+          );
+
+        return alert(JSON.stringify(thisRow, null, 4));
+      };
+// https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
+      return (
+        <div>
+          <Button onClick={onClick}>Edit</Button>
+          <Button onClick={onClick}>Delete</Button>
+        </div>
+      );
+    }
   },
 ];
 
