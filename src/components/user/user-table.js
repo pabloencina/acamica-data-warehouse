@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { DataGrid, GridApi, GridCellValue } from '@mui/x-data-grid';
-import Button from '@mui/material/Button';
+import { DataGrid } from '@mui/x-data-grid';
 import { IconButton, Tooltip } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
@@ -9,7 +8,7 @@ const columns = [
   {
     field: 'name',
     headerName: 'Name',
-     
+    width: 170
   },
   {
     field: 'surname',
@@ -20,13 +19,13 @@ const columns = [
     field: 'email',
     headerName: 'Email',
     type: 'email',
-    width: 300,
+    width: 300
   },
   {
     field: 'profile',
     headerName: 'Profile',
     sortable: true,
-    width: 150,
+    width: 200
   },
   // {
   //   field: 'actions',
@@ -37,7 +36,7 @@ const columns = [
   {
     field: "action",
     headerName: "Action",
-    width: 200,
+    width: 100,
     sortable: false,
     renderCell: (params) => {
       const onClick = (e) => {

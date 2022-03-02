@@ -40,7 +40,7 @@ const Users = () => {
       >
         <Container maxWidth={false}>
           <UserListToolbar />
-          <Box sx={{ mt: 3 }}>
+          <Box sx={{ mt: 3}}>
             <Card>
               <CardContent>
                 <UserTable users={users} />
