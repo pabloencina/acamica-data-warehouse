@@ -1,48 +1,27 @@
 
-
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Box,
-  Button,
   Card,
   CardContent,
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Link
 } from '@mui/material';
-/*
-const states = [
-  {
-    value: 'alabama',
-    label: 'Alabama'
-  },
-  {
-    value: 'new-york',
-    label: 'New York'
-  },
-  {
-    value: 'san-francisco',
-    label: 'San Francisco'
-  }
-];
-*/
+import { ButtonCreate } from "./buttonCreate";
+
 export const AccountProfileDetails = (props) => {
 
-  const [values, setValues] = useState({
-    name: '',
-    surname: '',
-    email: '',
-    password: '',
-    profile: '',
-    
-  });
+  const [values, setValues] = useState([]);
 
   const handleChange = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
     });
+    console.log(values);
   };
 
   return (
@@ -53,7 +32,7 @@ export const AccountProfileDetails = (props) => {
     >
       <Card>
         <CardHeader
-          
+
           title="Profile"
         />
         <Divider />
@@ -108,21 +87,7 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Password"
-                name="password"
-                onChange={handleChange}
-                type="string"
-                value={values.password}
-                variant="outlined"
-              />
-            </Grid>
+
             <Grid
               item
               md={6}
@@ -139,7 +104,21 @@ export const AccountProfileDetails = (props) => {
                 type="object"
               />
             </Grid>
-            
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                onChange={handleChange}
+                type="string"
+                value={values.password}
+                variant="outlined"
+              />
+            </Grid>
           </Grid>
         </CardContent>
         <Divider />
@@ -150,14 +129,28 @@ export const AccountProfileDetails = (props) => {
             p: 2
           }}
         >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Create
-          </Button>
+      <ButtonCreate userToCreate={values}/>   
+
         </Box>
       </Card>
     </form>
   );
 };
+
+/*
+<Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Password"
+                name="password"
+                onChange={handleChange}
+                type="string"
+                value={values.password}
+                variant="outlined"
+              />
+            </Grid>
+*/

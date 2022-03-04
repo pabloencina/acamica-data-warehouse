@@ -1,12 +1,11 @@
 import Head from "next/head";
 import NextLink from "next/link";
-import { useRouter } from "next/router";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
 //import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Login = () => {
   //const router = useRouter();
@@ -35,7 +34,7 @@ const Login = () => {
         password: values.password,
       });
       window.localStorage.setItem('token', loginResponse.data); 
-      let myToken = window.localStorage.getItem('token');
+      // let myToken = window.localStorage.getItem('token');
     },
   });
 
