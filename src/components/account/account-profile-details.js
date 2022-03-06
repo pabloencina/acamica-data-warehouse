@@ -7,14 +7,22 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField,
-  Link
+  TextField
 } from '@mui/material';
 import { ButtonCreate } from "./buttonCreate";
+import Autocomplete from '@mui/material/Autocomplete';
 
 export const AccountProfileDetails = (props) => {
 
-  const [values, setValues] = useState([]);
+  const [values, setValues] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    profile: 'BASIC',
+    password: ''
+  });
+  const options = ['ADMIN', 'BASIC'];
+  const [profileInputValue, setProfileInputValue] = useState('');
 
   const handleChange = (event) => {
     setValues({
@@ -87,23 +95,29 @@ export const AccountProfileDetails = (props) => {
                 variant="outlined"
               />
             </Grid>
-
             <Grid
               item
               md={6}
               xs={12}
             >
-              <TextField
-                fullWidth
-                label="Profile"
-                name="profile"
-                onChange={handleChange}
-                required
+              <Autocomplete
                 value={values.profile}
-                variant="outlined"
-                type="object"
+                name="profile"
+                onChange={(event, newValue) => {
+                  setValues({
+                    ...values,
+                    profile: newValue
+                  });
+                }}
+                inputValue={profileInputValue}
+                onInputChange={(event, newInputValue) => {
+                  setProfileInputValue(newInputValue);
+                }}
+                options={options}
+                renderInput={(params) => <TextField {...params} label="Profile" />}
               />
             </Grid>
+
             <Grid
               item
               md={6}
@@ -114,9 +128,7 @@ export const AccountProfileDetails = (props) => {
                 label="Password"
                 name="password"
                 onChange={handleChange}
-                type="string"
-                value={values.password}
-                variant="outlined"
+                type="password"
               />
             </Grid>
           </Grid>
@@ -129,7 +141,7 @@ export const AccountProfileDetails = (props) => {
             p: 2
           }}
         >
-      <ButtonCreate userToCreate={values}/>   
+          <ButtonCreate userToCreate={values} />
 
         </Box>
       </Card>
@@ -151,6 +163,25 @@ export const AccountProfileDetails = (props) => {
                 type="string"
                 value={values.password}
                 variant="outlined"
+              />
+            </Grid>
+*/
+
+/*
+<Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Profile"
+                name="profile"
+                onChange={handleChange}
+                required
+                value={values.profile}
+                variant="outlined"
+                type="object"
               />
             </Grid>
 */

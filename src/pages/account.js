@@ -29,7 +29,7 @@ const Account = () => {
               router.push("/users");
             }}
           >
-            Dashboard
+            Back
           </Button>
           <Typography sx={{ mb: 3 }} variant="h4">
             Create user
