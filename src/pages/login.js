@@ -19,16 +19,18 @@ const Login = () => {
   // }, []);
 
   const formik = useFormik({
+    
     initialValues: {
       email: "",
       password: "",
     },
+
     validationSchema: Yup.object({
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
-    onSubmit: async (values) => {
-      
+
+    onSubmit: async (values) => { 
       const loginResponse = await axios.post("http://localhost:3500/login", {
         email: values.email,
         password: values.password,
@@ -36,6 +38,7 @@ const Login = () => {
       window.localStorage.setItem('token', loginResponse.data); 
       // let myToken = window.localStorage.getItem('token');
     },
+    
   });
 
   return (

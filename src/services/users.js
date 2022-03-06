@@ -10,11 +10,11 @@ export const postUser = async (userToCreate) => {
 
   if (userToCreate) {
     const body = {
-      name: userToCreate.userToCreate.name,
-      surname: userToCreate.userToCreate.surname,
-      email: userToCreate.userToCreate.email,
-      profile: userToCreate.userToCreate.profile,
-      password: userToCreate.userToCreate.password,
+      name: userToCreate.name,
+      surname: userToCreate.surname,
+      email: userToCreate.email,
+      profile: userToCreate.profile,
+      password: userToCreate.password,
     }
     alert(JSON.stringify(body));
     const postUserResponse = await axios.post(userURL, body);
