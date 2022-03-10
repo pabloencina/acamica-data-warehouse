@@ -1,6 +1,8 @@
 
 import { useState } from "react";
+import NextLink from "next/link";
 import {
+  Alert,
   Box,
   Button,
   Card,
@@ -8,25 +10,24 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField
+  TextField,
+  Link
 } from '@mui/material';
-import { ButtonCreate } from "./buttonCreate";
 import Autocomplete from '@mui/material/Autocomplete';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { postUser } from "src/services/users";
 
 export const AccountProfileDetails = (props) => {
-
-  // const [values, setValues] = useState({
-  //   name: '',
-  //   surname: '',
-  //   email: '',
-  //   profile: 'BASIC',
-  //   password: ''
-  // });
+  
   const options = ['ADMIN', 'BASIC'];
-  const [profileInputValue, setProfileInputValue] = useState('');
+  // const [profileInputValue, setProfileInputValue] = useState('');
+  const [state, setState] = useState({
+    profileInputValue: '',
+    formError: false,
+    formSuccess: false
+  });
+  // const [errorValues, setErrorValues] = useState('');
 
   // const handleChange = (event) => {
   //   setValues({
@@ -72,8 +73,24 @@ export const AccountProfileDetails = (props) => {
     }),
 
     onSubmit: async (values) => {
-      alert(JSON.stringify(values));
-      postUser(values);
+      //alert(JSON.stringify(values));
+      try {
+        const response = await postUser(values);
+        console.log('response')
+        console.log(response);
+        setState({
+          ...state,
+          formSuccess: true
+        })
+
+      } catch (error) {
+        console.log('error')
+        setState({
+          ...state,
+          formError:true
+        })
+      }
+      
     },
 
   });
@@ -82,10 +99,10 @@ export const AccountProfileDetails = (props) => {
       <form
         {...props}
         onSubmit={formik.handleSubmit}
+
       >
         <Card>
           <CardHeader
-
             title="Profile"
           />
           <Divider />
@@ -101,7 +118,6 @@ export const AccountProfileDetails = (props) => {
               >
                 <TextField
                   fullWidth
-                  helperText="Please specify the name"
                   label="Name"
                   name="name"
                   onChange={formik.handleChange}
@@ -140,7 +156,6 @@ export const AccountProfileDetails = (props) => {
                   error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
                   helperText={formik.touched.email && formik.errors.email}
-                  fullWidth
                   label="Email"
                   name="email"
                   type="email"
@@ -159,10 +174,19 @@ export const AccountProfileDetails = (props) => {
                 <Autocomplete
                   value={formik.values.profile}
                   name="profile"
+                  error={Boolean(formik.touched.profile && formik.errors.profile)}
+                  fullWidth
+                  variant="outlined"
+                  helperText={formik.touched.profile && formik.errors.profile}
+                  onBlur={formik.handleBlur}
                   onChange={(e, value) => formik.setFieldValue("profile", value)}
-                  inputValue={profileInputValue}
+                  inputValue={state.profileInputValue}
                   onInputChange={(event, newInputValue) => {
-                    setProfileInputValue(newInputValue);
+                    // setProfileInputValue(newInputValue);
+                    setState({
+                      ...state,
+                      profileInputValue: newInputValue
+                    })
                   }}
                   options={options}
                   renderInput={(params) => <TextField {...params} label="Profile" />}
@@ -196,19 +220,47 @@ export const AccountProfileDetails = (props) => {
               p: 2
             }}
           >
-            <Button
-              color="primary"
-              disabled={formik.isSubmitting}
-              variant="contained"
-              underline="hover"
-              type="submit"
-            >
-              Create
-            </Button>
+            
+              <Button
+                color="primary"
+                disabled={formik.isSubmitting}
+                variant="contained"
+                underline="hover"
+                type="submit"
+              >
+                Create
+              </Button>
+            
           </Box>
         </Card>
       </form>
+      {state.formSuccess ?
+      <>
+      
+        <Alert
+          severity="success">
+          This is a success alert — check it out!
+        </Alert>
+        <NextLink href="/users">
+          <Link
+          to="/users"
+          ></Link>
+        </NextLink>
+        </>
+        : null
+        
+      }
+      {state.formError ?
+        <Alert severity="error">
+          This is an error alert — check it out!
+        </Alert>
+        : null
+      }
+
+
     </>
+
+
   );
 };
 

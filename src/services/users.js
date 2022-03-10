@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Alert } from "@mui/material";
 
 const userURL = "http://localhost:3500/users";
 
@@ -16,12 +17,11 @@ export const postUser = async (userToCreate) => {
       profile: userToCreate.profile,
       password: userToCreate.password,
     }
-    alert(JSON.stringify(body));
     const postUserResponse = await axios.post(userURL, body);
     console.log(postUserResponse);
-    return;
+    return postUserResponse;
   }
-  return alert('ALL IS NULL');
+  return null;
 
 }
       /*
