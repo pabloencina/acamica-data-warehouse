@@ -30,7 +30,7 @@ export const UserListToolbar = (props) => {
               router.push("/account");
             }}
           >
-            Add User +
+            Add User 
           </Button>
         </Box>
       </Box>

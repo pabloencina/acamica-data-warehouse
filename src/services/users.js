@@ -24,14 +24,4 @@ export const postUser = async (userToCreate) => {
   return null;
 
 }
-      /*
-
-initialValues: {
-name: "",
-surname: "",
-email: "",
-profile: "",
-password: "",
-},
- 
-*/
+      

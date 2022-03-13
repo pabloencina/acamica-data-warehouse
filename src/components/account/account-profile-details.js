@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import NextLink from "next/link";
+import { useRouter } from "next/router";
 import {
   Alert,
   Box,
@@ -11,111 +10,83 @@ import {
   Divider,
   Grid,
   TextField,
-  Link
-} from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-import { useFormik } from 'formik';
-import * as Yup from 'yup';
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  DialogContentText,
+} from "@mui/material";
+import Autocomplete from "@mui/material/Autocomplete";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import { postUser } from "src/services/users";
 
 export const AccountProfileDetails = (props) => {
-  
-  const options = ['ADMIN', 'BASIC'];
+  const options = ["ADMIN", "BASIC"];
   // const [profileInputValue, setProfileInputValue] = useState('');
   const [state, setState] = useState({
-    profileInputValue: '',
+    profileInputValue: "",
     formError: false,
-    formSuccess: false
+    dialogOpen: false,
+    errorMessage: ''
   });
-  // const [errorValues, setErrorValues] = useState('');
 
-  // const handleChange = (event) => {
-  //   setValues({
-  //     ...values,
-  //     [event.target.name]: event.target.value
-  //   });
-  //   console.log(values);
-  // };
+  const router = useRouter();
+
+  const handleDialogClose = () => {
+    setState({
+      ...state,
+      dialogOpen: false,
+    });
+    router.push("/users");
+  };
 
   const formik = useFormik({
-
     initialValues: {
-      name: '',
-      surname: '',
-      email: '',
-      profile: 'BASIC',
-      password: ''
+      name: "",
+      surname: "",
+      email: "",
+      profile: "BASIC",
+      password: "",
     },
 
     validationSchema: Yup.object({
-      name: Yup
-        .string()
-        .max(255)
-        .required(
-          'Name is required'),
-      surname: Yup
-        .string()
-        .max(255)
-        .required(
-          'Surname is required'),
-      email: Yup
-        .string()
-        .email(
-          'Must be a valid email')
-        .max(255)
-        .required(
-          'Email is required'),
-      password: Yup
-        .string()
-        .max(255)
-        .required(
-          'Password is required')
+      name: Yup.string().max(255).required("Name is required"),
+      surname: Yup.string().max(255).required("Surname is required"),
+      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      password: Yup.string().max(255).required("Password is required"),
     }),
 
     onSubmit: async (values) => {
       //alert(JSON.stringify(values));
       try {
         const response = await postUser(values);
-        console.log('response')
+        console.log("response");
         console.log(response);
         setState({
           ...state,
-          formSuccess: true
-        })
-
+          dialogOpen: true,
+        });
       } catch (error) {
-        console.log('error')
+        console.log("error");
+        console.log(error)
         setState({
-          ...state,
-          formError:true
-        })
+          ...state,          
+          errorMessage: 'Mail Dulpicado',
+          formError: true,
+        });
       }
-      
     },
-
   });
   return (
     <>
-      <form
-        {...props}
-        onSubmit={formik.handleSubmit}
-
-      >
+      <form {...props} onSubmit={formik.handleSubmit}>
         <Card>
-          <CardHeader
-            title="Profile"
-          />
+          <CardHeader title="Profile" />
           <Divider />
           <CardContent>
-            <Grid
-              container
-              spacing={3}
-            >
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
+            <Grid container spacing={3}>
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Name"
@@ -129,11 +100,7 @@ export const AccountProfileDetails = (props) => {
                   helperText={formik.touched.name && formik.errors.name}
                 />
               </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
+              <Grid item md={6} xs={12}>
                 <TextField
                   fullWidth
                   label="Surname"
@@ -147,11 +114,7 @@ export const AccountProfileDetails = (props) => {
                   helperText={formik.touched.surname && formik.errors.surname}
                 />
               </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
+              <Grid item md={6} xs={12}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
@@ -166,11 +129,7 @@ export const AccountProfileDetails = (props) => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
+              <Grid item md={6} xs={12}>
                 <Autocomplete
                   value={formik.values.profile}
                   name="profile"
@@ -185,19 +144,15 @@ export const AccountProfileDetails = (props) => {
                     // setProfileInputValue(newInputValue);
                     setState({
                       ...state,
-                      profileInputValue: newInputValue
-                    })
+                      profileInputValue: newInputValue,
+                    });
                   }}
                   options={options}
                   renderInput={(params) => <TextField {...params} label="Profile" />}
                 />
               </Grid>
 
-              <Grid
-                item
-                md={6}
-                xs={12}
-              >
+              <Grid item md={6} xs={12}>
                 <TextField
                   error={Boolean(formik.touched.password && formik.errors.password)}
                   fullWidth
@@ -215,54 +170,64 @@ export const AccountProfileDetails = (props) => {
           <Divider />
           <Box
             sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              p: 2
+              display: "flex",
+              justifyContent: "flex-end",
+              p: 2,
             }}
           >
-            
-              <Button
-                color="primary"
-                disabled={formik.isSubmitting}
-                variant="contained"
-                underline="hover"
-                type="submit"
-              >
-                Create
-              </Button>
-            
+            <Button
+              color="primary"
+              disabled={formik.isSubmitting}
+              variant="contained"
+              underline="hover"
+              type="submit"
+            >
+              Create
+            </Button>
           </Box>
         </Card>
       </form>
-      {state.formSuccess ?
-      <>
-      
-        <Alert
-          severity="success">
-          This is a success alert — check it out!
-        </Alert>
-        <NextLink href="/users">
-          <Link
-          to="/users"
-          ></Link>
-        </NextLink>
-        </>
-        : null
-        
-      }
-      {state.formError ?
-        <Alert severity="error">
-          This is an error alert — check it out!
-        </Alert>
-        : null
-      }
 
+      <Dialog
+        open={state.dialogOpen}
+        onClose={handleDialogClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{}</DialogTitle>
 
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+          The user has been created successfully.
+          </DialogContentText>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleDialogClose}>OK</Button>
+        </DialogActions>
+      </Dialog>
+
+      {state.formError ? (
+        <Alert severity="error">{state.errorMessage}</Alert>
+      ) : null}
     </>
-
-
   );
 };
+
+/**
+ * 
+ * 
+
+        <>
+
+              <Alert 
+              severity="success"
+              underline="hover"
+              >This is a success alert — check it out!</Alert>
+
+        </>
+
+ */
 
 /*
 <Grid

@@ -3,6 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { IconButton, Tooltip } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { AccountProfileDetails } from '../account/account-profile-details';
 
 const columns = [
   {
@@ -27,12 +28,6 @@ const columns = [
     sortable: true,
     width: 200
   },
-  // {
-  //   field: 'actions',
-  //   headerName: 'Actions',
-  //   width: 200,
-  //   sortable: false,
-  // },
   {
     field: "action",
     headerName: "Action",
