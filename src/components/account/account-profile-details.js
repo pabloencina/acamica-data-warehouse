@@ -68,13 +68,25 @@ export const AccountProfileDetails = (props) => {
         setState({
           ...state,
           dialogOpen: true,
+          formError: false,
         });
       } catch (error) {
-        console.log("error");
-        console.log(error);
+        let message = "User creation failed.";
+        if (error.response) {
+          if (error.response.status === 400) {
+            message += " Please verify the fields in the form.";
+          } else if (error.response.status === 409) {
+            message += " The email already exists in the database.";
+          } else if (error.response.status === 500) {
+            message += " There's issues in the server. Please try again later...";
+          }
+        } else {
+          message += " Can't connect with the server. Please try again later..."
+        }
+        console.log(error.response);
         setState({
           ...state,
-          errorMessage: "Duplicate email, this email already exists",
+          errorMessage: message,
           formError: true,
         });
       }
