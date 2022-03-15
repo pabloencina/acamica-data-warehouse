@@ -23,12 +23,12 @@ import { postUser } from "src/services/users";
 
 export const AccountProfileDetails = (props) => {
   const options = ["ADMIN", "BASIC"];
-  // const [profileInputValue, setProfileInputValue] = useState('');
   const [state, setState] = useState({
     profileInputValue: "",
     formError: false,
     dialogOpen: false,
-    errorMessage: ''
+    errorMessage: "",
+    error: false,
   });
 
   const router = useRouter();
@@ -54,11 +54,13 @@ export const AccountProfileDetails = (props) => {
       name: Yup.string().max(255).required("Name is required"),
       surname: Yup.string().max(255).required("Surname is required"),
       email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      profile: Yup.mixed()
+        .oneOf(options, "Profile must be one of the options")
+        .required("Profile is required"),
       password: Yup.string().max(255).required("Password is required"),
     }),
 
     onSubmit: async (values) => {
-      //alert(JSON.stringify(values));
       try {
         const response = await postUser(values);
         console.log("response");
@@ -69,10 +71,10 @@ export const AccountProfileDetails = (props) => {
         });
       } catch (error) {
         console.log("error");
-        console.log(error)
+        console.log(error);
         setState({
-          ...state,          
-          errorMessage: 'Mail Dulpicado',
+          ...state,
+          errorMessage: "Duplicate email, this email already exists",
           formError: true,
         });
       }
@@ -133,22 +135,26 @@ export const AccountProfileDetails = (props) => {
                 <Autocomplete
                   value={formik.values.profile}
                   name="profile"
-                  error={Boolean(formik.touched.profile && formik.errors.profile)}
                   fullWidth
                   variant="outlined"
-                  helperText={formik.touched.profile && formik.errors.profile}
                   onBlur={formik.handleBlur}
                   onChange={(e, value) => formik.setFieldValue("profile", value)}
                   inputValue={state.profileInputValue}
                   onInputChange={(event, newInputValue) => {
-                    // setProfileInputValue(newInputValue);
                     setState({
                       ...state,
                       profileInputValue: newInputValue,
                     });
                   }}
                   options={options}
-                  renderInput={(params) => <TextField {...params} label="Profile" />}
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      error={Boolean(formik.errors.profile)}
+                      helperText={formik.errors.profile}
+                      label="Profile"
+                    />
+                  )}
                 />
               </Grid>
 
@@ -198,7 +204,7 @@ export const AccountProfileDetails = (props) => {
 
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-          The user has been created successfully.
+            The user has been created successfully.
           </DialogContentText>
         </DialogContent>
 
@@ -207,61 +213,7 @@ export const AccountProfileDetails = (props) => {
         </DialogActions>
       </Dialog>
 
-      {state.formError ? (
-        <Alert severity="error">{state.errorMessage}</Alert>
-      ) : null}
+      {state.formError ? <Alert severity="error">{state.errorMessage}</Alert> : null}
     </>
   );
 };
-
-/**
- * 
- * 
-
-        <>
-
-              <Alert 
-              severity="success"
-              underline="hover"
-              >This is a success alert — check it out!</Alert>
-
-        </>
-
- */
-
-/*
-<Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Password"
-                name="password"
-                onChange={handleChange}
-                type="string"
-                value={values.password}
-                variant="outlined"
-              />
-            </Grid>
-*/
-
-/*
-<Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Profile"
-                name="profile"
-                onChange={handleChange}
-                required
-                value={values.profile}
-                variant="outlined"
-                type="object"
-              />
-            </Grid>
-*/
