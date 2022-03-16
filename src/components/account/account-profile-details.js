@@ -51,13 +51,13 @@ export const AccountProfileDetails = (props) => {
     },
 
     validationSchema: Yup.object({
-      name: Yup.string().max(255).required("Name is required"),
-      surname: Yup.string().max(255).required("Surname is required"),
-      email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
+      name: Yup.string().max(10).min(3).required("Name is required"),
+      surname: Yup.string().max(15).min(3).required("Surname is required"),
+      email: Yup.string().email("Must be a valid email").max(40).min(10).required("Email is required"),
       profile: Yup.mixed()
         .oneOf(options, "Profile must be one of the options")
         .required("Profile is required"),
-      password: Yup.string().max(255).required("Password is required"),
+      password: Yup.string().max(15).min(3).required("Password is required"),
     }),
 
     onSubmit: async (values) => {
@@ -105,6 +105,8 @@ export const AccountProfileDetails = (props) => {
                   fullWidth
                   label="Name"
                   name="name"
+                  max= "10"
+                  min="3"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   required
