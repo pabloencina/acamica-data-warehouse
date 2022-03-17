@@ -27,7 +27,7 @@ export const UserListToolbar = (props) => {
             color="primary"
             variant="contained"
             onClick={() => {
-              router.push("/account");
+              router.push("/create-user");
             }}
           >
             Add User 

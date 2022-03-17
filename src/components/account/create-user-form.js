@@ -19,9 +19,9 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { postUser } from "src/services/users";
+import { postUser } from "src/services/usersService";
 
-export const AccountProfileDetails = (props) => {
+export const CreateUserForm = (props) => {
   const options = ["ADMIN", "BASIC"];
   const [state, setState] = useState({
     profileInputValue: "",

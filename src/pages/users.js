@@ -9,7 +9,7 @@ import { UserTable } from "src/components/user/user-table";
 import { DashboardLayout } from "../components/dashboard-layout";
 // import { users } from "src/__mocks__/users";
 import { useEffect, useState } from "react";
-import { getAllUsers } from "src/services/users";
+import { getAllUsers } from "src/services/usersService";
 
 
 const Users = () => {

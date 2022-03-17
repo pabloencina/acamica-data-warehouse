@@ -3,7 +3,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { IconButton, Tooltip } from '@mui/material';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { AccountProfileDetails } from '../account/account-profile-details';
+import { useRouter } from "next/router";
 
 const columns = [
   {
@@ -50,10 +50,13 @@ const columns = [
         return alert(JSON.stringify(thisRow, null, 4));
       };
       // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
+      const router = useRouter();
       return (
         <div>
           <Tooltip title="Edit">
-            <IconButton onClick={onClick}>
+            <IconButton onClick={() => {
+              router.push("/edit-user");
+            }}>
               <EditOutlinedIcon fontSize="big" />
             </IconButton>
           </Tooltip>
@@ -69,7 +72,9 @@ const columns = [
   },
 ];
 
+
 export const UserTable = ({ users: users, ...rest }) => {
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <DataGrid

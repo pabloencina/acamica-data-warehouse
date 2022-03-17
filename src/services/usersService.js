@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Alert } from "@mui/material";
 
 const userURL = "http://localhost:3500/users";
 
