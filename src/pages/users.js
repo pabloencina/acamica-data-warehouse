@@ -7,7 +7,6 @@ import {
 import { UserListToolbar } from "src/components/user/user-list-toolbar";
 import { UserTable } from "src/components/user/user-table";
 import { DashboardLayout } from "../components/dashboard-layout";
-// import { users } from "src/__mocks__/users";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "src/services/usersService";
 
@@ -18,11 +17,9 @@ const Users = () => {
   useEffect(() => {
     getAllUsers().then((response) => {
       let usersResponse = response.data;
-      console.log(usersResponse);
       setUsers(usersResponse);
     })
       .catch((e) => {
-        console.log(e);
       });
   }, []);
 
@@ -52,8 +49,7 @@ const Users = () => {
     </>
   );
 };
-//<UserListResults users={users} />
-//<UserTable users={users} />
 Users.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
+// https://www.youtube.com/watch?v=2qgs7buSnHQ
 export default Users;

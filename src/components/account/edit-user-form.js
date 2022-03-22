@@ -53,7 +53,11 @@ export const EditUserForm = (props) => {
     validationSchema: Yup.object({
       name: Yup.string().max(10).min(3).required("Name is required"),
       surname: Yup.string().max(15).min(3).required("Surname is required"),
-      email: Yup.string().email("Must be a valid email").max(40).min(10).required("Email is required"),
+      email: Yup.string()
+        .email("Must be a valid email")
+        .max(40)
+        .min(10)
+        .required("Email is required"),
       profile: Yup.mixed()
         .oneOf(options, "Profile must be one of the options")
         .required("Profile is required"),
@@ -61,35 +65,10 @@ export const EditUserForm = (props) => {
     }),
 
     onSubmit: async (values) => {
-      try {
-        const response = await postUser(values);
-        console.log("response");
-        console.log(response);
-        setState({
-          ...state,
-          dialogOpen: true,
-          formError: false,
-        });
-      } catch (error) {
-        let message = "User creation failed.";
-        if (error.response) {
-          if (error.response.status === 400) {
-            message += " Please verify the fields in the form.";
-          } else if (error.response.status === 409) {
-            message += " The email already exists in the database.";
-          } else if (error.response.status === 500) {
-            message += " There's issues in the server. Please try again later...";
-          }
-        } else {
-          message += " Can't connect with the server. Please try again later..."
-        }
-        console.log(error.response);
-        setState({
-          ...state,
-          errorMessage: message,
-          formError: true,
-        });
-      }
+      const search = window.location.search;
+      let params = new URLSearchParams(search);
+      let id = params.get('id')
+      console.log(id);
     },
   });
   return (
@@ -105,7 +84,7 @@ export const EditUserForm = (props) => {
                   fullWidth
                   label="Name"
                   name="name"
-                  max= "10"
+                  max="10"
                   min="3"
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -202,7 +181,7 @@ export const EditUserForm = (props) => {
               underline="hover"
               type="submit"
             >
-              Create
+              Save
             </Button>
           </Box>
         </Card>

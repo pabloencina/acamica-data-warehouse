@@ -2,6 +2,7 @@ import { Children } from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache } from "../utils/create-emotion-cache";
+import { BrowserRouter } from "react-router-dom";
 
 class CustomDocument extends Document {
   render() {
@@ -40,7 +41,12 @@ CustomDocument.getInitialProps = async (ctx) => {
   console.log(originalRenderPage);
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: (App) => (props) => <App emotionCache={cache} {...props} />,
+      enhanceApp: (App) => (props) => {
+        return(
+          <App emotionCache={cache} {...props} />
+        );
+      }
+      ,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
