@@ -9,29 +9,29 @@ const columns = [
   {
     field: "name",
     headerName: "Name",
-    width: 170,
+    width: 'auto',
   },
   {
     field: "surname",
     headerName: "Surname",
-    width: 200,
+    width: 'auto',
   },
   {
     field: "email",
     headerName: "Email",
     type: "email",
-    width: 300,
+    width: 'auto',
   },
   {
     field: "profile",
     headerName: "Profile",
     sortable: true,
-    width: 200,
+    width: 'auto',
   },
   {
     field: "action",
     headerName: "Action",
-    width: 100,
+    width: 'auto',
     sortable: false,
     renderCell: (params) => {
       const onClick = (e) => {
@@ -51,7 +51,7 @@ const columns = [
         return alert(JSON.stringify(thisRow, null, 4));
       };
       // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
-      const router = useRouter();
+      //const router = useRouter();
       return (
         <div>
           <Tooltip title="Edit">

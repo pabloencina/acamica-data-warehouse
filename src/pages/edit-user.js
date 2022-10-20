@@ -31,12 +31,26 @@ const EditUser = () => {
           >
             Back
           </Button>
-          <Typography sx={{ mb: 3 }} variant="h4">
+          <Typography 
+          sx={{ mb: 3 }} 
+          variant="h4">
             Edit user
           </Typography>
-          <Grid container spacing={1}>
-            <Grid item lg={2} md={2} xs={2}></Grid>
-            <Grid item lg={8} md={6} xs={12}>
+          <Grid 
+          container 
+          spacing={1}
+          >
+            <Grid 
+            item 
+            lg={2} 
+            md={2} 
+            xs={2}>
+            </Grid>
+            <Grid 
+            item 
+            lg={8} 
+            md={6} 
+            xs={12}>
               <EditUserForm />
             </Grid>
           </Grid>

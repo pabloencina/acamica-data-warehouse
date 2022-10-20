@@ -73,13 +73,20 @@ export const EditUserForm = (props) => {
   });
   return (
     <>
-      <form {...props} onSubmit={formik.handleSubmit}>
+      <form 
+      {...props} 
+      onSubmit={formik.handleSubmit}>
         <Card>
           <CardHeader title="Profile" />
           <Divider />
           <CardContent>
-            <Grid container spacing={3}>
-              <Grid item md={6} xs={12}>
+            <Grid 
+            container 
+            spacing={3}>
+              <Grid 
+              item 
+              md={6} 
+              xs={12}>
                 <TextField
                   fullWidth
                   label="Name"
@@ -95,7 +102,10 @@ export const EditUserForm = (props) => {
                   helperText={formik.touched.name && formik.errors.name}
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid 
+              item 
+              md={6} 
+              xs={12}>
                 <TextField
                   fullWidth
                   label="Surname"
@@ -109,7 +119,10 @@ export const EditUserForm = (props) => {
                   helperText={formik.touched.surname && formik.errors.surname}
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid 
+              item 
+              md={6} 
+              xs={12}>
                 <TextField
                   error={Boolean(formik.touched.email && formik.errors.email)}
                   fullWidth
@@ -124,7 +137,10 @@ export const EditUserForm = (props) => {
                   variant="outlined"
                 />
               </Grid>
-              <Grid item md={6} xs={12}>
+              <Grid 
+              item 
+              md={6} 
+              xs={12}>
                 <Autocomplete
                   value={formik.values.profile}
                   name="profile"
@@ -151,7 +167,10 @@ export const EditUserForm = (props) => {
                 />
               </Grid>
 
-              <Grid item md={6} xs={12}>
+              <Grid 
+              item 
+              md={6} 
+              xs={12}>
                 <TextField
                   error={Boolean(formik.touched.password && formik.errors.password)}
                   fullWidth

@@ -18,7 +18,9 @@ export const UserListToolbar = (props) => {
           m: -1,
         }}
       >
-        <Typography sx={{ m: 1 }} variant="h6">
+        <Typography 
+        sx={{ m: 1 }} 
+        variant="h6">
           Users
         </Typography>
         <Box sx={{ m: 1 }}>
