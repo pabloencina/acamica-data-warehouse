@@ -4,11 +4,11 @@ import { IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import AlertDialog from "./alertDeleteUser";
+
 
 export const UserTable = (params) => {
   const { users, setUsers } = params;
-  console.log(users)
 
   const router = useRouter();
 
@@ -60,9 +60,10 @@ export const UserTable = (params) => {
 
         const deleteUser = (id) => {
           
-          // setUsers(users.filter((item) => item._id !== id))
+           setUsers(users.filter((item) => item._id !== id))
           
         };
+
 
         return (
           <div>
@@ -84,10 +85,9 @@ export const UserTable = (params) => {
 
             <Tooltip title="Delete">
               <IconButton
-                onClick={(e) => {
-                  console.log(e.target);
-                  console.log(params.row._id);
-                  deleteUser(params.row._id);
+                onClick={() => {
+                  <AlertDialog/>
+                  //deleteUser(params.row._id);
                 }}
               >
                 <DeleteOutlineIcon />
