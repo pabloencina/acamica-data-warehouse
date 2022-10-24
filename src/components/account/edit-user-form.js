@@ -22,6 +22,10 @@ import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
 
 export const EditUserForm = (props) => {
+
+  //console.log(props)
+  // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
+  // TODO: Si lo anterior no se puede, hay que llamar de nuevo al Back End y pedirle los datos, tomando el ID que aparece en la URL.
   const options = ["ADMIN", "BASIC"];
   const [state, setState] = useState({
     profileInputValue: "",
@@ -69,12 +73,16 @@ export const EditUserForm = (props) => {
       let params = new URLSearchParams(search);
       let id = params.get('id')
       console.log(id);
+      console.log(values)
     },
   });
+
+  console.log(formik.values)
   return (
     <>
       <form 
       {...props} 
+      
       onSubmit={formik.handleSubmit}>
         <Card>
           <CardHeader title="Profile" />
@@ -149,7 +157,7 @@ export const EditUserForm = (props) => {
                   onBlur={formik.handleBlur}
                   onChange={(e, value) => formik.setFieldValue("profile", value)}
                   inputValue={state.profileInputValue}
-                  onInputChange={(event, newInputValue) => {
+                  onInputChange={(e, newInputValue) => {
                     setState({
                       ...state,
                       profileInputValue: newInputValue,

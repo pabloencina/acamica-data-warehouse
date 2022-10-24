@@ -35,6 +35,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
       });
+      console.log(loginResponse)
       window.localStorage.setItem('token', loginResponse.data); 
       // let myToken = window.localStorage.getItem('token');
     },

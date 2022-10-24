@@ -88,14 +88,14 @@ export const UserListResults = ({ users: users, ...rest }) => {
                 <TableCell>
                   Name
                   <Button
-                  startIcon={(<Impexpicons />)}
+                  startIcon={(<Impexpicons/>)}
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>
                 <TableCell>
                   Surname
                   <Button
-                  startIcon={(<Impexpicons />)}
+                  startIcon={(<Impexpicons/>)}
                   sx={{ mr: 1 }}
                 ></Button>
                 </TableCell>

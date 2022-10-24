@@ -1,8 +1,5 @@
 import Head from "next/head";
-import {
-  Box, Container, Card,
-  CardContent,
-} from "@mui/material";
+import { Box, Container, Card, CardContent } from "@mui/material";
 
 import { UserListToolbar } from "src/components/user/user-list-toolbar";
 import { UserTable } from "src/components/user/user-table";
@@ -10,17 +7,16 @@ import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "src/services/usersService";
 
-
 const Users = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    getAllUsers().then((response) => {
-      let usersResponse = response.data;
-      setUsers(usersResponse);
-    })
-      .catch((e) => {
-      });
+    getAllUsers()
+      .then((response) => {
+        let usersResponse = response.data;
+        setUsers(usersResponse);
+      })
+      .catch((e) => {});
   }, []);
 
   return (
@@ -37,10 +33,12 @@ const Users = () => {
       >
         <Container maxWidth={false}>
           <UserListToolbar />
-          <Box sx={{ mt: 3}}>
+          <Box sx={{ mt: 3 }}>
             <Card>
               <CardContent>
-                <UserTable users={users} />
+                <UserTable 
+                users={users} 
+                setUsers={setUsers} />
               </CardContent>
             </Card>
           </Box>
