@@ -4,10 +4,11 @@ import { IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useRouter } from "next/router";
-import AlertDialog from "./alertDeleteUser";
+import AlertDeleteUser from "./alertDeleteUser";
 
 
 export const UserTable = (params) => {
+  
   const { users, setUsers } = params;
 
   const router = useRouter();
@@ -58,12 +59,11 @@ export const UserTable = (params) => {
         };
         // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
 
-        const deleteUser = (id) => {
+        //  const deleteUser = (id) => {
           
-           setUsers(users.filter((item) => item._id !== id))
+        //    setUsers(users.filter((item) => item._id !== id))
           
-        };
-
+        // };
 
         return (
           <div>
@@ -83,21 +83,14 @@ export const UserTable = (params) => {
               </IconButton>
             </Tooltip>
 
-            <Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  <AlertDialog/>
-                  //deleteUser(params.row._id);
-                }}
-              >
-                <DeleteOutlineIcon />
-              </IconButton>
-            </Tooltip>
+          <AlertDeleteUser  userId={params.row._id}/>
+            
           </div>
         );
       },
     },
   ];
+  
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
@@ -108,6 +101,22 @@ export const UserTable = (params) => {
         rowsPerPageOptions={[5]}
         checkboxSelection
       />
+      
     </div>
   );
 };
+
+
+/*
+<Tooltip title="Delete">
+              <IconButton
+                onClick={() => {
+                  <AlertDialog/>
+                  //deleteUser(params.row._id);
+                }}
+              >
+                <DeleteOutlineIcon />
+              </IconButton>
+              
+            </Tooltip>
+*/

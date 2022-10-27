@@ -23,4 +23,10 @@ export const postUser = async (userToCreate) => {
   return null;
 
 }
+
+export  const deleteUser = async (id) => {
+  const  userDeleted = await axios.delete(`${userURL}/${id}`)
+  console.log(userDeleted.data)
+  return userDeleted
+}
       
