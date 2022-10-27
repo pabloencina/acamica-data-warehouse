@@ -5,12 +5,13 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { useRouter } from "next/router";
 import AlertDeleteUser from "./alertDeleteUser";
+import { ConstructionOutlined } from "@mui/icons-material";
 
 
 export const UserTable = (params) => {
   
   const { users, setUsers } = params;
-
+  
   const router = useRouter();
 
   const columns = [
@@ -57,6 +58,7 @@ export const UserTable = (params) => {
             });
           return alert(JSON.stringify(thisRow, null, 4));
         };
+        
         // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
 
         //  const deleteUser = (id) => {
@@ -83,7 +85,12 @@ export const UserTable = (params) => {
               </IconButton>
             </Tooltip>
 
-          <AlertDeleteUser  userId={params.row._id}/>
+          <AlertDeleteUser 
+            // user={ users.find( (user) => user._id === params.row._id ) }  
+            user={ params.row  }
+            userId={ params.row._id }
+            setUsers={ setUsers }
+          />
             
           </div>
         );
@@ -94,7 +101,7 @@ export const UserTable = (params) => {
   return (
     <div style={{ height: 400, width: "100%" }}>
       <DataGrid
-        rows={users}
+        rows={ users }
         columns={columns}
         getRowId={(row) => row._id}
         pageSize={10}
