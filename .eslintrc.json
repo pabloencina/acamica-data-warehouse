@@ -1,14 +1,13 @@
 {
   "extends": "next/core-web-vitals",
+  "plugins": ["unused-imports"],
   "rules": {
     "@next/next/no-img-element": "off",
     "jsx-a11y/alt-text": "off",
     "react/display-name": "off",
-    "react/jsx-max-props-per-line": [
-      1,
-      {
-        "maximum": 1
-      }
-    ]
+    "react/jsx-uses-react": "on",
+    "react/jsx-uses-vars":"on",
+    "no-unused-vars": "off",
+    "unused-imports/no-unused-imports": "error"
   }
 }
