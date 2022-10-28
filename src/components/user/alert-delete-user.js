@@ -8,7 +8,6 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { deleteUser, getAllUsers } from "src/services/usersService";
-import { SnackbarErrorDelete } from "./snackBarErrorDelete";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 
@@ -57,7 +56,7 @@ export default function AlertDeleteUser(params) {
     };
 
     return (
-        <div>
+        <>
             <Tooltip title="Delete">
                 <IconButton
                     onClick={() => {
@@ -89,9 +88,9 @@ export default function AlertDeleteUser(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    This is a success message!
+                    Cannot delete user {user.name}
                 </Alert>
             </Snackbar>
-        </div>
+        </>
     );
 }
