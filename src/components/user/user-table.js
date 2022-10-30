@@ -60,12 +60,6 @@ export const UserTable = (params) => {
 
                 // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
 
-                //  const deleteUser = (id) => {
-
-                //    setUsers(users.filter((item) => item._id !== id))
-
-                // };
-
                 return (
                     <div>
                         <Tooltip title="Edit">
@@ -78,6 +72,7 @@ export const UserTable = (params) => {
                                             id: params.row._id,
                                         },
                                     });
+                                    console.log(params.row)
                                 }}
                             >
                                 <EditOutlinedIcon fontSize="big" />
@@ -111,16 +106,4 @@ export const UserTable = (params) => {
     );
 };
 
-/*
-<Tooltip title="Delete">
-              <IconButton
-                onClick={() => {
-                  <AlertDialog/>
-                  //deleteUser(params.row._id);
-                }}
-              >
-                <DeleteOutlineIcon />
-              </IconButton>
-              
-            </Tooltip>
-*/
+
