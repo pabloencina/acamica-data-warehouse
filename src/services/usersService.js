@@ -29,10 +29,20 @@ export const postUser = async (userToCreate) => {
     return null;
 };
 
-export const editUser = async (id) => {
-    const userDeleted = await axios.put(`${userURL}/${id}`);
-    console.log(userDeleted.data);
-    return userDeleted;
+export const editUser = async (id,userToEdit) => {
+    if (userToEdit  && id){
+        const body = {
+            name: userToEdit.name,
+            surname: userToEdit.surname,
+            email: userToEdit.email,
+            profile: userToEdit.profile,
+            password: userToEdit.password,
+        };
+        const userEdited = await axios.put(`${userURL}/${id}`, body);
+        console.log(userEdited.data);
+        return userEdited;
+    }
+    return null;
 };
 
 export const deleteUser = async (id) => {

@@ -32,20 +32,18 @@ export const EditUserForm = (props) => {
         errorMessage: "",
         error: false,
     });
+    let id;
 
-    const search = window.location.search;
-    const searchParams = new URLSearchParams(search);
-    const id = searchParams.get("id");
+    if (typeof window !== "undefined") {
+        const search = window.location.search;
+        const searchParams = new URLSearchParams(search);
+        id = searchParams.get("id");
+    }
 
     useEffect(() => {
-
-        
         getUserById(id).then((user) => {
-            formik.setFieldValue("name", user.name)
-            formik.setFieldValue("surname", user.surname)
-            formik.setFieldValue("email", user.email)
-            formik.setFieldValue("profile", user.profile)
-            formik.setFieldValue("password", user.password)
+            const { name, surname, password, email, profile } = user;
+            formik.setValues({ name, surname, password, profile, email });
         });
     }, []);
 
@@ -82,10 +80,46 @@ export const EditUserForm = (props) => {
             password: Yup.string().max(15).min(3).required("Password is required"),
         }),
 
+        // onSubmit: async (values) => {
+        //     console.log(id);
+        //     console.log(values);
+        //     return editUser(id);
+        // },
+
         onSubmit: async (values) => {
-            console.log(id);
-            console.log(values);
-            editUser(id);
+            try {
+                console.log(values);
+                const response = await editUser(id,values);
+                console.log("response");
+                console.log(response);
+                 
+                setState({
+                    ...state,
+                    dialogOpen: true,
+                    formError: false,
+                });
+
+                return response
+            } catch (error) {
+                let message = "User creation failed.";
+                if (error.response) {
+                    if (error.response.status === 400) {
+                        message += " Please verify the fields in the form.";
+                    } else if (error.response.status === 409) {
+                        message += " The email already exists in the database.";
+                    } else if (error.response.status === 500) {
+                        message += " There's issues in the server. Please try again later...";
+                    }
+                } else {
+                    message += " Can't connect with the server. Please try again later...";
+                }
+                console.log(error.response);
+                setState({
+                    ...state,
+                    errorMessage: message,
+                    formError: true,
+                });
+            }
         },
     });
 
@@ -218,7 +252,7 @@ export const EditUserForm = (props) => {
 
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        The user has been created successfully.
+                        The user has been edited successfully.
                     </DialogContentText>
                 </DialogContent>
 
