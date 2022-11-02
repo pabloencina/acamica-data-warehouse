@@ -80,12 +80,6 @@ export const EditUserForm = (props) => {
             password: Yup.string().max(15).min(3).required("Password is required"),
         }),
 
-        // onSubmit: async (values) => {
-        //     console.log(id);
-        //     console.log(values);
-        //     return editUser(id);
-        // },
-
         onSubmit: async (values) => {
             try {
                 console.log(values);
