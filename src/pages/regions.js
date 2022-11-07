@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import CollapsibleTable from "src/components/region/region";
-
+import { regions } from "src/__mocks__/region";
 
 const Regions = () => (
     <>
@@ -18,7 +18,7 @@ const Regions = () => (
         >
             <Container maxWidth={false}>
                 <Box sx={{ mt: 3 }}>
-                    <CollapsibleTable/>
+                    <CollapsibleTable regions={regions} />
                 </Box>
             </Container>
         </Box>

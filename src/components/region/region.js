@@ -13,82 +13,52 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Button } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 
-function createData(name) {
-    return {
-        name,
-        history: [
-            {
-                date: "2020-01-05",
-                customerId: "11091700",
-                amount: 3,
-            },
-            {
-                date: "2020-01-02",
-                customerId: "Anonymous",
-                amount: 1,
-            },
-        ],
-    };
-}
-
-function RegionRow(props) {
-    const { row } = props;
-    const [openCountry, setOpenCountry] = React.useState(false);
-
+function CountryRow(props) {
+    const { country } = props;
     const [openCity, setOpenCity] = React.useState(false);
-
+    console.log(country);
     return (
         <React.Fragment>
             <TableRow>
-                <TableCell>
+                <TableCell scope="row">
                     <IconButton
                         aria-label="expand row"
                         size="small"
-                        onClick={() => setOpenCountry(!openCountry)}
+                        onClick={() => setOpenCity(!openCity)}
                     >
-                        {openCountry ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                        {openCity ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
                 </TableCell>
-                <TableCell scope="row">{row.name}</TableCell>
-
+                <TableCell scope="row">{country.name}</TableCell>
                 <TableCell scope="row">
                     <Tooltip title="Edit">
                         <IconButton>
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add country">
+                    <Tooltip title="Add city">
                         <IconButton>
                             <AddLocationOutlinedIcon />
                         </IconButton>
                     </Tooltip>
                 </TableCell>
             </TableRow>
+
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
-                    <Collapse in={openCountry} timeout="auto" unmountOnExit>
+                    <Collapse in={openCity} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
                             <TableCell>
-                                <Typography variant="p" gutterBottom component="div">
-                                    <IconButton
-                                        aria-label="expand row"
-                                        size="small"
-                                        onClick={() => setOpenCity(!openCity)}
-                                    >
-                                        {openCity ? (
-                                            <KeyboardArrowUpIcon />
-                                        ) : (
-                                            <KeyboardArrowDownIcon />
-                                        )}
-                                    </IconButton>
-                                    Argentina
-                                </Typography>
+                                Cordoba
+                                {/* {regions.map((region) => (
+                                    <Typography variant="p" gutterBottom component="div">
+                                        {row.cities}
+                                    </Typography>
+                                ))} */}
                             </TableCell>
                             <TableCell>
                                 <Tooltip title="Edit">
@@ -110,34 +80,68 @@ function RegionRow(props) {
     );
 }
 
-RegionRow.propTypes = {
-    row: PropTypes.shape({
-        calories: PropTypes.number.isRequired,
-        carbs: PropTypes.number.isRequired,
-        fat: PropTypes.number.isRequired,
-        history: PropTypes.arrayOf(
-            PropTypes.shape({
-                amount: PropTypes.number.isRequired,
-                customerId: PropTypes.string.isRequired,
-                date: PropTypes.string.isRequired,
-            })
-        ).isRequired,
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        protein: PropTypes.number.isRequired,
-    }).isRequired,
-};
+function RegionRow(props) {
+    const { region } = props;
 
-const rows = [
-    createData("Sudamérica"),
-    createData("Norteamérica"),
-    createData("Centroamérica"),
-    createData("Europa"),
-    createData("Asia"),
-];
+    console.log(region);
+    const [openCountry, setOpenCountry] = React.useState(false);
 
-export default function CollapsibleTable() {
-    console.log(rows);
+    return (
+        <React.Fragment>
+            <TableRow>
+                <TableCell>
+                    <IconButton
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpenCountry(!openCountry)}
+                    >
+                        {openCountry ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                    </IconButton>
+                </TableCell>
+                <TableCell scope="row">{region.name}</TableCell>
+                <TableCell scope="row">
+                    <Tooltip title="Edit">
+                        <IconButton>
+                            <EditOutlinedIcon fontSize="big" />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Add country">
+                        <IconButton>
+                            <AddLocationOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                </TableCell>
+            </TableRow>
+            <TableRow>
+                <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+                    <Collapse in={openCountry} timeout="auto" unmountOnExit>
+                        <Box sx={{ margin: 1 }}>
+                            <Table aria-label="collapsible table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell component="th"></TableCell>
+                                        <TableCell component="th">Countries</TableCell>
+                                        <TableCell component="th">Actions</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {region.countries.map((country) => (
+                                        <CountryRow key={country.name} country={country} />
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </Box>
+                    </Collapse>
+                </TableCell>
+            </TableRow>
+        </React.Fragment>
+    );
+}
+
+export default function CollapsibleTable({ regions }) {
+    const [countries, cities] = regions;
+    console.log(countries);
+    console.log(cities);
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
@@ -149,8 +153,8 @@ export default function CollapsibleTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map((row) => (
-                        <RegionRow key={row.name} row={row} />
+                    {regions.map((region) => (
+                        <RegionRow key={region.name} region={region} />
                     ))}
                 </TableBody>
             </Table>
@@ -158,29 +162,18 @@ export default function CollapsibleTable() {
     );
 }
 
-/*
-<Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align="right">Amount</TableCell>
-                    <TableCell align="right">Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map((historyRow) => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component="th" scope="row">
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align="right">{historyRow.amount}</TableCell>
-                      <TableCell align="right">
-                        {Math.round(historyRow.amount * row.price * 100) / 100}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-*/
+RegionRow.propTypes = {
+    region: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        countries: PropTypes.arrayOf(
+            PropTypes.shape({
+                name: PropTypes.string.isRequired,
+                cities: PropTypes.arrayOf(
+                    PropTypes.shape({
+                        name: PropTypes.string.isRequired,
+                    })
+                ),
+            })
+        ).isRequired,
+    }).isRequired,
+};

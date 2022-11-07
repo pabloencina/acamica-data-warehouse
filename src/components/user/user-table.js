@@ -72,20 +72,19 @@ export const UserTable = (params) => {
                                             id: params.row._id,
                                         },
                                     });
-                                    console.log(params.row)
+                                    console.log(params.row);
                                 }}
                             >
                                 <EditOutlinedIcon fontSize="big" />
                             </IconButton>
                         </Tooltip>
-                        
-                            <AlertDeleteUser
-                                // user={ users.find( (user) => user._id === params.row._id ) }
-                                user={params.row}
-                                userId={params.row._id}
-                                setUsers={setUsers}
-                            />
-                      
+
+                        <AlertDeleteUser
+                            // user={ users."find"( (user) => user._id === params.row._id ) }
+                            user={params.row}
+                            userId={params.row._id}
+                            setUsers={setUsers}
+                        />
                     </div>
                 );
             },
@@ -105,5 +104,3 @@ export const UserTable = (params) => {
         </div>
     );
 };
-
-
