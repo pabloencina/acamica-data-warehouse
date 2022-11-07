@@ -9,7 +9,6 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
@@ -52,28 +51,47 @@ function CountryRow(props) {
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={openCity} timeout="auto" unmountOnExit>
                         <Box sx={{ margin: 1 }}>
-                            <TableCell>
-                                Cordoba
-                                {/* {regions.map((region) => (
-                                    <Typography variant="p" gutterBottom component="div">
-                                        {row.cities}
-                                    </Typography>
-                                ))} */}
-                            </TableCell>
-                            <TableCell>
-                                <Tooltip title="Edit">
-                                    <IconButton>
-                                        <EditOutlinedIcon fontSize="big" />
-                                    </IconButton>
-                                </Tooltip>
-                                <Tooltip title="Add city">
-                                    <IconButton>
-                                        <AddLocationOutlinedIcon />
-                                    </IconButton>
-                                </Tooltip>
-                            </TableCell>
+                            <Table aria-label="collapsible table">
+                                <TableHead>
+                                    <TableRow>
+                                        <TableCell component="th"></TableCell>
+                                        <TableCell component="th">Cities</TableCell>
+                                        <TableCell component="th">Actions</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {country.cities.map((city) => (
+                                        <CityRow key={city.name} city={city} />
+                                    ))}
+                                </TableBody>
+                            </Table>
                         </Box>
                     </Collapse>
+                </TableCell>
+            </TableRow>
+        </React.Fragment>
+    );
+}
+
+function CityRow(props) {
+    const { city } = props;
+    console.log(city);
+    return (
+        <React.Fragment>
+            <TableRow>
+                <TableCell scope="row"></TableCell>
+                <TableCell scope="row">{city.name}</TableCell>
+                <TableCell scope="row">
+                    <Tooltip title="Edit">
+                        <IconButton>
+                            <EditOutlinedIcon fontSize="big" />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Add city">
+                        <IconButton>
+                            <AddLocationOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
                 </TableCell>
             </TableRow>
         </React.Fragment>
@@ -83,7 +101,7 @@ function CountryRow(props) {
 function RegionRow(props) {
     const { region } = props;
 
-    console.log(region);
+    console.log(region.countries);
     const [openCountry, setOpenCountry] = React.useState(false);
 
     return (
@@ -112,6 +130,7 @@ function RegionRow(props) {
                     </Tooltip>
                 </TableCell>
             </TableRow>
+
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
                     <Collapse in={openCountry} timeout="auto" unmountOnExit>
@@ -139,9 +158,6 @@ function RegionRow(props) {
 }
 
 export default function CollapsibleTable({ regions }) {
-    const [countries, cities] = regions;
-    console.log(countries);
-    console.log(cities);
     return (
         <TableContainer component={Paper}>
             <Table aria-label="collapsible table">
