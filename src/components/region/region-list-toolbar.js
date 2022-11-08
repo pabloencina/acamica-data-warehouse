@@ -1,8 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useRouter } from "next/router";
+import CreateRegionDialog from "src/pages/create-region-dialog";
 
 export const RegionListToolbar = (props) => {
-    const router = useRouter();
     return (
         <Box {...props}>
             <Box
@@ -18,16 +17,7 @@ export const RegionListToolbar = (props) => {
                     Regions
                 </Typography>
                 <Box sx={{ m: 1 }}>
-                    <Button
-                        sx={{ m: 1 }}
-                        color="primary"
-                        variant="contained"
-                        onClick={() => {
-                            router.push("/create-region");
-                        }}
-                    >
-                        Add Region
-                    </Button>
+                    <CreateRegionDialog />
                 </Box>
             </Box>
         </Box>

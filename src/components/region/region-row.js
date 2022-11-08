@@ -18,7 +18,7 @@ import CountryRow from "./countryRow";
 export default function RegionRow(props) {
     const { region } = props;
 
-    console.log(region.countries);
+    console.log(region);
     const [openCountry, setOpenCountry] = React.useState(false);
 
     return (
