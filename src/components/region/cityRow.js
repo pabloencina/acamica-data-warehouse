@@ -15,12 +15,12 @@ export default function CityRow(props) {
                 <TableCell scope="row"></TableCell>
                 <TableCell scope="row">{city.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edit City">
                         <IconButton>
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add city">
+                    <Tooltip title="Add City">
                         <IconButton>
                             <AddLocationOutlinedIcon />
                         </IconButton>

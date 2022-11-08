@@ -21,7 +21,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
 
-export const CreateUserForm = (props) => {
+export const CreateRegionForm = (props) => {
     const options = ["ADMIN", "BASIC"];
     const [state, setState] = useState({
         profileInputValue: "",
@@ -38,7 +38,7 @@ export const CreateUserForm = (props) => {
             ...state,
             dialogOpen: false,
         });
-        router.push("/users");
+        router.push("/regions");
     };
 
     const formik = useFormik({
@@ -120,7 +120,7 @@ export const CreateUserForm = (props) => {
                                     helperText={formik.touched.name && formik.errors.name}
                                 />
                             </Grid>
-                            <Grid item md={6} xs={12}>
+                            {/* <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Surname"
@@ -190,7 +190,7 @@ export const CreateUserForm = (props) => {
                                     type="password"
                                     variant="outlined"
                                 />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                     </CardContent>
                     <Divider />
@@ -224,7 +224,7 @@ export const CreateUserForm = (props) => {
 
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        The user has been created successfully.
+                        The region has been created successfully.
                     </DialogContentText>
                 </DialogContent>
 

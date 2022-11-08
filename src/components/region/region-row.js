@@ -35,12 +35,12 @@ export default function RegionRow(props) {
                 </TableCell>
                 <TableCell scope="row">{region.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edit Region">
                         <IconButton>
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add country">
+                    <Tooltip title="Add Region">
                         <IconButton>
                             <AddLocationOutlinedIcon />
                         </IconButton>

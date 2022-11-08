@@ -23,7 +23,7 @@ export const RegionListToolbar = (props) => {
                         color="primary"
                         variant="contained"
                         onClick={() => {
-                            router.push("/create-user");
+                            router.push("/create-region");
                         }}
                     >
                         Add Region

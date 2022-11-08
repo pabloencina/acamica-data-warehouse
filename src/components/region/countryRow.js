@@ -31,12 +31,12 @@ export default function CountryRow(props) {
                 </TableCell>
                 <TableCell scope="row">{country.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit">
+                    <Tooltip title="Edit Country">
                         <IconButton>
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add city">
+                    <Tooltip title="Add Country">
                         <IconButton>
                             <AddLocationOutlinedIcon />
                         </IconButton>
