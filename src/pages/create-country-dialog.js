@@ -7,8 +7,11 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { postRegion } from "src/services/regionsService";
+import { IconButton, Tooltip } from "@mui/material";
+import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
+import { postCountry } from "src/services/countriesService";
 
-export default function CreateRegionDialog() {
+export default function CreateCountryDialog() {
     const [open, setOpen] = React.useState(false);
 
     const [state, setState] = React.useState({
@@ -27,10 +30,10 @@ export default function CreateRegionDialog() {
         setOpen(false);
     };
 
-    const handleConfirmedRegion = async (values) => {
+    const handleConfirmedCountry = async (values) => {
         console.log(values);
         try {
-            const response = await postRegion(values);
+            const response = await postCountry(values);
 
             console.log(response);
             setState({
@@ -39,7 +42,7 @@ export default function CreateRegionDialog() {
                 formError: false,
             });
         } catch (error) {
-            let message = "Region creation failed.";
+            let message = "Country creation failed.";
             if (error.response) {
                 if (error.response.status === 400) {
                     message += " Please verify the fields in the form.";
@@ -60,18 +63,13 @@ export default function CreateRegionDialog() {
 
     return (
         <div>
-            <Button
-                sx={{ m: 1 }}
-                color="primary"
-                variant="contained"
-                onClick={() => {
-                    handleCreateRegion();
-                }}
-            >
-                Add Region
-            </Button>
+            <Tooltip title="Add Country" onClick={handleCreateRegion}>
+                <IconButton>
+                    <AddLocationOutlinedIcon />
+                </IconButton>
+            </Tooltip>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Enter the name of the region</DialogTitle>
+                <DialogTitle>Enter the name of the country</DialogTitle>
                 <DialogContent>
                     <DialogContentText></DialogContentText>
                     <TextField
@@ -86,7 +84,7 @@ export default function CreateRegionDialog() {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleConfirmedRegion}>Confirm</Button>
+                    <Button onClick={handleConfirmedCountry}>Confirm</Button>
                 </DialogActions>
             </Dialog>
         </div>
