@@ -14,6 +14,7 @@ import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import CountryRow from "./countryRow";
+import CreateCountryDialog from "src/pages/create-country-dialog";
 
 export default function RegionRow(props) {
     const { region } = props;
@@ -40,11 +41,7 @@ export default function RegionRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <Tooltip title="Add Region">
-                        <IconButton>
-                            <AddLocationOutlinedIcon />
-                        </IconButton>
-                    </Tooltip>
+                    <CreateCountryDialog />
                 </TableCell>
             </TableRow>
 

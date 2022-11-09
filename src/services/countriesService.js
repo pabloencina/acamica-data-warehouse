@@ -9,7 +9,7 @@ export const getAllCountries = () => {
 export const postCountry = async (countryToCreate) => {
     if (countryToCreate) {
         const body = {
-            cities: countryToCreate.cities,
+            countries: countryToCreate.countries,
             name: countryToCreate.name,
             _id: countryToCreate._id,
         };

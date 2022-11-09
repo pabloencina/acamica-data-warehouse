@@ -7,11 +7,10 @@ export const getAllRegions = () => {
 };
 
 export const postRegion = async (regionToCreate) => {
+    console.log(regionToCreate);
     if (regionToCreate) {
         const body = {
-            countries: regionToCreate.countries,
             name: regionToCreate.name,
-            _id: regionToCreate._id,
         };
 
         const postRegionResponse = await axios.post(regionURL, body);

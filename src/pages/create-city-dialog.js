@@ -6,7 +6,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { postRegion } from "src/services/regionsService";
 import { IconButton, Tooltip } from "@mui/material";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import { postCity } from "src/services/citiesService";

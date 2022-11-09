@@ -6,13 +6,14 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { postRegion } from "src/services/regionsService";
 import { IconButton, Tooltip } from "@mui/material";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import { postCountry } from "src/services/countriesService";
+import { useState } from "react";
 
 export default function CreateCountryDialog() {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = useState("");
 
     const [state, setState] = React.useState({
         profileInputValue: "",
@@ -22,18 +23,21 @@ export default function CreateCountryDialog() {
         error: false,
     });
 
-    const handleCreateRegion = async (e) => {
+    const handleCreateCountry = async (e) => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (e) => {
         setOpen(false);
     };
 
-    const handleConfirmedCountry = async (values) => {
-        console.log(values);
+    const handleNameOnChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleConfirmedCountry = async (e) => {
         try {
-            const response = await postCountry(values);
+            const response = await postCountry({ name });
 
             console.log(response);
             setState({
@@ -59,11 +63,12 @@ export default function CreateCountryDialog() {
                 formError: true,
             });
         }
+        handleClose();
     };
 
     return (
         <div>
-            <Tooltip title="Add Country" onClick={handleCreateRegion}>
+            <Tooltip title="Add Country" onClick={handleCreateCountry}>
                 <IconButton>
                     <AddLocationOutlinedIcon />
                 </IconButton>
@@ -79,7 +84,8 @@ export default function CreateCountryDialog() {
                         label="Name"
                         type="name"
                         fullWidth
-                        //variant="standard"
+                        value={name}
+                        onChange={handleNameOnChange}
                     />
                 </DialogContent>
                 <DialogActions>

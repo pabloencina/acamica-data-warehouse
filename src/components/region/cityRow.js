@@ -4,7 +4,6 @@ import TableCell from "@mui/material/TableCell";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import CreateCityDialog from "src/pages/create-city-dialog";
 
 export default function CityRow(props) {
     const { city } = props;
@@ -20,7 +19,7 @@ export default function CityRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCityDialog />
+                    {/* <CreateCityDialog /> */}
                 </TableCell>
             </TableRow>
         </React.Fragment>

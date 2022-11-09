@@ -7,35 +7,39 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { postRegion } from "src/services/regionsService";
+import { useState } from "react";
 
 export default function CreateRegionDialog() {
     const [open, setOpen] = React.useState(false);
+    const [name, setName] = useState("");
 
     const [state, setState] = React.useState({
         profileInputValue: "",
         formError: false,
-        dialogOpen: false,
         errorMessage: "",
         error: false,
     });
 
-    const handleCreateRegion = async (e) => {
+    const handleNameOnChange = (event) => {
+        setName(event.target.value);
+    };
+
+    const handleCreateRegion = (event) => {
         setOpen(true);
     };
 
-    const handleClose = () => {
+    const handleClose = (event) => {
         setOpen(false);
     };
 
-    const handleConfirmedRegion = async (values) => {
-        console.log(values);
+    const handleConfirmedRegion = async (event) => {
+        console.log(event);
         try {
-            const response = await postRegion(values);
+            const response = await postRegion({ name });
 
             console.log(response);
             setState({
                 ...state,
-                dialogOpen: true,
                 formError: false,
             });
         } catch (error) {
@@ -56,6 +60,7 @@ export default function CreateRegionDialog() {
                 formError: true,
             });
         }
+        handleClose();
     };
 
     return (
@@ -64,8 +69,8 @@ export default function CreateRegionDialog() {
                 sx={{ m: 1 }}
                 color="primary"
                 variant="contained"
-                onClick={() => {
-                    handleCreateRegion();
+                onClick={(event) => {
+                    handleCreateRegion(event);
                 }}
             >
                 Add Region
@@ -82,6 +87,8 @@ export default function CreateRegionDialog() {
                         type="name"
                         fullWidth
                         //variant="standard"
+                        value={name}
+                        onChange={handleNameOnChange}
                     />
                 </DialogContent>
                 <DialogActions>

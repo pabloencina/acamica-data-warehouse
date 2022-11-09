@@ -10,9 +10,6 @@ import RegionRow from "./region-row";
 import { RegionListToolbar } from "./region-list-toolbar";
 
 export default function CollapsibleTable({ regions }) {
-    console.log(regions);
-    //const { regions } = regions;
-
     return (
         <>
             <RegionListToolbar />

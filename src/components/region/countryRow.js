@@ -12,7 +12,8 @@ import { IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import CityRow from "./cityRow";
-import CreateCountryDialog from "src/pages/create-country-dialog";
+import CreateCountryDialog from "src/pages/create-city-dialog";
+import CreateCityDialog from "src/pages/create-city-dialog";
 
 export default function CountryRow(props) {
     const { country } = props;
@@ -37,7 +38,7 @@ export default function CountryRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCountryDialog />
+                    <CreateCityDialog />
                 </TableCell>
             </TableRow>
 
