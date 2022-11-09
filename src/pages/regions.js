@@ -8,14 +8,18 @@ import { useEffect, useState } from "react";
 const Regions = () => {
     const [regions, setRegions] = useState([]);
 
-    useEffect(() => {
+    const refreshRegions = async () => {
         getAllRegions()
             .then((response) => {
-                let usersResponse = response.data;
-                setRegions(usersResponse);
+                setRegions(response.data);
             })
             .catch((e) => {});
+    };
+
+    useEffect(() => {
+        refreshRegions();
     }, []);
+
     return (
         <>
             <Head>
@@ -30,7 +34,7 @@ const Regions = () => {
             >
                 <Container maxWidth={false}>
                     <Box sx={{ mt: 3 }}>
-                        <CollapsibleTable regions={regions} setRegions={setRegions} />
+                        <CollapsibleTable regions={regions} refreshRegions={refreshRegions} />
                     </Box>
                 </Container>
             </Box>
