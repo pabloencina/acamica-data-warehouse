@@ -10,7 +10,8 @@ import { IconButton, Tooltip } from "@mui/material";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import { postCity } from "src/services/citiesService";
 
-export default function CreateCityDialog() {
+export default function CreateCityDialog(props) {
+    const { refreshRegions } = props;
     const [open, setOpen] = React.useState(false);
 
     const [state, setState] = React.useState({
@@ -58,6 +59,8 @@ export default function CreateCityDialog() {
                 formError: true,
             });
         }
+        handleClose();
+        refreshRegions();
     };
 
     return (

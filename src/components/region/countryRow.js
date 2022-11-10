@@ -16,7 +16,7 @@ import CreateCountryDialog from "src/components/region/create-city-dialog";
 import CreateCityDialog from "src/components/region/create-city-dialog";
 
 export default function CountryRow(props) {
-    const { country } = props;
+    const { country, refreshRegions } = props;
     const [openCity, setOpenCity] = React.useState(false);
 
     return (
@@ -38,7 +38,7 @@ export default function CountryRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCityDialog />
+                    <CreateCityDialog refreshRegions={refreshRegions} />
                 </TableCell>
             </TableRow>
 
