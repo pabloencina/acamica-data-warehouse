@@ -11,14 +11,15 @@ import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import { postCountry } from "src/services/countriesService";
 import { useState } from "react";
 
-export default function CreateCountryDialog({ regionId }) {
+export default function CreateCountryDialog(props) {
+    const { regionId, refreshRegions } = props;
+    console.log(refreshRegions);
     const [open, setOpen] = React.useState(false);
     const [countryName, setCountryName] = useState("");
 
     const [state, setState] = React.useState({
         profileInputValue: "",
         formError: false,
-        //dialogOpen: false,
         errorMessage: "",
         error: false,
     });
@@ -28,6 +29,7 @@ export default function CreateCountryDialog({ regionId }) {
     };
 
     const handleClose = (e) => {
+        console.log("hola");
         setOpen(false);
     };
 
@@ -38,14 +40,11 @@ export default function CreateCountryDialog({ regionId }) {
     const handleConfirmedCountry = async (event) => {
         try {
             const response = await postCountry({ name: countryName, region: regionId });
-
             console.log(response);
             setState({
                 ...state,
-                //dialogOpen: true,
                 formError: false,
             });
-            return response;
         } catch (error) {
             let message = "Country creation failed.";
             if (error.response) {
@@ -65,6 +64,7 @@ export default function CreateCountryDialog({ regionId }) {
             });
         }
         handleClose();
+        refreshRegions();
     };
 
     return (

@@ -17,7 +17,8 @@ import CountryRow from "./countryRow";
 import CreateCountryDialog from "src/components/region/create-country-dialog";
 
 export default function RegionRow(props) {
-    const { region } = props;
+    const { region, refreshRegions } = props;
+    console.log(refreshRegions);
 
     const [openCountry, setOpenCountry] = React.useState(false);
 
@@ -40,7 +41,7 @@ export default function RegionRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCountryDialog regionId={region._id} />
+                    <CreateCountryDialog regionId={region._id} refreshRegions={refreshRegions} />
                 </TableCell>
             </TableRow>
 

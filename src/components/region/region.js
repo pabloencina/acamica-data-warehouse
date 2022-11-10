@@ -24,7 +24,11 @@ export default function RegionTable({ regions, refreshRegions }) {
                     </TableHead>
                     <TableBody>
                         {regions.map((region) => (
-                            <RegionRow key={region.name} region={region} />
+                            <RegionRow
+                                key={region.name}
+                                region={region}
+                                refreshRegions={refreshRegions}
+                            />
                         ))}
                     </TableBody>
                 </Table>

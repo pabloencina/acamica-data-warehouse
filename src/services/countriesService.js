@@ -11,9 +11,7 @@ export const postCountry = async (countryToCreate) => {
         const body = {
             name: countryToCreate.name,
             region: countryToCreate.region,
-            // _id: countryToCreate._id,
         };
-        console.log(body);
 
         const postCountryResponse = await axios.post(countryURL, body);
 
