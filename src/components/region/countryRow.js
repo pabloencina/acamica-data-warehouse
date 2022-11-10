@@ -38,7 +38,7 @@ export default function CountryRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCityDialog refreshRegions={refreshRegions} />
+                    <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
                 </TableCell>
             </TableRow>
 

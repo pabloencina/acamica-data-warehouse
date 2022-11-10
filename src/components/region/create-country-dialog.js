@@ -13,7 +13,6 @@ import { useState } from "react";
 
 export default function CreateCountryDialog(props) {
     const { regionId, refreshRegions } = props;
-    console.log(refreshRegions);
     const [open, setOpen] = React.useState(false);
     const [countryName, setCountryName] = useState("");
 

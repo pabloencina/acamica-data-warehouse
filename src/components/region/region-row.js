@@ -18,7 +18,6 @@ import CreateCountryDialog from "src/components/region/create-country-dialog";
 
 export default function RegionRow(props) {
     const { region, refreshRegions } = props;
-    console.log(refreshRegions);
 
     const [openCountry, setOpenCountry] = React.useState(false);
 

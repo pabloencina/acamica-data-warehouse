@@ -10,7 +10,7 @@ export const postCity = async (cityToCreate) => {
     if (cityToCreate) {
         const body = {
             name: cityToCreate.name,
-            _id: cityToCreate._id,
+            country: cityToCreate.country,
         };
 
         const postCityResponse = await axios.post(cityURL, body);
