@@ -9,10 +9,11 @@ export const getAllCountries = () => {
 export const postCountry = async (countryToCreate) => {
     if (countryToCreate) {
         const body = {
-            countries: countryToCreate.countries,
             name: countryToCreate.name,
-            _id: countryToCreate._id,
+            region: countryToCreate.region,
+            // _id: countryToCreate._id,
         };
+        console.log(body);
 
         const postCountryResponse = await axios.post(countryURL, body);
 

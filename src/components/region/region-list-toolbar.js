@@ -1,9 +1,10 @@
 import { Box, Button, Typography } from "@mui/material";
-import CreateRegionDialog from "src/pages/create-region-dialog";
+import CreateRegionDialog from "src/components/region/create-region-dialog";
 
 export const RegionListToolbar = (props) => {
+    const { refreshRegions } = props;
     return (
-        <Box {...props}>
+        <Box>
             <Box
                 sx={{
                     alignItems: "center",
@@ -17,7 +18,7 @@ export const RegionListToolbar = (props) => {
                     Regions
                 </Typography>
                 <Box sx={{ m: 1 }}>
-                    <CreateRegionDialog />
+                    <CreateRegionDialog refreshRegions={refreshRegions} />
                 </Box>
             </Box>
         </Box>

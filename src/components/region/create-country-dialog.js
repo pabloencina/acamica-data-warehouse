@@ -6,44 +6,48 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { postRegion } from "src/services/regionsService";
+import { IconButton, Tooltip } from "@mui/material";
+import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
+import { postCountry } from "src/services/countriesService";
 import { useState } from "react";
 
-export default function CreateRegionDialog() {
+export default function CreateCountryDialog({ regionId }) {
     const [open, setOpen] = React.useState(false);
-    const [name, setName] = useState("");
+    const [countryName, setCountryName] = useState("");
 
     const [state, setState] = React.useState({
         profileInputValue: "",
         formError: false,
+        //dialogOpen: false,
         errorMessage: "",
         error: false,
     });
 
-    const handleNameOnChange = (event) => {
-        setName(event.target.value);
-    };
-
-    const handleCreateRegion = (event) => {
+    const handleCreateCountry = async (e) => {
         setOpen(true);
     };
 
-    const handleClose = (event) => {
+    const handleClose = (e) => {
         setOpen(false);
     };
 
-    const handleConfirmedRegion = async (event) => {
-        console.log(event);
+    const handleNameOnChange = (event) => {
+        setCountryName(event.target.value);
+    };
+
+    const handleConfirmedCountry = async (event) => {
         try {
-            const response = await postRegion({ name });
+            const response = await postCountry({ name: countryName, region: regionId });
 
             console.log(response);
             setState({
                 ...state,
+                //dialogOpen: true,
                 formError: false,
             });
+            return response;
         } catch (error) {
-            let message = "Region creation failed.";
+            let message = "Country creation failed.";
             if (error.response) {
                 if (error.response.status === 400) {
                     message += " Please verify the fields in the form.";
@@ -65,18 +69,13 @@ export default function CreateRegionDialog() {
 
     return (
         <div>
-            <Button
-                sx={{ m: 1 }}
-                color="primary"
-                variant="contained"
-                onClick={(event) => {
-                    handleCreateRegion(event);
-                }}
-            >
-                Add Region
-            </Button>
+            <Tooltip title="Add Country" onClick={handleCreateCountry}>
+                <IconButton>
+                    <AddLocationOutlinedIcon />
+                </IconButton>
+            </Tooltip>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Enter the name of the region</DialogTitle>
+                <DialogTitle>Enter the name of the country</DialogTitle>
                 <DialogContent>
                     <DialogContentText></DialogContentText>
                     <TextField
@@ -86,14 +85,13 @@ export default function CreateRegionDialog() {
                         label="Name"
                         type="name"
                         fullWidth
-                        //variant="standard"
-                        value={name}
+                        value={countryName}
                         onChange={handleNameOnChange}
                     />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleConfirmedRegion}>Confirm</Button>
+                    <Button onClick={handleConfirmedCountry}>Confirm</Button>
                 </DialogActions>
             </Dialog>
         </div>

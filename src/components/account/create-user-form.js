@@ -68,7 +68,7 @@ export const CreateUserForm = (props) => {
             try {
                 const response = await postUser(values);
 
-                console.log(response);
+                //console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,

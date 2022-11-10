@@ -82,18 +82,15 @@ export const EditUserForm = (props) => {
 
         onSubmit: async (values) => {
             try {
-                console.log(values);
-                const response = await editUser(id,values);
-                console.log("response");
-                console.log(response);
-                 
+                const response = await editUser(id, values);
+
                 setState({
                     ...state,
                     dialogOpen: true,
                     formError: false,
                 });
 
-                return response
+                return response;
             } catch (error) {
                 let message = "User creation failed.";
                 if (error.response) {

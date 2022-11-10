@@ -14,12 +14,11 @@ import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import CountryRow from "./countryRow";
-import CreateCountryDialog from "src/pages/create-country-dialog";
+import CreateCountryDialog from "src/components/region/create-country-dialog";
 
 export default function RegionRow(props) {
     const { region } = props;
 
-    console.log(region);
     const [openCountry, setOpenCountry] = React.useState(false);
 
     return (
@@ -41,7 +40,7 @@ export default function RegionRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    <CreateCountryDialog />
+                    <CreateCountryDialog regionId={region._id} />
                 </TableCell>
             </TableRow>
 

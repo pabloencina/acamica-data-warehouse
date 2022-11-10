@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
-import CollapsibleTable from "src/components/region/region";
+import RegionTable from "src/components/region/region";
 import { getAllRegions } from "src/services/regionsService";
 import { useEffect, useState } from "react";
 
@@ -9,7 +9,7 @@ const Regions = () => {
     const [regions, setRegions] = useState([]);
 
     const refreshRegions = async () => {
-        getAllRegions()
+        await getAllRegions()
             .then((response) => {
                 setRegions(response.data);
             })
@@ -34,7 +34,7 @@ const Regions = () => {
             >
                 <Container maxWidth={false}>
                     <Box sx={{ mt: 3 }}>
-                        <CollapsibleTable regions={regions} refreshRegions={refreshRegions} />
+                        <RegionTable regions={regions} refreshRegions={refreshRegions} />
                     </Box>
                 </Container>
             </Box>

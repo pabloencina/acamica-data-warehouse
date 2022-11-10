@@ -9,10 +9,10 @@ import Paper from "@mui/material/Paper";
 import RegionRow from "./region-row";
 import { RegionListToolbar } from "./region-list-toolbar";
 
-export default function CollapsibleTable({ regions }) {
+export default function RegionTable({ regions, refreshRegions }) {
     return (
         <>
-            <RegionListToolbar />
+            <RegionListToolbar refreshRegions={refreshRegions} />
             <TableContainer component={Paper}>
                 <Table aria-label="collapsible table">
                     <TableHead>

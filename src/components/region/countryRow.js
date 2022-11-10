@@ -12,13 +12,13 @@ import { IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import CityRow from "./cityRow";
-import CreateCountryDialog from "src/pages/create-city-dialog";
-import CreateCityDialog from "src/pages/create-city-dialog";
+import CreateCountryDialog from "src/components/region/create-city-dialog";
+import CreateCityDialog from "src/components/region/create-city-dialog";
 
 export default function CountryRow(props) {
     const { country } = props;
     const [openCity, setOpenCity] = React.useState(false);
-    console.log(country);
+
     return (
         <React.Fragment>
             <TableRow>

@@ -7,7 +7,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export default function CityRow(props) {
     const { city } = props;
-    console.log(city);
+
     return (
         <React.Fragment>
             <TableRow>
@@ -19,7 +19,6 @@ export default function CityRow(props) {
                             <EditOutlinedIcon fontSize="big" />
                         </IconButton>
                     </Tooltip>
-                    {/* <CreateCityDialog /> */}
                 </TableCell>
             </TableRow>
         </React.Fragment>
