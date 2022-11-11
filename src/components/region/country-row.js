@@ -53,7 +53,11 @@ export default function CountryRow(props) {
                                 </TableHead>
                                 <TableBody>
                                     {country.cities.map((city) => (
-                                        <CityRow key={city.name} city={city} />
+                                        <CityRow
+                                            key={city.name}
+                                            city={city}
+                                            refreshRegions={refreshRegions}
+                                        />
                                     ))}
                                 </TableBody>
                             </Table>

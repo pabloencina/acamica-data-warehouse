@@ -4,9 +4,10 @@ import TableCell from "@mui/material/TableCell";
 import IconButton from "@mui/material/IconButton";
 import { Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import EditCityDialog from "./edit-region-country-city/edit-city-dialog";
 
 export default function CityRow(props) {
-    const { city } = props;
+    const { city, refreshRegions } = props;
 
     return (
         <React.Fragment>
@@ -14,11 +15,7 @@ export default function CityRow(props) {
                 <TableCell scope="row"></TableCell>
                 <TableCell scope="row">{city.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit City">
-                        <IconButton>
-                            <EditOutlinedIcon fontSize="big" />
-                        </IconButton>
-                    </Tooltip>
+                    <EditCityDialog refreshRegions={refreshRegions} />
                 </TableCell>
             </TableRow>
         </React.Fragment>
