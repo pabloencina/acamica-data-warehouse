@@ -28,7 +28,6 @@ export default function CreateCountryDialog(props) {
     };
 
     const handleClose = (e) => {
-        console.log("hola");
         setOpen(false);
     };
 

@@ -4,7 +4,6 @@ import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { postRegion } from "src/services/regionsService";
 import { useState } from "react";
@@ -79,7 +78,6 @@ export default function CreateRegionDialog(props) {
             <Dialog open={open} onClose={handleClose}>
                 <DialogTitle>Enter the name of the region</DialogTitle>
                 <DialogContent>
-                    <DialogContentText></DialogContentText>
                     <TextField
                         autoFocus
                         margin="dense"
@@ -87,7 +85,6 @@ export default function CreateRegionDialog(props) {
                         label="Name"
                         type="name"
                         fullWidth
-                        //variant="standard"
                         value={name}
                         onChange={handleNameOnChange}
                     />

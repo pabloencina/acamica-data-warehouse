@@ -12,6 +12,7 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 export default function EditRegionDialog(props) {
     const { refreshRegions } = props;
+
     const [open, setOpen] = React.useState(false);
     const [name, setName] = useState("");
 
@@ -67,16 +68,6 @@ export default function EditRegionDialog(props) {
 
     return (
         <div>
-            {/* <Button
-                sx={{ m: 1 }}
-                color="primary"
-                variant="contained"
-                onClick={(event) => {
-                    handleCreateRegion(event);
-                }}
-            >
-                Edit Region
-            </Button> */}
             <Tooltip title="Edit Region" onClick={handleEditRegion}>
                 <IconButton>
                     <EditOutlinedIcon fontSize="big" />

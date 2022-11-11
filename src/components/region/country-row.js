@@ -14,6 +14,7 @@ import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import CityRow from "./city-row";
 import CreateCountryDialog from "src/components/region/create-region-country-city/create-city-dialog";
 import CreateCityDialog from "src/components/region/create-region-country-city/create-city-dialog";
+import EditCountryDialog from "./edit-region-country-city/edit-country-dialog";
 
 export default function CountryRow(props) {
     const { country, refreshRegions } = props;
@@ -33,11 +34,7 @@ export default function CountryRow(props) {
                 </TableCell>
                 <TableCell scope="row">{country.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit Country">
-                        <IconButton>
-                            <EditOutlinedIcon fontSize="big" />
-                        </IconButton>
-                    </Tooltip>
+                    <EditCountryDialog refreshRegions={refreshRegions} />
                     <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
                 </TableCell>
             </TableRow>
