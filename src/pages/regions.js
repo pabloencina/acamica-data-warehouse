@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Container } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
-import RegionTable from "src/components/region/region";
+import RegionTable from "src/components/region/region-table";
 import { getAllRegions } from "src/services/regionsService";
 import { useEffect, useState } from "react";
 

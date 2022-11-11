@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
-import CreateRegionDialog from "src/components/region/create-region-dialog";
+import CreateRegionDialog from "src/components/region/create-region-country-city/create-region-dialog";
 
 export const RegionListToolbar = (props) => {
     const { refreshRegions } = props;

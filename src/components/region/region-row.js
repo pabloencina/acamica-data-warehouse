@@ -13,8 +13,8 @@ import Box from "@mui/material/Box";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
-import CountryRow from "./countryRow";
-import CreateCountryDialog from "src/components/region/create-country-dialog";
+import CountryRow from "./country-row";
+import CreateCountryDialog from "src/components/region/create-region-country-city/create-country-dialog";
 
 export default function RegionRow(props) {
     const { region, refreshRegions } = props;

@@ -11,9 +11,9 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
-import CityRow from "./cityRow";
-import CreateCountryDialog from "src/components/region/create-city-dialog";
-import CreateCityDialog from "src/components/region/create-city-dialog";
+import CityRow from "./city-row";
+import CreateCountryDialog from "src/components/region/create-region-country-city/create-city-dialog";
+import CreateCityDialog from "src/components/region/create-region-country-city/create-city-dialog";
 
 export default function CountryRow(props) {
     const { country, refreshRegions } = props;
