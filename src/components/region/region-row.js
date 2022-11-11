@@ -1,8 +1,5 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Tooltip } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
 import PropTypes from "prop-types";
 import * as React from "react";
 import TableRow from "@mui/material/TableRow";
@@ -15,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import CountryRow from "./country-row";
 import CreateCountryDialog from "src/components/region/create-region-country-city/create-country-dialog";
+import EditRegionDialog from "./edit-region-country-city/edit-region-dialog";
 
 export default function RegionRow(props) {
     const { region, refreshRegions } = props;
@@ -35,11 +33,7 @@ export default function RegionRow(props) {
                 </TableCell>
                 <TableCell scope="row">{region.name}</TableCell>
                 <TableCell scope="row">
-                    <Tooltip title="Edit Region">
-                        <IconButton>
-                            <EditOutlinedIcon fontSize="big" />
-                        </IconButton>
-                    </Tooltip>
+                    <EditRegionDialog />
                     <CreateCountryDialog regionId={region._id} refreshRegions={refreshRegions} />
                 </TableCell>
             </TableRow>
