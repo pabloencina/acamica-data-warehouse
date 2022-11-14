@@ -20,3 +20,15 @@ export const postRegion = async (regionToCreate) => {
 
     return null;
 };
+
+export const editRegion = async (id, regionToEdit) => {
+    if (regionToEdit && id) {
+        const body = {
+            name: regionToEdit.name,
+        };
+        const regionEdited = await axios.put(`${userURL}/${id}`, body);
+        console.log(regionEdited.data);
+        return regionEdited;
+    }
+    return null;
+};

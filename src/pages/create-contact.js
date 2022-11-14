@@ -1,17 +1,17 @@
 import Head from "next/head";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { CreateUserForm } from "../components/account/create-user-form";
 import { DashboardLayout } from "../components/dashboard-layout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
+import { CreateContactForm } from "src/components/contact/create-contact-form";
 
-const CreateUser = () => {
+const CreateContact = () => {
     const router = useRouter();
 
     return (
         <>
             <Head>
-                <title>User | Material Kit</title>
+                <title>Contact | Material Kit</title>
             </Head>
             <Box
                 component="main"
@@ -25,18 +25,18 @@ const CreateUser = () => {
                         component="a"
                         startIcon={<ArrowBackIcon fontSize="small" />}
                         onClick={() => {
-                            router.push("/users");
+                            router.push("/contacts");
                         }}
                     >
                         Back
                     </Button>
                     <Typography sx={{ mb: 3 }} variant="h4">
-                        Create user
+                        Create contact
                     </Typography>
                     <Grid container spacing={1}>
                         <Grid item lg={2} md={2} xs={2}></Grid>
                         <Grid item lg={8} md={6} xs={12}>
-                            <CreateUserForm />
+                            <CreateContactForm />
                         </Grid>
                     </Grid>
                 </Container>
@@ -45,6 +45,6 @@ const CreateUser = () => {
     );
 };
 
-CreateUser.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+CreateContact.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default CreateUser;
+export default CreateContact;
