@@ -20,10 +20,11 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
+import BtnAddChannel from "./channel-alert-dialog";
 
 export const CreateContactForm = (props) => {
     const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
-    const optionsChannel = ["Twitter", "Instagram", "Facebook", "WhatsApp", "Phone"];
+
     const optionsInterest = ["0%", "25%", "50%", "75%", "100%"];
 
     const [state, setState] = useState({
@@ -244,12 +245,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("region", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    // onInputChange={(event, newInputValue) => {
-                                    //     setState({
-                                    //         ...state,
-                                    //         profileInputValue: newInputValue,
-                                    //     });
-                                    // }}
+                                    onInputChange={(event, newInputValue) => {
+                                        setState({
+                                            ...state,
+                                            profileInputValue: newInputValue,
+                                        });
+                                    }}
                                     options={optionsPreference}
                                     renderInput={(params) => (
                                         <TextField
@@ -273,12 +274,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("country", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    // onInputChange={(event, newInputValue) => {
-                                    //     setState({
-                                    //         ...state,
-                                    //         profileInputValue: newInputValue,
-                                    //     });
-                                    // }}
+                                    onInputChange={(event, newInputValue) => {
+                                        setState({
+                                            ...state,
+                                            profileInputValue: newInputValue,
+                                        });
+                                    }}
                                     options={optionsPreference}
                                     renderInput={(params) => (
                                         <TextField
@@ -356,12 +357,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("interest", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    // onInputChange={(event, newInputValue) => {
-                                    //     setState({
-                                    //         ...state,
-                                    //         profileInputValue: newInputValue,
-                                    //     });
-                                    // }}
+                                    onInputChange={(event, newInputValue) => {
+                                        setState({
+                                            ...state,
+                                            profileInputValue: newInputValue,
+                                        });
+                                    }}
                                     options={optionsInterest}
                                     renderInput={(params) => (
                                         <TextField
@@ -376,7 +377,68 @@ export const CreateContactForm = (props) => {
                                 />
                             </Grid>
                             <Divider />
-                            <Grid item md={3} xs={12}>
+                        </Grid>
+                    </CardContent>
+                    <Divider />
+                    <Box sx={{ display: "flex", justifyContent: "end", mr: 15 }}>
+                        <BtnAddChannel />
+                    </Box>
+
+                    <Box
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            p: 2,
+                        }}
+                    >
+                        <Button
+                            color="primary"
+                            disabled={formikPersonalInformation.isSubmitting}
+                            variant="contained"
+                            underline="hover"
+                            type="submit"
+                        >
+                            Cancel
+                        </Button>
+                        <Button
+                            color="primary"
+                            disabled={formikPersonalInformation.isSubmitting}
+                            variant="contained"
+                            underline="hover"
+                            type="submit"
+                        >
+                            Create
+                        </Button>
+                    </Box>
+                </Card>
+            </form>
+
+            <Dialog
+                open={state.dialogOpen}
+                onClose={handleDialogClose}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title">{}</DialogTitle>
+
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        The user has been created successfully.
+                    </DialogContentText>
+                </DialogContent>
+
+                <DialogActions>
+                    <Button onClick={handleDialogClose}>OK</Button>
+                </DialogActions>
+            </Dialog>
+
+            {state.formError ? <Alert severity="error">{state.errorMessage}</Alert> : null}
+        </>
+    );
+};
+
+/*
+<Grid item md={3} xs={12}>
                                 <Autocomplete
                                     value={formikPersonalInformation.values.contactChannel}
                                     name="contactChannel"
@@ -467,58 +529,4 @@ export const CreateContactForm = (props) => {
                                     )}
                                 />
                             </Grid>
-                        </Grid>
-                    </CardContent>
-                    <Divider />
-                    <Box
-                        sx={{
-                            display: "flex",
-                            justifyContent: "space-around",
-                            p: 2,
-                        }}
-                    >
-                        <Button
-                            color="primary"
-                            disabled={formikPersonalInformation.isSubmitting}
-                            variant="contained"
-                            underline="hover"
-                            type="submit"
-                        >
-                            Cancel
-                        </Button>
-                        <Button
-                            color="primary"
-                            disabled={formikPersonalInformation.isSubmitting}
-                            variant="contained"
-                            underline="hover"
-                            type="submit"
-                        >
-                            Create
-                        </Button>
-                    </Box>
-                </Card>
-            </form>
-
-            <Dialog
-                open={state.dialogOpen}
-                onClose={handleDialogClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
-            >
-                <DialogTitle id="alert-dialog-title">{}</DialogTitle>
-
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                        The user has been created successfully.
-                    </DialogContentText>
-                </DialogContent>
-
-                <DialogActions>
-                    <Button onClick={handleDialogClose}>OK</Button>
-                </DialogActions>
-            </Dialog>
-
-            {state.formError ? <Alert severity="error">{state.errorMessage}</Alert> : null}
-        </>
-    );
-};
+*/
