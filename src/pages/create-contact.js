@@ -11,7 +11,7 @@ const CreateContact = () => {
     return (
         <>
             <Head>
-                <title>Contact | Material Kit</title>
+                <title>Contact</title>
             </Head>
             <Box
                 component="main"

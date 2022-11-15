@@ -11,7 +11,7 @@ const CreateUser = () => {
     return (
         <>
             <Head>
-                <title>User | Material Kit</title>
+                <title>User</title>
             </Head>
             <Box
                 component="main"

@@ -23,7 +23,7 @@ const Regions = () => {
     return (
         <>
             <Head>
-                <title>Regions | Material kit</title>
+                <title>Regions</title>
             </Head>
             <Box
                 component="main"

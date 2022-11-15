@@ -8,44 +8,42 @@ import { useEffect, useState } from "react";
 import { getAllUsers } from "src/services/usersService";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState([]);
 
-  useEffect(() => {
-    getAllUsers()
-      .then((response) => {
-        let usersResponse = response.data;
-        setUsers(usersResponse);
-      })
-      .catch((e) => {});
-  }, []);
+    useEffect(() => {
+        getAllUsers()
+            .then((response) => {
+                let usersResponse = response.data;
+                setUsers(usersResponse);
+            })
+            .catch((e) => {});
+    }, []);
 
-  return (
-    <>
-      <Head>
-        <title>Users | Material Kit</title>
-      </Head>
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          py: 8,
-        }}
-      >
-        <Container maxWidth={false}>
-          <UserListToolbar />
-          <Box sx={{ mt: 3 }}>
-            <Card>
-              <CardContent>
-                <UserTable 
-                users={users} 
-                setUsers={setUsers} />
-              </CardContent>
-            </Card>
-          </Box>
-        </Container>
-      </Box>
-    </>
-  );
+    return (
+        <>
+            <Head>
+                <title>Users</title>
+            </Head>
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    py: 8,
+                }}
+            >
+                <Container maxWidth={false}>
+                    <UserListToolbar />
+                    <Box sx={{ mt: 3 }}>
+                        <Card>
+                            <CardContent>
+                                <UserTable users={users} setUsers={setUsers} />
+                            </CardContent>
+                        </Card>
+                    </Box>
+                </Container>
+            </Box>
+        </>
+    );
 };
 Users.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 

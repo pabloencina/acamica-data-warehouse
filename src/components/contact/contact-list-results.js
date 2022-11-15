@@ -132,20 +132,18 @@ export const ContactListResults = ({ contacts, ...rest }) => {
                                                 display: "flex",
                                             }}
                                         >
-                                            <Avatar src={contact.avatarUrl} sx={{ mr: 2 }}>
-                                                {getInitials(contact.name)}
-                                            </Avatar>
                                             <Typography color="textPrimary" variant="body1">
-                                                {contact.name}
+                                                {contact.name}, {contact.surname}
+                                                <>{contact.email}</>
                                             </Typography>
                                         </Box>
                                     </TableCell>
-                                    <TableCell>{contact.email}</TableCell>
+                                    {/* <TableCell>{contact.email}</TableCell> */}
                                     <TableCell>
-                                        {`${contact.address.city}, ${contact.address.state}, ${contact.address.country}`}
+                                        {/* {`${contact.address.city}, ${contact.address.state}, ${contact.address.country}`} */}
                                     </TableCell>
                                     <TableCell>{contact.phone}</TableCell>
-                                    <TableCell>{format(contact.createdAt, "dd/MM/yyyy")}</TableCell>
+                                    {/* <TableCell>{format(contact.createdAt, "dd/MM/yyyy")}</TableCell> */}
                                 </TableRow>
                             ))}
                         </TableBody>
