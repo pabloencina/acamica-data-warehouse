@@ -15,17 +15,15 @@ import {
     DialogActions,
     DialogContentText,
     Box,
-    Drawer,
 } from "@mui/material";
 import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
-import { DriveEtaRounded } from "@mui/icons-material";
 
 export const CreateContactForm = (props) => {
     const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
-    const optionsChannel = ["TWITTER", "INSTAGRAM", "FACEBOOK", "WHATSAPP", "PHONE"];
+    const optionsChannel = ["Twitter", "Instagram", "Facebook", "WhatsApp", "Phone"];
     const optionsInterest = ["0%", "25%", "50%", "75%", "100%"];
 
     const [state, setState] = useState({
@@ -52,9 +50,10 @@ export const CreateContactForm = (props) => {
             country: "",
             city: "",
             direction: "",
-            contactChannel: "",
+            interest: "75%",
+            contactChannel: "Twitter",
             userAccount: "",
-            preferences: "",
+            preferences: "FAVORITE_CHANNEL",
         },
 
         validationSchema: Yup.object({
@@ -67,7 +66,7 @@ export const CreateContactForm = (props) => {
                 .required("Email is required"),
             position: Yup.mixed()
                 .oneOf(optionsPreference, "Position must be one of the options")
-                .required("Profile is required"),
+                .required("Position is required"),
             company: Yup.string().max(15).min(3).required("Company is required"),
         }),
 
@@ -142,7 +141,7 @@ export const CreateContactForm = (props) => {
                                     fullWidth
                                     label="Surname"
                                     name="surname"
-                                    initialValues
+                                    //initialValues
                                     onBlur={formikPersonalInformation.handleBlur}
                                     required
                                     value={formikPersonalInformation.values.surname}
@@ -184,7 +183,6 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.touched.position &&
                                             formikPersonalInformation.errors.position
                                     )}
-                                    fullWidth
                                     helperText={
                                         formikPersonalInformation.touched.position &&
                                         formikPersonalInformation.errors.position
@@ -203,13 +201,13 @@ export const CreateContactForm = (props) => {
                             <Grid item md={2} xs={12}>
                                 <TextField
                                     error={Boolean(
-                                        formikPersonalInformation.touched.password &&
-                                            formikPersonalInformation.errors.password
+                                        formikPersonalInformation.touched.company &&
+                                            formikPersonalInformation.errors.company
                                     )}
                                     fullWidth
                                     helperText={
-                                        formikPersonalInformation.touched.password &&
-                                        formikPersonalInformation.errors.password
+                                        formikPersonalInformation.touched.company &&
+                                        formikPersonalInformation.errors.company
                                     }
                                     label="Company"
                                     name="company"
@@ -217,6 +215,7 @@ export const CreateContactForm = (props) => {
                                     onBlur={formikPersonalInformation.handleBlur}
                                     //type="company"
                                     variant="outlined"
+                                    required
                                 />
                             </Grid>
                         </Grid>
@@ -245,12 +244,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("region", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setState({
-                                            ...state,
-                                            profileInputValue: newInputValue,
-                                        });
-                                    }}
+                                    // onInputChange={(event, newInputValue) => {
+                                    //     setState({
+                                    //         ...state,
+                                    //         profileInputValue: newInputValue,
+                                    //     });
+                                    // }}
                                     options={optionsPreference}
                                     renderInput={(params) => (
                                         <TextField
@@ -274,12 +273,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("country", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setState({
-                                            ...state,
-                                            profileInputValue: newInputValue,
-                                        });
-                                    }}
+                                    // onInputChange={(event, newInputValue) => {
+                                    //     setState({
+                                    //         ...state,
+                                    //         profileInputValue: newInputValue,
+                                    //     });
+                                    // }}
                                     options={optionsPreference}
                                     renderInput={(params) => (
                                         <TextField
@@ -326,14 +325,14 @@ export const CreateContactForm = (props) => {
                             <Grid item md={2.5} xs={12}>
                                 <TextField
                                     fullWidth
-                                    label="Direction"
+                                    label="Address"
                                     name="direction"
                                     placeholder="Enter an address"
                                     max="10"
                                     min="3"
                                     onChange={formikPersonalInformation.handleChange}
                                     onBlur={formikPersonalInformation.handleBlur}
-                                    required
+                                    //required
                                     value={formikPersonalInformation.values.direction}
                                     variant="outlined"
                                     error={Boolean(
@@ -357,12 +356,12 @@ export const CreateContactForm = (props) => {
                                         formikPersonalInformation.setFieldValue("interest", value)
                                     }
                                     inputValue={state.profileInputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setState({
-                                            ...state,
-                                            profileInputValue: newInputValue,
-                                        });
-                                    }}
+                                    // onInputChange={(event, newInputValue) => {
+                                    //     setState({
+                                    //         ...state,
+                                    //         profileInputValue: newInputValue,
+                                    //     });
+                                    // }}
                                     options={optionsInterest}
                                     renderInput={(params) => (
                                         <TextField
@@ -391,12 +390,12 @@ export const CreateContactForm = (props) => {
                                         )
                                     }
                                     inputValue={state.profileInputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setState({
-                                            ...state,
-                                            profileInputValue: newInputValue,
-                                        });
-                                    }}
+                                    // onInputChange={(event, newInputValue) => {
+                                    //     setState({
+                                    //         ...state,
+                                    //         profileInputValue: newInputValue,
+                                    //     });
+                                    // }}
                                     options={optionsChannel}
                                     renderInput={(params) => (
                                         <TextField
@@ -447,12 +446,12 @@ export const CreateContactForm = (props) => {
                                         )
                                     }
                                     inputValue={state.profileInputValue}
-                                    onInputChange={(event, newInputValue) => {
-                                        setState({
-                                            ...state,
-                                            profileInputValue: newInputValue,
-                                        });
-                                    }}
+                                    // onInputChange={(event, newInputValue) => {
+                                    //     setState({
+                                    //         ...state,
+                                    //         profileInputValue: newInputValue,
+                                    //     });
+                                    // }}
                                     options={optionsPreference}
                                     renderInput={(params) => (
                                         <TextField
