@@ -154,7 +154,11 @@ export const ContactListResults = (params) => {
                                         <Box>{contact.company.name}</Box>
                                     </TableCell>
                                     <TableCell>
-                                        <Box>{contact.address}</Box>
+                                        <Box>
+                                            <div>
+                                                {contact.city.name}, {contact.address}
+                                            </div>
+                                        </Box>
                                     </TableCell>
                                     <TableCell>
                                         <Box>
