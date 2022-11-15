@@ -3,7 +3,6 @@ import { Box, Container } from "@mui/material";
 import { ContactListResults } from "../components/contact/contact-list-results";
 import { ContactListToolbar } from "../components/contact/contact-list-toolbar";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { contacts } from "../__mocks__/contacts";
 import { useEffect, useState } from "react";
 import { getAllContacts } from "src/services/contactsService";
 
@@ -15,6 +14,7 @@ const Contacts = () => {
             .then((response) => {
                 let contactsResponse = response.data;
                 setContacts(contactsResponse);
+                console.log(contactsResponse);
             })
             .catch((e) => {});
     }, []);

@@ -1,27 +1,30 @@
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
-import { format } from "date-fns";
 import {
-    Avatar,
     Box,
     Button,
     Card,
     Checkbox,
+    IconButton,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TablePagination,
     TableRow,
+    Tooltip,
     Typography,
 } from "@mui/material";
-import { getInitials } from "../../utils/get-initials";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 
 const Impexpicons = SwapVertIcon;
 
-export const ContactListResults = ({ contacts, ...rest }) => {
+export const ContactListResults = (params) => {
+    const { contacts, setContacts } = params;
+
     const [selectedContactIds, setSelectedContactIds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
@@ -67,7 +70,7 @@ export const ContactListResults = ({ contacts, ...rest }) => {
     };
 
     return (
-        <Card {...rest}>
+        <Card>
             <PerfectScrollbar>
                 <Box sx={{ minWidth: 1000 }}>
                     <Table>
@@ -88,25 +91,28 @@ export const ContactListResults = ({ contacts, ...rest }) => {
 
                                 <TableCell>
                                     Contact
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                                    <Button startIcon={<Impexpicons />}></Button>
                                 </TableCell>
                                 <TableCell>
-                                    Region/city
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                                    Position
+                                    <Button startIcon={<Impexpicons />}></Button>
                                 </TableCell>
                                 <TableCell>
                                     Company
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                                    <Button startIcon={<Impexpicons />}></Button>
+                                </TableCell>
+                                <TableCell>
+                                    Address
+                                    <Button startIcon={<Impexpicons />}></Button>
+                                </TableCell>
+                                <TableCell>
+                                    Channels
+                                    <Button startIcon={<Impexpicons />}></Button>
                                 </TableCell>
 
                                 <TableCell>
-                                    Position
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                                </TableCell>
-
-                                <TableCell>
-                                    interests
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                                    Interest
+                                    <Button startIcon={<Impexpicons />}></Button>
                                 </TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
@@ -128,22 +134,52 @@ export const ContactListResults = ({ contacts, ...rest }) => {
                                     <TableCell>
                                         <Box
                                             sx={{
-                                                alignItems: "center",
+                                                // alignItems: "center",
                                                 display: "flex",
+                                                width: 175,
                                             }}
                                         >
-                                            <Typography color="textPrimary" variant="body1">
-                                                {contact.name}, {contact.surname}
-                                                <>{contact.email}</>
+                                            <Typography color="textPrimary">
+                                                <>
+                                                    {contact.name}, {contact.surname}{" "}
+                                                    {contact.email}
+                                                </>
                                             </Typography>
                                         </Box>
                                     </TableCell>
-                                    {/* <TableCell>{contact.email}</TableCell> */}
                                     <TableCell>
-                                        {/* {`${contact.address.city}, ${contact.address.state}, ${contact.address.country}`} */}
+                                        <Box>{contact.position}</Box>
                                     </TableCell>
-                                    <TableCell>{contact.phone}</TableCell>
-                                    {/* <TableCell>{format(contact.createdAt, "dd/MM/yyyy")}</TableCell> */}
+                                    <TableCell>
+                                        <Box>{contact.company.name}</Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>{contact.address}</Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>
+                                            {contact.channels.map((channel) => {
+                                                return <div>{channel.channel.name}</div>;
+                                            })}
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>{contact.interest} %</Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>
+                                            <Tooltip title="Delete Contact">
+                                                <IconButton onClick={() => {}}>
+                                                    <DeleteOutlineIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <Tooltip title="Edit Contact">
+                                                <IconButton>
+                                                    <EditOutlinedIcon fontSize="big" />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Box>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
