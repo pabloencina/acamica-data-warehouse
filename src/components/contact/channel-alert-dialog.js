@@ -43,33 +43,28 @@ export default function ChannelAlertDialog() {
 
     const formikPersonalInformation = useFormik({
         initialValues: {
-            region: "",
-            country: "",
-            city: "",
-            direction: "",
-            interest: "75%",
             contactChannel: "Twitter",
             userAccount: "",
             preferences: "Favorite_Channel",
         },
 
-        validationSchema: Yup.object({
-            name: Yup.string().max(10).min(3).required("Name is required"),
-            surname: Yup.string().max(15).min(3).required("Surname is required"),
-            email: Yup.string()
-                .email("Must be a valid email")
-                .max(40)
-                .min(10)
-                .required("Email is required"),
-            position: Yup.mixed()
-                .oneOf(optionsPreference, "Position must be one of the options")
-                .required("Position is required"),
-            company: Yup.string().max(15).min(3).required("Company is required"),
-        }),
+        // validationSchema: Yup.object({
+        //     name: Yup.string().max(10).min(3).required("Name is required"),
+        //     surname: Yup.string().max(15).min(3).required("Surname is required"),
+        //     email: Yup.string()
+        //         .email("Must be a valid email")
+        //         .max(40)
+        //         .min(10)
+        //         .required("Email is required"),
+        //     position: Yup.mixed()
+        //         .oneOf(optionsPreference, "Position must be one of the options")
+        //         .required("Position is required"),
+        //     company: Yup.string().max(15).min(3).required("Company is required"),
+        // }),
 
         onSubmit: async (values) => {
             try {
-                const response = await postUser(values);
+                const response = await postContact(values);
 
                 //console.log(response);
                 setState({

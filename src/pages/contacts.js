@@ -14,7 +14,6 @@ const Contacts = () => {
             .then((response) => {
                 let contactsResponse = response.data;
                 setContacts(contactsResponse);
-                console.log(contactsResponse);
             })
             .catch((e) => {});
     }, []);
