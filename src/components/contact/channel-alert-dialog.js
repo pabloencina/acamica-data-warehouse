@@ -1,15 +1,3 @@
-// import { Button } from "@mui/material";
-// import React from "react";
-
-// const BtnAddChannel = () => {
-//     return (
-//         <>
-//             <Button>Add Channel</Button>
-//         </>
-//     );
-// };
-
-// export default BtnAddChannel;
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
@@ -20,14 +8,13 @@ import { Autocomplete, Grid, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function ChannelAlertDialog() {
-    const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
+    const optionsPreference = ["No_Preference", "Favorite_Channel", "Do_Not_Disturb"];
     const optionsChannel = ["Twitter", "Instagram", "Facebook", "WhatsApp", "Phone"];
 
     const [open, setOpen] = useState(false);
@@ -40,6 +27,12 @@ export default function ChannelAlertDialog() {
         error: false,
     });
 
+    const inputChange = (event, newInputValue) => {
+        setState({
+            ...state,
+            profileInputValue: newInputValue,
+        });
+    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -57,7 +50,7 @@ export default function ChannelAlertDialog() {
             interest: "75%",
             contactChannel: "Twitter",
             userAccount: "",
-            preferences: "FAVORITE_CHANNEL",
+            preferences: "Favorite_Channel",
         },
 
         validationSchema: Yup.object({
@@ -134,13 +127,7 @@ export default function ChannelAlertDialog() {
                                 onChange={(e, value) =>
                                     formikPersonalInformation.setFieldValue("contactChannel", value)
                                 }
-                                inputValue={state.profileInputValue}
-                                onInputChange={(event, newInputValue) => {
-                                    setState({
-                                        ...state,
-                                        profileInputValue: newInputValue,
-                                    });
-                                }}
+                                //inputValue={inputChange}
                                 options={optionsChannel}
                                 renderInput={(params) => (
                                     <TextField
@@ -186,12 +173,7 @@ export default function ChannelAlertDialog() {
                                     formikPersonalInformation.setFieldValue("preferences", value)
                                 }
                                 inputValue={state.profileInputValue}
-                                // onInputChange={(event, newInputValue) => {
-                                //     setState({
-                                //         ...state,
-                                //         profileInputValue: newInputValue,
-                                //     });
-                                // }}
+                                onInputChange={inputChange}
                                 options={optionsPreference}
                                 renderInput={(params) => (
                                     <TextField

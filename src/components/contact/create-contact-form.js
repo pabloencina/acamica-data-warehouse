@@ -21,6 +21,8 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
 import BtnAddChannel from "./channel-alert-dialog";
+import ChannelAlertDialog from "./channel-alert-dialog";
+import TableAddChannels from "./table-add-channels";
 
 export const CreateContactForm = (props) => {
     const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
@@ -380,8 +382,11 @@ export const CreateContactForm = (props) => {
                         </Grid>
                     </CardContent>
                     <Divider />
-                    <Box sx={{ display: "flex", justifyContent: "end", mr: 15 }}>
-                        <BtnAddChannel />
+                    <Box sx={{ display: "flex", justifyContent: "end", mr: 15, mt: 2 }}>
+                        <ChannelAlertDialog />
+                    </Box>
+                    <Box sx={{ mt: 2 }}>
+                        <TableAddChannels />
                     </Box>
 
                     <Box
