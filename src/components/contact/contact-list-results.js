@@ -19,12 +19,13 @@ import {
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import { useRouter } from "next/router";
 
 const Impexpicons = SwapVertIcon;
 
 export const ContactListResults = (params) => {
     const { contacts, setContacts } = params;
-
+    const router = useRouter();
     const [selectedContactIds, setSelectedContactIds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);

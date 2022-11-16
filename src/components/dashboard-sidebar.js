@@ -30,7 +30,7 @@ const items = [
     {
         href: "/regions",
         icon: <CogIcon fontSize="small" />,
-        title: "Region/city",
+        title: "Regions",
     },
     {
         href: "/register",
@@ -68,12 +68,21 @@ export const DashboardSidebar = (props) => {
 
     const content = (
         <>
-            <Logo
+            <Box
                 sx={{
+                    marginTop: 3,
                     display: "flex",
-                    height: "30%",
+                    justifyContent: "center",
+                    height: "10%",
                 }}
-            ></Logo>
+            >
+                <Logo
+                    sx={{
+                        display: "flex",
+                        height: "100%",
+                    }}
+                ></Logo>
+            </Box>
             <Box
                 sx={{
                     display: "flex",
@@ -84,7 +93,7 @@ export const DashboardSidebar = (props) => {
                 <Divider
                     sx={{
                         borderColor: "#2D3748",
-                        my: 3,
+                        my: 2,
                     }}
                 />
                 <Box sx={{ flexGrow: 1 }}>
@@ -115,7 +124,7 @@ export const DashboardSidebar = (props) => {
                 open
                 PaperProps={{
                     sx: {
-                        backgroundColor: "neBASICutral.900",
+                        backgroundColor: "neutral.900",
                         color: "#FFFFFF",
                         width: 160,
                     },
