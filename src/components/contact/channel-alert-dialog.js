@@ -28,7 +28,28 @@ export default function AddChannelDialog() {
             label: "Don't Disturb",
         },
     ];
-    const optionsChannel = ["Twitter", "Instagram", "Facebook", "WhatsApp", "Phone"];
+    const optionsChannel = [
+        {
+            value: "TWITTER",
+            label: "Twitter",
+        },
+        {
+            value: "INSTAGRAM",
+            label: "Instagram",
+        },
+        {
+            value: "FACEBOOK",
+            label: "Facebook",
+        },
+        {
+            value: "WHATSAPP",
+            label: "WhatsApp",
+        },
+        {
+            value: "PHONE",
+            label: "Phone",
+        },
+    ];
 
     const [open, setOpen] = useState(false);
 
@@ -49,7 +70,7 @@ export default function AddChannelDialog() {
 
     const formikContactChannel = useFormik({
         initialValues: {
-            channel: "Twitter",
+            channel: optionsChannel[0].value,
             userAccount: "",
             preference: optionsPreference[0].value,
         },
@@ -109,27 +130,29 @@ export default function AddChannelDialog() {
                         sx={{ display: "flex", justifyContent: "space-between", height: 450 }}
                     >
                         <Grid item md={12} xs={12}>
-                            <Autocomplete
-                                value={formikContactChannel.values.channel}
+                            <TextField
+                                // labelId="contact-channel-preference"
+                                // id="contact-channel-preference"
                                 name="contactChannel"
-                                fullWidth
+                                fullWidth="true"
+                                select="true"
+                                value={formikContactChannel.values.contactChannel}
+                                label="Contact channel"
                                 variant="outlined"
-                                onBlur={formikContactChannel.handleBlur}
-                                onChange={(e, value) =>
-                                    formikContactChannel.setFieldValue("contactChannel", value)
-                                }
-                                //inputValue={inputChange}
-                                options={optionsChannel}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        error={Boolean(formikContactChannel.errors.channel)}
-                                        helperText={formikContactChannel.errors.channel}
-                                        label="Contact channel"
-                                        placeholder="Select channel"
-                                    />
-                                )}
-                            />
+                                // onBlur={formikContactChannel.handleBlur}
+                                onChange={(event) => {
+                                    formikContactChannel.setFieldValue(
+                                        "contactChannel",
+                                        event.target.value
+                                    );
+                                }}
+                            >
+                                <MenuItem value={"TWITTER"}>Twitter</MenuItem>
+                                <MenuItem value={"INSTAGRAM"}>Instagram</MenuItem>
+                                <MenuItem value={"FACEBOOK"}>Facebook</MenuItem>
+                                <MenuItem value={"WHATSAPP"}>WhatsApp</MenuItem>
+                                <MenuItem value={"PHONE"}>Phone</MenuItem>
+                            </TextField>
                         </Grid>
                         <Grid item md={12} xs={12}>
                             <TextField
@@ -152,28 +175,6 @@ export default function AddChannelDialog() {
                             />
                         </Grid>
                         <Grid item md={12} xs={12}>
-                            {/* <Autocomplete
-                                value={formikContactChannel.values.preference}
-                                name="preferences"
-                                fullWidth
-                                variant="outlined"
-                                onBlur={formikContactChannel.handleBlur}
-                                onChange={(e, value) =>
-                                    formikContactChannel.setFieldValue("preference", value)
-                                }
-                                inputValue={state.profileInputValue}
-                                onInputChange={inputChange}
-                                options={optionsPreference}
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        error={Boolean(formikContactChannel.errors.preference)}
-                                        helperText={formikContactChannel.errors.preference}
-                                        label="Preference"
-                                    />
-                                )}
-                            /> */}
-
                             <TextField
                                 // labelId="contact-channel-preference"
                                 // id="contact-channel-preference"
