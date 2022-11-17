@@ -25,31 +25,13 @@ export default function TableAddChannels() {
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>Contact</TableCell>
-                        <TableCell align="right">Position</TableCell>
-                        <TableCell align="right">Company</TableCell>
-                        <TableCell align="right">Address</TableCell>
-                        <TableCell align="right">Channels</TableCell>
-                        <TableCell align="right">Interest</TableCell>
-                        <TableCell align="right">Actions</TableCell>
+                        <TableCell align="center">Channel</TableCell>
+                        <TableCell align="center">Account</TableCell>
+                        <TableCell align="center">Preference</TableCell>
+                        <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>
-                    {/* {rows.map((row) => (
-                        <TableRow
-                            key={row.name}
-                            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.name}
-                            </TableCell>
-                            <TableCell align="right">{row.calories}</TableCell>
-                            <TableCell align="right">{row.fat}</TableCell>
-                            <TableCell align="right">{row.carbs}</TableCell>
-                            <TableCell align="right">{row.protein}</TableCell>
-                        </TableRow>
-                    ))} */}
-                </TableBody>
+                <TableBody></TableBody>
             </Table>
         </TableContainer>
     );

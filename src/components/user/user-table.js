@@ -62,7 +62,7 @@ export const UserTable = (params) => {
 
                 return (
                     <div>
-                        <Tooltip title="Edit">
+                        <Tooltip title="Edit user">
                             <IconButton
                                 onClick={() => {
                                     // https://github.com/vercel/next.js/discussions/17008

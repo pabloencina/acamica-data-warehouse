@@ -239,20 +239,12 @@ const CardRegionInformation = () => {
             <Box
                 sx={{
                     display: "flex",
-                    justifyContent: "space-around",
-                    p: 2,
+                    justifyContent: "end",
+                    p: 5,
                 }}
             >
                 <Button
-                    color="primary"
-                    disabled={formikPersonalInformation.isSubmitting}
-                    variant="contained"
-                    underline="hover"
-                    type="submit"
-                >
-                    Cancel
-                </Button>
-                <Button
+                    sx={{}}
                     color="primary"
                     disabled={formikPersonalInformation.isSubmitting}
                     variant="contained"

@@ -20,6 +20,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRouter } from "next/router";
+import AlertDeleteContact from "./alert-delete-contact";
 
 const Impexpicons = SwapVertIcon;
 
@@ -173,13 +174,15 @@ export const ContactListResults = (params) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
-                                            <Tooltip title="Delete Contact">
-                                                <IconButton onClick={() => {}}>
-                                                    <DeleteOutlineIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <AlertDeleteContact setContacts={setContacts} />
                                             <Tooltip title="Edit Contact">
-                                                <IconButton>
+                                                <IconButton
+                                                    onClick={() => {
+                                                        // https://github.com/vercel/next.js/discussions/17008
+                                                        router.push("/edit-contact");
+                                                        console.log(params.row);
+                                                    }}
+                                                >
                                                     <EditOutlinedIcon fontSize="big" />
                                                 </IconButton>
                                             </Tooltip>
