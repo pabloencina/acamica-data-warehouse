@@ -44,7 +44,7 @@ const NotFound = () => (
                             }}
                         />
                     </Box>
-                    <NextLink href="/" passHref>
+                    <NextLink href="/contacts" passHref>
                         <Button
                             component="a"
                             startIcon={<ArrowBackIcon fontSize="small" />}

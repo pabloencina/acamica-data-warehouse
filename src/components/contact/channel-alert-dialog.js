@@ -4,7 +4,7 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
-import { Autocomplete, Grid, TextField } from "@mui/material";
+import { Autocomplete, Grid, MenuItem, Select, TextField } from "@mui/material";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
@@ -13,26 +13,32 @@ const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ChannelAlertDialog() {
-    const optionsPreference = ["No_Preference", "Favorite_Channel", "Do_Not_Disturb"];
+export default function AddChannelDialog() {
+    const optionsPreference = [
+        {
+            value: "NO_PREFERENCE",
+            label: "No Preference",
+        },
+        {
+            value: "FAVORITE_CHANNEL",
+            label: "Favorite Channel",
+        },
+        {
+            value: "DO_NOT_DISTURB",
+            label: "Don't Disturb",
+        },
+    ];
     const optionsChannel = ["Twitter", "Instagram", "Facebook", "WhatsApp", "Phone"];
 
     const [open, setOpen] = useState(false);
 
     const [state, setState] = useState({
-        profileInputValue: "",
         formError: false,
         dialogOpen: false,
         errorMessage: "",
         error: false,
     });
 
-    const inputChange = (event, newInputValue) => {
-        setState({
-            ...state,
-            profileInputValue: newInputValue,
-        });
-    };
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -41,26 +47,16 @@ export default function ChannelAlertDialog() {
         setOpen(false);
     };
 
-    const formikPersonalInformation = useFormik({
+    const formikContactChannel = useFormik({
         initialValues: {
-            contactChannel: "Twitter",
+            channel: "Twitter",
             userAccount: "",
-            preferences: "Favorite_Channel",
+            preference: optionsPreference[0].value,
         },
 
-        // validationSchema: Yup.object({
-        //     name: Yup.string().max(10).min(3).required("Name is required"),
-        //     surname: Yup.string().max(15).min(3).required("Surname is required"),
-        //     email: Yup.string()
-        //         .email("Must be a valid email")
-        //         .max(40)
-        //         .min(10)
-        //         .required("Email is required"),
-        //     position: Yup.mixed()
-        //         .oneOf(optionsPreference, "Position must be one of the options")
-        //         .required("Position is required"),
-        //     company: Yup.string().max(15).min(3).required("Company is required"),
-        // }),
+        validationSchema: Yup.object({
+            userAccount: Yup.string().max(10).min(3).required("User account is required"),
+        }),
 
         onSubmit: async (values) => {
             try {
@@ -114,23 +110,21 @@ export default function ChannelAlertDialog() {
                     >
                         <Grid item md={12} xs={12}>
                             <Autocomplete
-                                value={formikPersonalInformation.values.contactChannel}
+                                value={formikContactChannel.values.channel}
                                 name="contactChannel"
                                 fullWidth
                                 variant="outlined"
-                                onBlur={formikPersonalInformation.handleBlur}
+                                onBlur={formikContactChannel.handleBlur}
                                 onChange={(e, value) =>
-                                    formikPersonalInformation.setFieldValue("contactChannel", value)
+                                    formikContactChannel.setFieldValue("contactChannel", value)
                                 }
                                 //inputValue={inputChange}
                                 options={optionsChannel}
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        error={Boolean(
-                                            formikPersonalInformation.errors.contactChannel
-                                        )}
-                                        helperText={formikPersonalInformation.errors.contactChannel}
+                                        error={Boolean(formikContactChannel.errors.channel)}
+                                        helperText={formikContactChannel.errors.channel}
                                         label="Contact channel"
                                         placeholder="Select channel"
                                     />
@@ -140,32 +134,32 @@ export default function ChannelAlertDialog() {
                         <Grid item md={12} xs={12}>
                             <TextField
                                 error={Boolean(
-                                    formikPersonalInformation.touched.userAccount &&
-                                        formikPersonalInformation.errors.userAccount
+                                    formikContactChannel.touched.userAccount &&
+                                        formikContactChannel.errors.userAccount
                                 )}
                                 fullWidth
                                 helperText={
-                                    formikPersonalInformation.touched.userAccount &&
-                                    formikPersonalInformation.errors.userAccount
+                                    formikContactChannel.touched.userAccount &&
+                                    formikContactChannel.errors.userAccount
                                 }
                                 label="User account"
                                 name="userAccount"
                                 placeholder="andres_diMaria@gmail.com"
-                                onChange={formikPersonalInformation.handleChange}
-                                onBlur={formikPersonalInformation.handleBlur}
+                                onChange={formikContactChannel.handleChange}
+                                onBlur={formikContactChannel.handleBlur}
                                 //type="password"
                                 variant="outlined"
                             />
                         </Grid>
                         <Grid item md={12} xs={12}>
-                            <Autocomplete
-                                value={formikPersonalInformation.values.preferences}
+                            {/* <Autocomplete
+                                value={formikContactChannel.values.preference}
                                 name="preferences"
                                 fullWidth
                                 variant="outlined"
-                                onBlur={formikPersonalInformation.handleBlur}
+                                onBlur={formikContactChannel.handleBlur}
                                 onChange={(e, value) =>
-                                    formikPersonalInformation.setFieldValue("preferences", value)
+                                    formikContactChannel.setFieldValue("preference", value)
                                 }
                                 inputValue={state.profileInputValue}
                                 onInputChange={inputChange}
@@ -173,22 +167,43 @@ export default function ChannelAlertDialog() {
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        error={Boolean(
-                                            formikPersonalInformation.errors.preferences
-                                        )}
-                                        helperText={formikPersonalInformation.errors.preferences}
-                                        label="Preferences"
+                                        error={Boolean(formikContactChannel.errors.preference)}
+                                        helperText={formikContactChannel.errors.preference}
+                                        label="Preference"
                                     />
                                 )}
-                            />
+                            /> */}
+
+                            <TextField
+                                // labelId="contact-channel-preference"
+                                // id="contact-channel-preference"
+                                name="preference"
+                                fullWidth="true"
+                                select="true"
+                                value={formikContactChannel.values.preference}
+                                label="Preference"
+                                variant="outlined"
+                                // onBlur={formikContactChannel.handleBlur}
+                                onChange={(event) => {
+                                    formikContactChannel.setFieldValue(
+                                        "preference",
+                                        event.target.value
+                                    );
+                                }}
+                            >
+                                <MenuItem value={"NO_PREFERENCE"}>No Preference</MenuItem>
+                                <MenuItem value={"FAVORITE_CHANNEL"}>Favorite Channel</MenuItem>
+                                <MenuItem value={"DO_NOT_DISTURB"}>Don't Disturb</MenuItem>
+                            </TextField>
                         </Grid>
                     </Grid>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions sx={{ p: 1 }}>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleClose}>Confirm</Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
+    33;
 }

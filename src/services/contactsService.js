@@ -14,12 +14,15 @@ export const getContactById = async (id) => {
 export const editContact = async (id, contactToEdit) => {
     if (contactToEdit && id) {
         const body = {
-            contact: contactToEdit.contact,
+            name: contactToEdit.name,
+            surname: contactToEdit.surname,
+            email: contactToEdit.email,
             position: contactToEdit.position,
             company: contactToEdit.company,
+            //region: contactToEdit.region,
+            //country: contactToEdit.country,
+            //city: contactToEdit.city,
             address: contactToEdit.address,
-            channels: contactToEdit.channels,
-            interest: contactToEdit.interest,
         };
         const contactEdited = await axios.put(`${contactURL}/${id}`, body);
         console.log(contactEdited.data);

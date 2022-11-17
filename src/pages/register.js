@@ -56,7 +56,7 @@ const Register = () => {
                 }}
             >
                 <Container maxWidth="sm">
-                    <NextLink href="/" passHref>
+                    <NextLink href="/contacts" passHref>
                         <Button component="a" startIcon={<ArrowBackIcon fontSize="small" />}>
                             Back
                         </Button>

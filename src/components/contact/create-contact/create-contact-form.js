@@ -19,7 +19,7 @@ import {
 import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import ChannelAlertDialog from "../channel-alert-dialog";
+import AddChannelDialog from "../channel-alert-dialog";
 import TableAddChannels from "../table-add-channels";
 import CardPersonalInformation from "./card-personal-information";
 import CardRegionInformation from "./card-region-information";
@@ -103,7 +103,7 @@ export const CreateContactForm = (props) => {
         },
     });
     return (
-        <>
+        <div sx={{ display: "flex", justifyContent: "space-between" }}>
             <form {...props} onSubmit={formikPersonalInformation.handleSubmit}>
                 <CardPersonalInformation />
                 <Divider />
@@ -131,6 +131,6 @@ export const CreateContactForm = (props) => {
             </Dialog>
 
             {state.formError ? <Alert severity="error">{state.errorMessage}</Alert> : null}
-        </>
+        </div>
     );
 };

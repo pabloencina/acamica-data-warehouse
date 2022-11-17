@@ -12,7 +12,7 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useState } from "react";
-import ChannelAlertDialog from "../channel-alert-dialog";
+import AddChannelDialog from "../channel-alert-dialog";
 import TableAddChannels from "../table-add-channels";
 
 const CardRegionInformation = () => {
@@ -230,7 +230,7 @@ const CardRegionInformation = () => {
             </CardContent>
             <Divider />
             <Box sx={{ display: "flex", justifyContent: "end", mr: 15, mt: 2 }}>
-                <ChannelAlertDialog />
+                <AddChannelDialog />
             </Box>
             <Box sx={{ mt: 2 }}>
                 <TableAddChannels />
