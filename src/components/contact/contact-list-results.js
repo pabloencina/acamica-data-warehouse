@@ -26,6 +26,7 @@ const Impexpicons = SwapVertIcon;
 
 export const ContactListResults = (params) => {
     const { contacts, setContacts } = params;
+    console.log(contacts);
     const router = useRouter();
     const [selectedContactIds, setSelectedContactIds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -165,7 +166,7 @@ export const ContactListResults = (params) => {
                                     <TableCell>
                                         <Box>
                                             {contact.channels.map((channel) => {
-                                                return <div>{channel.channel.name}</div>;
+                                                return <div>{channel.channel}</div>;
                                             })}
                                         </Box>
                                     </TableCell>

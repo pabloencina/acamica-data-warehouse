@@ -2,9 +2,9 @@ import Head from "next/head";
 import { Box, Container, Card, CardContent } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
-import { getAllUsers as getAllCompanies } from "src/services/usersService";
 import { CompanyListToolbar } from "src/components/company/company-list-toolbar";
 import { CompanyTable } from "src/components/company/company-table";
+import { getAllCompanies } from "src/services/companiesService";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);

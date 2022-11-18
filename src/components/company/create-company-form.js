@@ -46,7 +46,6 @@ export const CreateCompanyForm = (props) => {
             address: "",
             email: "",
             phone: "",
-            city: "",
         },
 
         validationSchema: Yup.object({
@@ -158,20 +157,6 @@ export const CreateCompanyForm = (props) => {
                                     variant="outlined"
                                     error={Boolean(formik.touched.phone && formik.errors.phone)}
                                     helperText={formik.touched.phone && formik.errors.phone}
-                                />
-                            </Grid>
-
-                            <Grid item md={6} xs={12}>
-                                <TextField
-                                    error={Boolean(formik.touched.city && formik.errors.city)}
-                                    fullWidth
-                                    helperText={formik.touched.city && formik.errors.city}
-                                    label="City"
-                                    name="city"
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
-                                    type="text"
-                                    variant="outlined"
                                 />
                             </Grid>
                         </Grid>
