@@ -159,6 +159,20 @@ export const CreateCompanyForm = (props) => {
                                     helperText={formik.touched.phone && formik.errors.phone}
                                 />
                             </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="City"
+                                    name="city"
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    required
+                                    value={formik.values.city}
+                                    variant="outlined"
+                                    error={Boolean(formik.touched.city && formik.errors.city)}
+                                    helperText={formik.touched.city && formik.errors.city}
+                                />
+                            </Grid>
                         </Grid>
                     </CardContent>
                     <Divider />

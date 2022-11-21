@@ -6,11 +6,11 @@ import * as Yup from "yup";
 const CardPersonalInformation = () => {
     const formikPersonalInformation = useFormik({
         initialValues: {
-            region: "",
-            country: "",
-            city: "",
-            direction: "",
-            interest: "75%",
+            // region: "",
+            // country: "",
+            // city: "",
+            // direction: "",
+            // interest: "75%",
         },
 
         validationSchema: Yup.object({
@@ -27,37 +27,37 @@ const CardPersonalInformation = () => {
             company: Yup.string().max(15).min(3).required("Company is required"),
         }),
 
-        onSubmit: async (values) => {
-            try {
-                const response = await postContact(values);
+        // onSubmit: async (values) => {
+        //     try {
+        //         const response = await postContact(values);
 
-                //console.log(response);
-                setState({
-                    ...state,
-                    dialogOpen: true,
-                    formError: false,
-                });
-            } catch (error) {
-                let message = "Contact creation failed.";
-                if (error.response) {
-                    if (error.response.status === 400) {
-                        message += " Please verify the fields in the form.";
-                    } else if (error.response.status === 409) {
-                        message += " The email already exists in the database.";
-                    } else if (error.response.status === 500) {
-                        message += " There's issues in the server. Please try again later...";
-                    }
-                } else {
-                    message += " Can't connect with the server. Please try again later...";
-                }
-                console.log(error.response);
-                setState({
-                    ...state,
-                    errorMessage: message,
-                    formError: true,
-                });
-            }
-        },
+        //         //console.log(response);
+        //         setState({
+        //             ...state,
+        //             dialogOpen: true,
+        //             formError: false,
+        //         });
+        //     } catch (error) {
+        //         let message = "Contact creation failed.";
+        //         if (error.response) {
+        //             if (error.response.status === 400) {
+        //                 message += " Please verify the fields in the form.";
+        //             } else if (error.response.status === 409) {
+        //                 message += " The email already exists in the database.";
+        //             } else if (error.response.status === 500) {
+        //                 message += " There's issues in the server. Please try again later...";
+        //             }
+        //         } else {
+        //             message += " Can't connect with the server. Please try again later...";
+        //         }
+        //         console.log(error.response);
+        //         setState({
+        //             ...state,
+        //             errorMessage: message,
+        //             formError: true,
+        //         });
+        //     }
+        // },
     });
     return (
         <Card sx={{ marginLeft: -20, width: 1050 }}>

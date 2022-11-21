@@ -6,6 +6,7 @@ import {
     CardContent,
     Divider,
     Grid,
+    MenuItem,
     TextField,
 } from "@mui/material";
 import React from "react";
@@ -18,7 +19,28 @@ import TableAddChannels from "../table-add-channels";
 const CardRegionInformation = () => {
     const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
 
-    const optionsInterest = ["0%", "25%", "50%", "75%", "100%"];
+    const optionsInterest = [
+        {
+            value: "0%",
+            label: "0%",
+        },
+        {
+            value: "25%",
+            label: "25%",
+        },
+        {
+            value: "50%",
+            label: "50%",
+        },
+        {
+            value: "75%",
+            label: "75%",
+        },
+        {
+            value: "100%",
+            label: "100%",
+        },
+    ];
     const [state, setState] = useState({
         profileInputValue: "",
         formError: false,
@@ -31,8 +53,8 @@ const CardRegionInformation = () => {
             region: "",
             country: "",
             city: "",
-            direction: "",
-            interest: "75%",
+            address: "",
+            interest: optionsInterest[0].value,
         },
 
         validationSchema: Yup.object({
@@ -49,37 +71,37 @@ const CardRegionInformation = () => {
             company: Yup.string().max(15).min(3).required("Company is required"),
         }),
 
-        onSubmit: async (values) => {
-            try {
-                const response = await postContact(values);
+        // onSubmit: async (values) => {
+        //     try {
+        //         const response = await postContact(values);
 
-                //console.log(response);
-                setState({
-                    ...state,
-                    dialogOpen: true,
-                    formError: false,
-                });
-            } catch (error) {
-                let message = "Contact creation failed.";
-                if (error.response) {
-                    if (error.response.status === 400) {
-                        message += " Please verify the fields in the form.";
-                    } else if (error.response.status === 409) {
-                        message += " The email already exists in the database.";
-                    } else if (error.response.status === 500) {
-                        message += " There's issues in the server. Please try again later...";
-                    }
-                } else {
-                    message += " Can't connect with the server. Please try again later...";
-                }
-                console.log(error.response);
-                setState({
-                    ...state,
-                    errorMessage: message,
-                    formError: true,
-                });
-            }
-        },
+        //         //console.log(response);
+        //         setState({
+        //             ...state,
+        //             dialogOpen: true,
+        //             formError: false,
+        //         });
+        //     } catch (error) {
+        //         let message = "Contact creation failed.";
+        //         if (error.response) {
+        //             if (error.response.status === 400) {
+        //                 message += " Please verify the fields in the form.";
+        //             } else if (error.response.status === 409) {
+        //                 message += " The email already exists in the database.";
+        //             } else if (error.response.status === 500) {
+        //                 message += " There's issues in the server. Please try again later...";
+        //             }
+        //         } else {
+        //             message += " Can't connect with the server. Please try again later...";
+        //         }
+        //         console.log(error.response);
+        //         setState({
+        //             ...state,
+        //             errorMessage: message,
+        //             formError: true,
+        //         });
+        //     }
+        // },
     });
     return (
         <Card sx={{ marginLeft: -20, width: 1050 }}>
@@ -88,14 +110,20 @@ const CardRegionInformation = () => {
             <CardContent>
                 <Grid container spacing={3} sx={{ display: "flex", justifyContent: "center" }}>
                     <Grid item md={2.5} s={12}>
-                        <Autocomplete
+                        <TextField
                             value={formikPersonalInformation.values.region}
                             name="region"
-                            fullWidth
+                            select="true"
+                            fullWidth="true"
                             variant="outlined"
-                            onBlur={formikPersonalInformation.handleBlur}
-                            onChange={(e, value) =>
-                                formikPersonalInformation.setFieldValue("region", value)
+                            label="Region"
+                            placeholder="Select region"
+                            //onBlur={formikPersonalInformation.handleBlur}
+                            onChange={(event) =>
+                                formikPersonalInformation.setFieldValue(
+                                    "region",
+                                    event.target.value
+                                )
                             }
                             inputValue={state.profileInputValue}
                             onInputChange={(event, newInputValue) => {
@@ -105,21 +133,24 @@ const CardRegionInformation = () => {
                                 });
                             }}
                             options={optionsPreference}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    error={Boolean(formikPersonalInformation.errors.region)}
-                                    helperText={formikPersonalInformation.errors.region}
-                                    label="Region"
-                                    placeholder="Select region"
-                                />
-                            )}
+                            // renderInput={(params) => (
+                            //     <TextField
+                            //         {...params}
+                            //         error={Boolean(formikPersonalInformation.errors.region)}
+                            //         helperText={formikPersonalInformation.errors.region}
+                            //         label="Region"
+                            //         placeholder="Select region"
+                            //     />
+                            // )}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
-                        <Autocomplete
+                        <TextField
                             value={formikPersonalInformation.values.country}
                             name="country"
+                            select
+                            label="Country"
+                            placeholder="Select country"
                             fullWidth
                             variant="outlined"
                             onBlur={formikPersonalInformation.handleBlur}
@@ -134,21 +165,24 @@ const CardRegionInformation = () => {
                                 });
                             }}
                             options={optionsPreference}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    error={Boolean(formikPersonalInformation.errors.country)}
-                                    helperText={formikPersonalInformation.errors.country}
-                                    label="Country"
-                                    placeholder="Select country"
-                                />
-                            )}
+                            // renderInput={(params) => (
+                            //     <TextField
+                            //         {...params}
+                            //         error={Boolean(formikPersonalInformation.errors.country)}
+                            //         helperText={formikPersonalInformation.errors.country}
+                            //         label="Country"
+                            //         placeholder="Select country"
+                            //     />
+                            // )}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
-                        <Autocomplete
+                        <TextField
                             value={formikPersonalInformation.values.city}
                             name="city"
+                            select
+                            label="City"
+                            placeholder="Select city"
                             fullWidth
                             variant="outlined"
                             onBlur={formikPersonalInformation.handleBlur}
@@ -163,15 +197,15 @@ const CardRegionInformation = () => {
                                 });
                             }}
                             options={optionsPreference}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    error={Boolean(formikPersonalInformation.errors.city)}
-                                    helperText={formikPersonalInformation.errors.city}
-                                    label="City"
-                                    placeholder="Select city"
-                                />
-                            )}
+                            // renderInput={(params) => (
+                            //     <TextField
+                            //         {...params}
+                            //         error={Boolean(formikPersonalInformation.errors.city)}
+                            //         helperText={formikPersonalInformation.errors.city}
+                            //         label="City"
+                            //         placeholder="Select city"
+                            //     />
+                            // )}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
@@ -198,32 +232,43 @@ const CardRegionInformation = () => {
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
-                        <Autocomplete
-                            value={formikPersonalInformation.values.city}
+                        <TextField
+                            value={formikPersonalInformation.values.interest}
                             name="interest"
-                            fullWidth
+                            select="true"
+                            label="Interest"
+                            fullWidth="true"
                             variant="outlined"
-                            onBlur={formikPersonalInformation.handleBlur}
-                            onChange={(e, value) =>
-                                formikPersonalInformation.setFieldValue("interest", value)
-                            }
-                            inputValue={state.profileInputValue}
-                            onInputChange={(event, newInputValue) => {
-                                setState({
-                                    ...state,
-                                    profileInputValue: newInputValue,
-                                });
+                            //onBlur={formikPersonalInformation.handleBlur}
+                            onChange={(event) => {
+                                formikPersonalInformation.setFieldValue(
+                                    "interest",
+                                    event.target.value
+                                );
                             }}
-                            options={optionsInterest}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    error={Boolean(formikPersonalInformation.errors.interest)}
-                                    helperText={formikPersonalInformation.errors.interest}
-                                    label="Interest"
-                                />
-                            )}
-                        />
+                            //inputValue={state.profileInputValue}
+                            // onInputChange={(event, newInputValue) => {
+                            //     setState({
+                            //         ...state,
+                            //         profileInputValue: newInputValue,
+                            //     });
+                            // }}
+                            //options={optionsInterest}
+                            // renderInput={(params) => (
+                            //     <TextField
+                            //         {...params}
+                            //         error={Boolean(formikPersonalInformation.errors.interest)}
+                            //         helperText={formikPersonalInformation.errors.interest}
+                            //         label="Interest"
+                            //     />
+                            // )}
+                        >
+                            <MenuItem value={"0%"}>0%</MenuItem>
+                            <MenuItem value={"25%"}>25%</MenuItem>
+                            <MenuItem value={"50%"}>50%</MenuItem>
+                            <MenuItem value={"75%"}>75%</MenuItem>
+                            <MenuItem value={"100%"}>100%</MenuItem>
+                        </TextField>
                     </Grid>
                     <Divider />
                 </Grid>

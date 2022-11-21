@@ -1,12 +1,12 @@
 import Head from "next/head";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
-import { CreateUserForm } from "../components/account/create-user-form";
+//import { CreateUserForm } from "../../components/account/create-user-form";
 import { DashboardLayout } from "../components/dashboard-layout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
 import { CreateCompanyForm } from "src/components/company/create-company-form";
 
-const CreateUser = () => {
+const CreateCompany = () => {
     const router = useRouter();
 
     return (
@@ -46,6 +46,6 @@ const CreateUser = () => {
     );
 };
 
-CreateUser.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
+CreateCompany.getLayout = (page) => <DashboardLayout>{page}</DashboardLayout>;
 
-export default CreateUser;
+export default CreateCompany;

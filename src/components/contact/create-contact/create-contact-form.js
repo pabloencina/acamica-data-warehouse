@@ -47,14 +47,14 @@ export const CreateContactForm = (props) => {
         router.push("/contacts");
     };
 
-    const formikPersonalInformation = useFormik({
-        initialValues: {
-            region: "",
-            country: "",
-            city: "",
-            direction: "",
-            interest: "75%",
-        },
+    const formikCreateContact = useFormik({
+        // initialValues: {
+        //     region: "",
+        //     country: "",
+        //     city: "",
+        //     direction: "",
+        //     interest: "75%",
+        // },
 
         validationSchema: Yup.object({
             name: Yup.string().max(10).min(3).required("Name is required"),
@@ -104,7 +104,7 @@ export const CreateContactForm = (props) => {
     });
     return (
         <div sx={{ display: "flex", justifyContent: "space-between" }}>
-            <form {...props} onSubmit={formikPersonalInformation.handleSubmit}>
+            <form {...props} onSubmit={formikCreateContact.handleSubmit}>
                 <CardPersonalInformation />
                 <Divider />
 

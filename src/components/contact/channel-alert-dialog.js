@@ -136,10 +136,10 @@ export default function AddChannelDialog() {
                                 name="contactChannel"
                                 fullWidth="true"
                                 select="true"
-                                value={formikContactChannel.values.contactChannel}
+                                value={formikContactChannel.values.channel}
                                 label="Contact channel"
                                 variant="outlined"
-                                // onBlur={formikContactChannel.handleBlur}
+                                //onBlur={formikContactChannel.handleBlur}
                                 onChange={(event) => {
                                     formikContactChannel.setFieldValue(
                                         "contactChannel",
