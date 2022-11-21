@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const companyURL = "http://localhost:3500/companies";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const companyURL = `${baseUrl}/companies`;
 
 export const getAllCompanies = () => {
     return axios.get(companyURL);

@@ -1,9 +1,11 @@
 import axios from "axios";
 
-const regionURL = "http://localhost:3500/regions";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const regionURL = `${baseUrl}/regions`;
 
-export const getAllRegions = () => {
-    return axios.get(regionURL);
+export const getAllRegions = async () => {
+    const response = await axios.get(regionURL);
+    return response.data;
 };
 
 export const postRegion = async (regionToCreate) => {

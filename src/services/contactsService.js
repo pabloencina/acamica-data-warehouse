@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const contactURL = "http://localhost:3500/contacts";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const contactURL = `${baseUrl}/contacts`;
 
 export const getAllContacts = () => {
     return axios.get(contactURL);

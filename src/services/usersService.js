@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const userURL = "http://localhost:3500/users";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const userURL = `${baseUrl}/users`;
 
 export const getAllUsers = () => {
     return axios.get(userURL);
@@ -29,8 +30,8 @@ export const postUser = async (userToCreate) => {
     return null;
 };
 
-export const editUser = async (id,userToEdit) => {
-    if (userToEdit  && id){
+export const editUser = async (id, userToEdit) => {
+    if (userToEdit && id) {
         const body = {
             name: userToEdit.name,
             surname: userToEdit.surname,

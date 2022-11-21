@@ -1,8 +1,10 @@
-import { Children } from "react";
+import { Children, useContext, useEffect } from "react";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
 import { createEmotionCache } from "../utils/create-emotion-cache";
 import { BrowserRouter } from "react-router-dom";
+import { getAllRegions } from "src/services/regionsService";
+import { AppContext } from "src/utils/app-context-provider";
 
 class CustomDocument extends Document {
     render() {
@@ -39,6 +41,7 @@ CustomDocument.getInitialProps = async (ctx) => {
     const cache = createEmotionCache();
     const { extractCriticalToChunks } = createEmotionServer(cache);
     console.log(originalRenderPage);
+
     ctx.renderPage = () =>
         originalRenderPage({
             enhanceApp: (App) => (props) => {

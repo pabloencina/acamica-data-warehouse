@@ -1,21 +1,29 @@
 import Head from "next/head";
 import { Box, Container, Card, CardContent } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CompanyListToolbar } from "src/components/company/company-list-toolbar";
 import { CompanyTable } from "src/components/company/company-table";
 import { getAllCompanies } from "src/services/companiesService";
+import { AppContext } from "src/utils/app-context-provider";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
 
+    const { regions, handleRegionUpdate } = useContext(AppContext);
+
+    const verifyRegions = async () => {
+        if (regions.length === 0) {
+            const result = await getAllRegions();
+            handleRegionUpdate(result);
+        }
+
+        const companiesResponse = await getAllCompanies();
+        setCompanies(companiesResponse.data);
+    };
+
     useEffect(() => {
-        getAllCompanies()
-            .then((response) => {
-                let companiesResponse = response.data;
-                setCompanies(companiesResponse);
-            })
-            .catch((e) => {});
+        verifyRegions();
     }, []);
 
     return (

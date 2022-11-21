@@ -9,11 +9,8 @@ const Regions = () => {
     const [regions, setRegions] = useState([]);
 
     const refreshRegions = async () => {
-        await getAllRegions()
-            .then((response) => {
-                setRegions(response.data);
-            })
-            .catch((e) => {});
+        const regions = await getAllRegions();
+        setRegions(regions);
     };
 
     useEffect(() => {

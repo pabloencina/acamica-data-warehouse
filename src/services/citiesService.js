@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const cityURL = "http://localhost:3500/cities";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const cityURL = `${baseUrl}/cities`;
 
 export const getAllCities = () => {
     return axios.get(cityURL);

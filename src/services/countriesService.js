@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const countryURL = "http://localhost:3500/countries";
+const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
+const countryURL = `${baseUrl}/countries`;
 
 export const getAllCountries = () => {
     return axios.get(countryURL);

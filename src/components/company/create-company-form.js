@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useRouter } from "next/router";
 import {
     Alert,
     Box,
@@ -7,21 +5,26 @@ import {
     Card,
     CardContent,
     CardHeader,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     Divider,
     Grid,
+    MenuItem,
     TextField,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    DialogContentText,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { getAllRegions } from "src/services/regionsService";
+import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
-import { postUser } from "src/services/usersService";
 
 export const CreateCompanyForm = (props) => {
+    const { regions } = useContext(AppContext);
+
     const [state, setState] = useState({
         profileInputValue: "",
         formError: false,
@@ -162,8 +165,45 @@ export const CreateCompanyForm = (props) => {
                             <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
+                                    label="Region"
+                                    name="region"
+                                    select
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    required
+                                    value={formik.values.region}
+                                    variant="outlined"
+                                    error={Boolean(formik.touched.region && formik.errors.region)}
+                                    helperText={formik.touched.region && formik.errors.region}
+                                >
+                                    {regions.map((region) => {
+                                        return (
+                                            <MenuItem value={region._id}>{region.name}</MenuItem>
+                                        );
+                                    })}
+                                </TextField>
+                            </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Country"
+                                    name="country"
+                                    select
+                                    onChange={formik.handleChange}
+                                    onBlur={formik.handleBlur}
+                                    required
+                                    value={formik.values.country}
+                                    variant="outlined"
+                                    error={Boolean(formik.touched.country && formik.errors.country)}
+                                    helperText={formik.touched.country && formik.errors.country}
+                                />
+                            </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
                                     label="City"
                                     name="city"
+                                    select
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     required

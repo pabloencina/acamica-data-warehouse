@@ -1,14 +1,4 @@
-import {
-    Autocomplete,
-    Box,
-    Button,
-    Card,
-    CardContent,
-    Divider,
-    Grid,
-    MenuItem,
-    TextField,
-} from "@mui/material";
+import { Box, Button, Card, CardContent, Divider, Grid, MenuItem, TextField } from "@mui/material";
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -17,27 +7,25 @@ import AddChannelDialog from "../channel-alert-dialog";
 import TableAddChannels from "../table-add-channels";
 
 const CardRegionInformation = () => {
-    const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
-
     const optionsInterest = [
         {
-            value: "0%",
+            value: 0,
             label: "0%",
         },
         {
-            value: "25%",
+            value: 25,
             label: "25%",
         },
         {
-            value: "50%",
+            value: 50,
             label: "50%",
         },
         {
-            value: "75%",
+            value: 75,
             label: "75%",
         },
         {
-            value: "100%",
+            value: 100,
             label: "100%",
         },
     ];
@@ -54,9 +42,10 @@ const CardRegionInformation = () => {
             country: "",
             city: "",
             address: "",
-            interest: optionsInterest[0].value,
+            interest: optionsInterest[2].value,
         },
 
+        // toDo cambiar validacion.
         validationSchema: Yup.object({
             name: Yup.string().max(10).min(3).required("Name is required"),
             surname: Yup.string().max(15).min(3).required("Surname is required"),
@@ -132,7 +121,6 @@ const CardRegionInformation = () => {
                                     profileInputValue: newInputValue,
                                 });
                             }}
-                            options={optionsPreference}
                             // renderInput={(params) => (
                             //     <TextField
                             //         {...params}
@@ -164,7 +152,6 @@ const CardRegionInformation = () => {
                                     profileInputValue: newInputValue,
                                 });
                             }}
-                            options={optionsPreference}
                             // renderInput={(params) => (
                             //     <TextField
                             //         {...params}
@@ -196,7 +183,6 @@ const CardRegionInformation = () => {
                                     profileInputValue: newInputValue,
                                 });
                             }}
-                            options={optionsPreference}
                             // renderInput={(params) => (
                             //     <TextField
                             //         {...params}
@@ -263,11 +249,9 @@ const CardRegionInformation = () => {
                             //     />
                             // )}
                         >
-                            <MenuItem value={"0%"}>0%</MenuItem>
-                            <MenuItem value={"25%"}>25%</MenuItem>
-                            <MenuItem value={"50%"}>50%</MenuItem>
-                            <MenuItem value={"75%"}>75%</MenuItem>
-                            <MenuItem value={"100%"}>100%</MenuItem>
+                            {optionsInterest.map((option) => {
+                                return <MenuItem value={option.value}>{option.label}</MenuItem>;
+                            })}
                         </TextField>
                     </Grid>
                     <Divider />
