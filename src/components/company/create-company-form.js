@@ -25,11 +25,24 @@ export const CreateCompanyForm = (props) => {
     const { regions } = useContext(AppContext);
 
     const [selectedRegion, setSelectedRegion] = useState({});
+    const [selectedCountry, setSelectedCountry] = useState({});
+    const [selectedCity, setSelectedCity] = useState({});
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
         const regionFound = regions.find((region) => region._id === regionId);
         setSelectedRegion(regionFound);
+        setSelectedCountry({});
+        setSelectedCity({});
+    };
+
+    const countryOnChange = (e) => {
+        const countryId = e.target.value;
+        const countryFound = selectedRegion?.countries?.find(
+            (country) => country._id === countryId
+        );
+        setSelectedCountry(countryFound);
+        setSelectedCity({});
     };
 
     const [state, setState] = useState({
@@ -196,7 +209,7 @@ export const CreateCompanyForm = (props) => {
                                     label="Country"
                                     name="country"
                                     select
-                                    onChange={formik.handleChange}
+                                    onChange={countryOnChange}
                                     onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.country}
@@ -224,7 +237,11 @@ export const CreateCompanyForm = (props) => {
                                     variant="outlined"
                                     error={Boolean(formik.touched.city && formik.errors.city)}
                                     helperText={formik.touched.city && formik.errors.city}
-                                />
+                                >
+                                    {selectedCountry?.cities?.map((city) => {
+                                        return <MenuItem value={city._id}>{city.name}</MenuItem>;
+                                    })}
+                                </TextField>
                             </Grid>
                         </Grid>
                     </CardContent>

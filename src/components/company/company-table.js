@@ -28,7 +28,7 @@ const Impexpicons = SwapVertIcon;
 
 export const CompanyTable = (params) => {
     const { companies, setCompanies } = params;
-    console.log(companies);
+
     const router = useRouter();
     const [selectedCompanyIds, setSelectedCompanyIds] = useState([]);
     const [limit, setLimit] = useState(10);
