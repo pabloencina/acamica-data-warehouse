@@ -17,13 +17,20 @@ import {
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
-import { useContext, useEffect, useState } from "react";
-import { getAllRegions } from "src/services/regionsService";
+import { useContext, useState } from "react";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 
 export const CreateCompanyForm = (props) => {
     const { regions } = useContext(AppContext);
+
+    const [selectedRegion, setSelectedRegion] = useState({});
+
+    const regionOnChange = (e) => {
+        const regionId = e.target.value;
+        const regionFound = regions.find((region) => region._id === regionId);
+        setSelectedRegion(regionFound);
+    };
 
     const [state, setState] = useState({
         profileInputValue: "",
@@ -168,7 +175,7 @@ export const CreateCompanyForm = (props) => {
                                     label="Region"
                                     name="region"
                                     select
-                                    onChange={formik.handleChange}
+                                    onChange={regionOnChange}
                                     onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.region}
@@ -196,7 +203,13 @@ export const CreateCompanyForm = (props) => {
                                     variant="outlined"
                                     error={Boolean(formik.touched.country && formik.errors.country)}
                                     helperText={formik.touched.country && formik.errors.country}
-                                />
+                                >
+                                    {selectedRegion?.countries?.map((country) => {
+                                        return (
+                                            <MenuItem value={country._id}>{country.name}</MenuItem>
+                                        );
+                                    })}
+                                </TextField>
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <TextField
