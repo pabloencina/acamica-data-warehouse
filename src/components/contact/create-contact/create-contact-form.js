@@ -16,7 +16,6 @@ import {
     DialogContentText,
     Box,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import AddChannelDialog from "../channel-alert-dialog";
@@ -25,10 +24,6 @@ import CardPersonalInformation from "./card-personal-information";
 import CardRegionInformation from "./card-region-information";
 
 export const CreateContactForm = (props) => {
-    const optionsPreference = ["NO_PREFERENCE", "FAVORITE_CHANNEL", "DO_NOT_DISTURB"];
-
-    const optionsInterest = ["0%", "25%", "50%", "75%", "100%"];
-
     const [state, setState] = useState({
         profileInputValue: "",
         formError: false,

@@ -69,6 +69,7 @@ export const CreateCompanyForm = (props) => {
             address: "",
             email: "",
             phone: "",
+            city: "",
         },
 
         validationSchema: Yup.object({
@@ -80,7 +81,7 @@ export const CreateCompanyForm = (props) => {
                 .min(10)
                 .required("Email is required"),
             phone: Yup.mixed().required("Phone is required"),
-            city: Yup.string().max(15).min(3).required("City is required"),
+            city: Yup.string().required("City is required"),
         }),
 
         onSubmit: async (values) => {
@@ -115,18 +116,19 @@ export const CreateCompanyForm = (props) => {
             }
         },
     });
+
     return (
         <>
             <form {...props} onSubmit={formik.handleSubmit}>
                 <Card>
-                    <CardHeader title="Profile" />
+                    <CardHeader title="Company" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
                             <Grid item md={6} s={12}>
                                 <TextField
                                     fullWidth
-                                    label="Name"
+                                    label="Company name"
                                     name="name"
                                     max="10"
                                     min="3"
@@ -189,7 +191,7 @@ export const CreateCompanyForm = (props) => {
                                     name="region"
                                     select
                                     onChange={regionOnChange}
-                                    onBlur={formik.handleBlur}
+                                    //onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.region}
                                     variant="outlined"
@@ -210,7 +212,8 @@ export const CreateCompanyForm = (props) => {
                                     name="country"
                                     select
                                     onChange={countryOnChange}
-                                    onBlur={formik.handleBlur}
+                                    //onChange={formik.handleChange}
+                                    //onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.country}
                                     variant="outlined"
@@ -226,10 +229,10 @@ export const CreateCompanyForm = (props) => {
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <TextField
-                                    fullWidth
                                     label="City"
                                     name="city"
                                     select
+                                    fullWidth
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     required

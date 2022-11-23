@@ -162,6 +162,7 @@ const CardPersonalInformation = () => {
                             }
                             label="Company"
                             name="company"
+                            select
                             onChange={formikPersonalInformation.handleChange}
                             onBlur={formikPersonalInformation.handleBlur}
                             //type="company"

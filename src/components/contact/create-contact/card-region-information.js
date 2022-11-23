@@ -47,50 +47,9 @@ const CardRegionInformation = () => {
 
         // toDo cambiar validacion.
         validationSchema: Yup.object({
-            name: Yup.string().max(10).min(3).required("Name is required"),
-            surname: Yup.string().max(15).min(3).required("Surname is required"),
-            email: Yup.string()
-                .email("Must be a valid email")
-                .max(40)
-                .min(10)
-                .required("Email is required"),
-            position: Yup.mixed()
-                //.oneOf(optionsPreference, "Position must be one of the options")
-                .required("Position is required"),
-            company: Yup.string().max(15).min(3).required("Company is required"),
+            city: Yup.string().required("City is required"),
+            address: Yup.mixed().required("Address is required"),
         }),
-
-        // onSubmit: async (values) => {
-        //     try {
-        //         const response = await postContact(values);
-
-        //         //console.log(response);
-        //         setState({
-        //             ...state,
-        //             dialogOpen: true,
-        //             formError: false,
-        //         });
-        //     } catch (error) {
-        //         let message = "Contact creation failed.";
-        //         if (error.response) {
-        //             if (error.response.status === 400) {
-        //                 message += " Please verify the fields in the form.";
-        //             } else if (error.response.status === 409) {
-        //                 message += " The email already exists in the database.";
-        //             } else if (error.response.status === 500) {
-        //                 message += " There's issues in the server. Please try again later...";
-        //             }
-        //         } else {
-        //             message += " Can't connect with the server. Please try again later...";
-        //         }
-        //         console.log(error.response);
-        //         setState({
-        //             ...state,
-        //             errorMessage: message,
-        //             formError: true,
-        //         });
-        //     }
-        // },
     });
     return (
         <Card sx={{ marginLeft: -20, width: 1050 }}>
@@ -107,7 +66,6 @@ const CardRegionInformation = () => {
                             variant="outlined"
                             label="Region"
                             placeholder="Select region"
-                            //onBlur={formikPersonalInformation.handleBlur}
                             onChange={(event) =>
                                 formikPersonalInformation.setFieldValue(
                                     "region",
@@ -121,15 +79,6 @@ const CardRegionInformation = () => {
                                     profileInputValue: newInputValue,
                                 });
                             }}
-                            // renderInput={(params) => (
-                            //     <TextField
-                            //         {...params}
-                            //         error={Boolean(formikPersonalInformation.errors.region)}
-                            //         helperText={formikPersonalInformation.errors.region}
-                            //         label="Region"
-                            //         placeholder="Select region"
-                            //     />
-                            // )}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
@@ -152,15 +101,6 @@ const CardRegionInformation = () => {
                                     profileInputValue: newInputValue,
                                 });
                             }}
-                            // renderInput={(params) => (
-                            //     <TextField
-                            //         {...params}
-                            //         error={Boolean(formikPersonalInformation.errors.country)}
-                            //         helperText={formikPersonalInformation.errors.country}
-                            //         label="Country"
-                            //         placeholder="Select country"
-                            //     />
-                            // )}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
@@ -169,51 +109,48 @@ const CardRegionInformation = () => {
                             name="city"
                             select
                             label="City"
-                            placeholder="Select city"
+                            //placeholder="Select city"
                             fullWidth
                             variant="outlined"
                             onBlur={formikPersonalInformation.handleBlur}
-                            onChange={(e, value) =>
-                                formikPersonalInformation.setFieldValue("city", value)
+                            onChange={formikPersonalInformation.handleChange}
+                            error={Boolean(
+                                formikPersonalInformation.touched.city &&
+                                    formikPersonalInformation.errors.city
+                            )}
+                            helperText={
+                                formikPersonalInformation.touched.city &&
+                                formikPersonalInformation.errors.city
                             }
-                            inputValue={state.profileInputValue}
-                            onInputChange={(event, newInputValue) => {
-                                setState({
-                                    ...state,
-                                    profileInputValue: newInputValue,
-                                });
-                            }}
-                            // renderInput={(params) => (
-                            //     <TextField
-                            //         {...params}
-                            //         error={Boolean(formikPersonalInformation.errors.city)}
-                            //         helperText={formikPersonalInformation.errors.city}
-                            //         label="City"
-                            //         placeholder="Select city"
-                            //     />
-                            // )}
+                            //inputValue={state.profileInputValue}
+                            // onInputChange={(event, newInputValue) => {
+                            //     setState({
+                            //         ...state,
+                            //         profileInputValue: newInputValue,
+                            //     });
+                            // }}
                         />
                     </Grid>
                     <Grid item md={2.5} xs={12}>
                         <TextField
                             fullWidth
                             label="Address"
-                            name="direction"
+                            name="address"
                             placeholder="Enter an address"
                             max="10"
                             min="3"
                             onChange={formikPersonalInformation.handleChange}
                             onBlur={formikPersonalInformation.handleBlur}
-                            //required
-                            value={formikPersonalInformation.values.direction}
+                            required
+                            value={formikPersonalInformation.values.address}
                             variant="outlined"
                             error={Boolean(
-                                formikPersonalInformation.touched.direction &&
-                                    formikPersonalInformation.errors.direction
+                                formikPersonalInformation.touched.address &&
+                                    formikPersonalInformation.errors.address
                             )}
                             helperText={
-                                formikPersonalInformation.touched.direction &&
-                                formikPersonalInformation.errors.direction
+                                formikPersonalInformation.touched.address &&
+                                formikPersonalInformation.errors.address
                             }
                         />
                     </Grid>
@@ -225,29 +162,12 @@ const CardRegionInformation = () => {
                             label="Interest"
                             fullWidth="true"
                             variant="outlined"
-                            //onBlur={formikPersonalInformation.handleBlur}
                             onChange={(event) => {
                                 formikPersonalInformation.setFieldValue(
                                     "interest",
                                     event.target.value
                                 );
                             }}
-                            //inputValue={state.profileInputValue}
-                            // onInputChange={(event, newInputValue) => {
-                            //     setState({
-                            //         ...state,
-                            //         profileInputValue: newInputValue,
-                            //     });
-                            // }}
-                            //options={optionsInterest}
-                            // renderInput={(params) => (
-                            //     <TextField
-                            //         {...params}
-                            //         error={Boolean(formikPersonalInformation.errors.interest)}
-                            //         helperText={formikPersonalInformation.errors.interest}
-                            //         label="Interest"
-                            //     />
-                            // )}
                         >
                             {optionsInterest.map((option) => {
                                 return <MenuItem value={option.value}>{option.label}</MenuItem>;
