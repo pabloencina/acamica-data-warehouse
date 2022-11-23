@@ -1,5 +1,3 @@
-//
-
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import PropTypes from "prop-types";
@@ -38,6 +36,7 @@ export const CompanyTable = (params) => {
         let newSelectedCompanyIds;
 
         if (event.target.checked) {
+            console.log(event.target.checked);
             newSelectedCompanyIds = companies.map((company) => company.id);
         } else {
             newSelectedCompanyIds = [];
@@ -122,13 +121,15 @@ export const CompanyTable = (params) => {
                             {companies.slice(0, limit).map((company) => (
                                 <TableRow
                                     hover
-                                    key={company.id}
-                                    selected={selectedCompanyIds.indexOf(company.id) !== -1}
+                                    key={company._id}
+                                    selected={selectedCompanyIds.indexOf(company._id) !== -1}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
-                                            checked={selectedCompanyIds.indexOf(company.id) !== -1}
-                                            onChange={(event) => handleSelectOne(event, company.id)}
+                                            checked={selectedCompanyIds.indexOf(company._id) !== -1}
+                                            onChange={(event) =>
+                                                handleSelectOne(event, company._id)
+                                            }
                                             value="true"
                                         />
                                     </TableCell>

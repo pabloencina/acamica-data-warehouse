@@ -18,6 +18,7 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
+import { postCompany } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 
@@ -60,7 +61,7 @@ export const CreateCompanyForm = (props) => {
             ...state,
             dialogOpen: false,
         });
-        router.push("/users");
+        router.push("/companies");
     };
 
     const formik = useFormik({
@@ -85,16 +86,17 @@ export const CreateCompanyForm = (props) => {
         }),
 
         onSubmit: async (values) => {
+            console.log(values);
             try {
                 const response = await postCompany(values);
-
-                //console.log(response);
+                console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,
                     formError: false,
                 });
             } catch (error) {
+                console.log(error);
                 let message = "Company creation failed.";
                 if (error.response) {
                     if (error.response.status === 400) {
