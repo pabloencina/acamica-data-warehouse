@@ -162,20 +162,18 @@ export const CompanyTable = (params) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
-                                            {/* <AlertDeleteContact setContacts={setCompanies} />
                                             <Tooltip title="Edit Company">
                                                 <IconButton
                                                     onClick={() => {
-                                                        // https://github.com/vercel/next.js/discussions/17008
-                                                        router.push("/edit-company");
-                                                        console.log(params.row);
+                                                        router.push({
+                                                            pathname: "/edit-company",
+                                                            query: {
+                                                                id: company._id,
+                                                            },
+                                                        });
+                                                        console.log(company._id);
                                                     }}
                                                 >
-                                                    <EditOutlinedIcon fontSize="big" />
-                                                </IconButton>
-                                            </Tooltip> */}
-                                            <Tooltip title="Edit Company">
-                                                <IconButton onClick={() => {}}>
                                                     <EditOutlinedIcon />
                                                 </IconButton>
                                             </Tooltip>
@@ -206,5 +204,5 @@ export const CompanyTable = (params) => {
 };
 
 CompanyTable.propTypes = {
-    contacts: PropTypes.array.isRequired,
+    // contacts: PropTypes.array.isRequired,
 };

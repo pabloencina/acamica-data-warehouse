@@ -30,3 +30,19 @@ export const postCompany = async (companyToCreate) => {
 
     return null;
 };
+
+export const editCompany = async (id, companyToEdit) => {
+    if (companyToEdit && id) {
+        const body = {
+            name: companyToEdit.name,
+            email: companyToEdit.email,
+            phone: companyToEdit.phone,
+            address: companyToEdit.address,
+            city: companyToEdit.city,
+        };
+        const companyEdited = await axios.put(`${companyURL}/${id}`, body);
+        console.log(companyEdited.data);
+        return companyEdited;
+    }
+    return null;
+};
