@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { IconButton, Tooltip } from "@mui/material";
+import { Box, IconButton, Tooltip } from "@mui/material";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRouter } from "next/router";
 import AlertDeleteUser from "./alert-delete-user";
@@ -14,25 +14,28 @@ export const UserTable = (params) => {
         {
             field: "name",
             headerName: "Name",
-            width: 250,
+            with: 250,
             height: 100,
         },
         {
             field: "surname",
             headerName: "Surname",
             width: 250,
+            height: 100,
         },
         {
             field: "email",
             headerName: "Email",
             type: "email",
             width: 150,
+            height: 100,
         },
         {
             field: "profile",
             headerName: "Profile",
             sortable: true,
             width: 150,
+            height: 100,
         },
         {
             field: "action",
@@ -61,7 +64,7 @@ export const UserTable = (params) => {
                 // https://stackoverflow.com/questions/64331095/how-to-add-a-button-to-every-row-in-mui-datagrid
 
                 return (
-                    <div>
+                    <Box>
                         <Tooltip title="Edit user">
                             <IconButton
                                 onClick={() => {
@@ -72,7 +75,6 @@ export const UserTable = (params) => {
                                             id: params.row._id,
                                         },
                                     });
-                                    console.log(params.row);
                                 }}
                             >
                                 <EditOutlinedIcon fontSize="big" />
@@ -85,14 +87,14 @@ export const UserTable = (params) => {
                             userId={params.row._id}
                             setUsers={setUsers}
                         />
-                    </div>
+                    </Box>
                 );
             },
         },
     ];
 
     return (
-        <div style={{ height: 400, width: "100%" }}>
+        <Box style={{ height: 400 }}>
             <DataGrid
                 rows={users}
                 columns={columns}
@@ -101,6 +103,6 @@ export const UserTable = (params) => {
                 rowsPerPageOptions={[5]}
                 checkboxSelection
             />
-        </div>
+        </Box>
     );
 };

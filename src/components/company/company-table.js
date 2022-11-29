@@ -20,6 +20,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRouter } from "next/router";
+import AlertDeleteCompany from "./alert-delete-company";
 //import AlertDeleteContact from "./alert-delete-contact";
 
 const Impexpicons = SwapVertIcon;
@@ -177,11 +178,11 @@ export const CompanyTable = (params) => {
                                                     <EditOutlinedIcon />
                                                 </IconButton>
                                             </Tooltip>
-                                            <Tooltip title="Delete Company">
-                                                <IconButton onClick={() => {}}>
-                                                    <DeleteOutlineIcon />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <AlertDeleteCompany
+                                                company={company}
+                                                companyId={company._id}
+                                                setCompanies={setCompanies}
+                                            />
                                         </Box>
                                     </TableCell>
                                 </TableRow>

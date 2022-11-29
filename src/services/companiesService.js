@@ -46,3 +46,9 @@ export const editCompany = async (id, companyToEdit) => {
     }
     return null;
 };
+
+export const deleteCompany = async (id) => {
+    const response = await axios.delete(`${companyURL}/${id}`);
+    console.log(response.data);
+    return response.data;
+};
