@@ -56,7 +56,7 @@ export const ContactListToolbar = (props) => {
                                         </InputAdornment>
                                     ),
                                 }}
-                                placeholder="Search contact"
+                                placeholder="Search contact by name"
                                 variant="outlined"
                             />
                         </Box>

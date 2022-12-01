@@ -24,21 +24,26 @@ import { AppContext } from "src/utils/app-context-provider";
 import { useContext } from "react";
 
 export const EditCompanyForm = (props) => {
-    // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
-    // TODO: Si lo anterior no se puede, hay que llamar de nuevo al Back End y pedirle los datos, tomando el ID que aparece en la URL.
-
     const { regions } = useContext(AppContext);
 
-    const [selectedRegion, setSelectedRegion] = useState({});
-    const [selectedCountry, setSelectedCountry] = useState({});
-    const [selectedCity, setSelectedCity] = useState({});
+    const [selectedRegion, setSelectedRegion] = useState({
+        _id: "",
+        countries: [],
+    });
+    const [selectedCountry, setSelectedCountry] = useState({
+        _id: "",
+        cities: [],
+    });
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
         const regionFound = regions.find((region) => region._id === regionId);
         setSelectedRegion(regionFound);
-        setSelectedCountry({});
-        setSelectedCity({});
+        setSelectedCountry({
+            _id: "",
+            cities: [],
+        });
+        formik.setFieldValue("city", "");
     };
 
     const countryOnChange = (e) => {
@@ -47,7 +52,7 @@ export const EditCompanyForm = (props) => {
             (country) => country._id === countryId
         );
         setSelectedCountry(countryFound);
-        setSelectedCity({});
+        formik.setFieldValue("city", "");
     };
 
     const [state, setState] = useState({
@@ -65,12 +70,21 @@ export const EditCompanyForm = (props) => {
         id = searchParams.get("id");
     }
 
+    const fetchCompany = async () => {
+        const company = await getCompanyById(id);
+        const { name, email, phone, address, city } = company;
+
+        const regionFound = regions.find((r) => r._id === city.country.region._id);
+        setSelectedRegion(regionFound);
+
+        const countryFound = regionFound.countries.find((c) => c._id === city.country._id);
+        setSelectedCountry(countryFound);
+
+        formik.setValues({ name, email, phone, address, city: city._id });
+    };
+
     useEffect(() => {
-        getCompanyById(id).then((company) => {
-            console.log(company);
-            const { name, email, phone, address, city } = company;
-            formik.setValues({ name, email, phone, address, city });
-        });
+        fetchCompany();
     }, []);
 
     const router = useRouter();
@@ -219,14 +233,16 @@ export const EditCompanyForm = (props) => {
                                     onChange={regionOnChange}
                                     //onBlur={formik.handleBlur}
                                     required
-                                    value={formik.values.region}
+                                    value={selectedRegion._id}
                                     variant="outlined"
                                     error={Boolean(formik.touched.region && formik.errors.region)}
                                     helperText={formik.touched.region && formik.errors.region}
                                 >
                                     {regions.map((region) => {
                                         return (
-                                            <MenuItem value={region._id}>{region.name}</MenuItem>
+                                            <MenuItem key={region._id} value={region._id}>
+                                                {region.name}
+                                            </MenuItem>
                                         );
                                     })}
                                 </TextField>
@@ -241,14 +257,16 @@ export const EditCompanyForm = (props) => {
                                     //onChange={formik.handleChange}
                                     //onBlur={formik.handleBlur}
                                     required
-                                    value={formik.values.country}
+                                    value={selectedCountry._id}
                                     variant="outlined"
                                     error={Boolean(formik.touched.country && formik.errors.country)}
                                     helperText={formik.touched.country && formik.errors.country}
                                 >
-                                    {selectedRegion?.countries?.map((country) => {
+                                    {selectedRegion.countries.map((country) => {
                                         return (
-                                            <MenuItem value={country._id}>{country.name}</MenuItem>
+                                            <MenuItem key={country._id} value={country._id}>
+                                                {country.name}
+                                            </MenuItem>
                                         );
                                     })}
                                 </TextField>
@@ -267,8 +285,12 @@ export const EditCompanyForm = (props) => {
                                     error={Boolean(formik.touched.city && formik.errors.city)}
                                     helperText={formik.touched.city && formik.errors.city}
                                 >
-                                    {selectedCountry?.cities?.map((city) => {
-                                        return <MenuItem value={city._id}>{city.name}</MenuItem>;
+                                    {selectedCountry.cities.map((city) => {
+                                        return (
+                                            <MenuItem key={city._id} value={city._id}>
+                                                {city.name}
+                                            </MenuItem>
+                                        );
                                     })}
                                 </TextField>
                             </Grid>
