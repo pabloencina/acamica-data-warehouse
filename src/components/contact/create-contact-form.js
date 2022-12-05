@@ -18,6 +18,7 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
+import Companies from "src/pages/companies";
 import { postContact } from "src/services/contactsService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
@@ -25,7 +26,8 @@ import AddChannelDialog from "./channel-alert-dialog";
 import TableAddChannels from "./table-add-channels";
 
 export const CreateContactForm = (props) => {
-    const { regions } = useContext(AppContext);
+    const { regions, companies } = useContext(AppContext);
+    console.log(companies.data);
 
     const [selectedRegion, setSelectedRegion] = useState({
         _id: "",
@@ -250,6 +252,7 @@ export const CreateContactForm = (props) => {
 
                             <Grid item md={6} xs={12}>
                                 <TextField
+                                    value={formikCreateContact.values.company}
                                     error={Boolean(
                                         formikCreateContact.touched.company &&
                                             formikCreateContact.errors.company
@@ -267,7 +270,13 @@ export const CreateContactForm = (props) => {
                                     //type="company"
                                     variant="outlined"
                                     required
-                                />
+                                >
+                                    {companies.data.map((company) => {
+                                        return (
+                                            <MenuItem value={company._id}>{company.name}</MenuItem>
+                                        );
+                                    })}
+                                </TextField>
                             </Grid>
                         </Grid>
                     </CardContent>
@@ -279,8 +288,8 @@ export const CreateContactForm = (props) => {
                                     <TextField
                                         value={formikCreateContact.values.region}
                                         name="region"
-                                        select="true"
-                                        fullWidth="true"
+                                        select
+                                        fullWidth
                                         variant="outlined"
                                         label="Region"
                                         placeholder="Select region"
