@@ -137,18 +137,15 @@ export default function AddChannelDialog() {
                     >
                         <Grid item md={12} xs={12}>
                             <TextField
-                                // labelId="contact-channel-preference"
-                                // id="contact-channel-preference"
                                 name="contactChannel"
-                                fullWidth="true"
-                                select="true"
+                                fullWidth
+                                select
                                 value={formikContactChannel.values.channel}
                                 label="Contact channel"
                                 variant="outlined"
-                                //onBlur={formikContactChannel.handleBlur}
                                 onChange={(event) => {
                                     formikContactChannel.setFieldValue(
-                                        "contactChannel",
+                                        "channel",
                                         event.target.value
                                     );
                                 }}
@@ -182,15 +179,12 @@ export default function AddChannelDialog() {
                         </Grid>
                         <Grid item md={12} xs={12}>
                             <TextField
-                                // labelId="contact-channel-preference"
-                                // id="contact-channel-preference"
                                 name="preference"
-                                fullWidth="true"
-                                select="true"
+                                fullWidth
+                                select
                                 value={formikContactChannel.values.preference}
                                 label="Preference"
                                 variant="outlined"
-                                // onBlur={formikContactChannel.handleBlur}
                                 onChange={(event) => {
                                     formikContactChannel.setFieldValue(
                                         "preference",

@@ -31,7 +31,7 @@ export default function TableAddChannels() {
                         <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody></TableBody>
+                <TableBody>{}</TableBody>
             </Table>
         </TableContainer>
     );

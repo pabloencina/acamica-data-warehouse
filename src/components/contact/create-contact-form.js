@@ -27,7 +27,6 @@ import TableAddChannels from "./table-add-channels";
 
 export const CreateContactForm = (props) => {
     const { regions, companies } = useContext(AppContext);
-    console.log(companies.data);
 
     const [selectedRegion, setSelectedRegion] = useState({
         _id: "",
@@ -294,13 +293,6 @@ export const CreateContactForm = (props) => {
                                         label="Region"
                                         placeholder="Select region"
                                         onChange={regionOnChange}
-                                        //inputValue={state.profileInputValue}
-                                        // onInputChange={(event, newInputValue) => {
-                                        //     setState({
-                                        //         ...state,
-                                        //         profileInputValue: newInputValue,
-                                        //     });
-                                        // }}
                                         error={Boolean(
                                             formikCreateContact.touched.region &&
                                                 formikCreateContact.errors.region
