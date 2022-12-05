@@ -3,7 +3,7 @@ import { Box, Button, Container, Grid, Typography } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";
-import { CreateContactForm } from "src/components/contact/create-contact/create-contact-form";
+import { CreateContactForm } from "src/components/contact/create-contact-form";
 
 const CreateContact = () => {
     const router = useRouter();

@@ -3,8 +3,6 @@ import { createContext, useState } from "react";
 export const AppContext = createContext({
     regions: [],
     handleRegionUpdate: () => {},
-    countries: [],
-    handleCountryUpdate: () => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -19,8 +17,6 @@ export const AppProvider = ({ children }) => {
             value={{
                 regions: regions,
                 handleRegionUpdate: handleRegionUpdate,
-                // countries: countries,
-                // handleCountryUpdate: handleCountryUpdate,
             }}
         >
             {children}

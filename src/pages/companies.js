@@ -19,13 +19,16 @@ const Companies = () => {
             const result = await getAllRegions();
             handleRegionUpdate(result);
         }
+    };
 
+    const fetchCompanies = async () => {
         const companiesResponse = await getAllCompanies();
         setCompanies(companiesResponse.data);
     };
 
     useEffect(() => {
         verifyRegions();
+        fetchCompanies();
     }, []);
 
     return (

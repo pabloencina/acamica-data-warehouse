@@ -20,8 +20,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { editContact, getContactById } from "src/services/contactsService";
-import CardPersonalInformation from "./create-contact/card-personal-information";
-import CardRegionInformation from "./create-contact/card-region-information";
 
 export const EditContactForm = (props) => {
     // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
@@ -118,8 +116,8 @@ export const EditContactForm = (props) => {
     return (
         <>
             <form {...props} onSubmit={formikPersonalInformation.handleSubmit}></form>
-            <CardPersonalInformation />
-            <CardRegionInformation />
+            {/* <CardPersonalInformation /> */}
+            {/* <CardRegionInformation /> */}
             <Dialog
                 open={state.dialogOpen}
                 onClose={handleDialogClose}

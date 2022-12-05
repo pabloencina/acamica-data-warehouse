@@ -31,7 +31,7 @@ const Users = () => {
                     py: 8,
                 }}
             >
-                <Container maxWidth={false}>
+                <Container maxWidth={true}>
                     <UserListToolbar />
                     <Box sx={{ mt: 3 }}>
                         <Card>

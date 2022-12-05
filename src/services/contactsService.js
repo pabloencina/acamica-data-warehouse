@@ -6,6 +6,7 @@ const contactURL = `${baseUrl}/contacts`;
 export const getAllContacts = () => {
     return axios.get(contactURL);
 };
+//console.log(getAllContacts);
 
 export const getContactById = async (id) => {
     const response = await axios.get(`${contactURL}/${id}`);

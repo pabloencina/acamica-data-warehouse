@@ -127,7 +127,13 @@ export default function AddChannelDialog() {
                 <DialogContent>
                     <Grid
                         container
-                        sx={{ display: "flex", justifyContent: "space-between", height: 450 }}
+                        sx={{
+                            display: "flex",
+                            justifyContent: "space-between",
+                            height: 250,
+                            width: 400,
+                            mt: 2,
+                        }}
                     >
                         <Grid item md={12} xs={12}>
                             <TextField
@@ -206,5 +212,4 @@ export default function AddChannelDialog() {
             </Dialog>
         </div>
     );
-    33;
 }

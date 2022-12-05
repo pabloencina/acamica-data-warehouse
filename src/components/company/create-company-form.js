@@ -25,16 +25,24 @@ import * as Yup from "yup";
 export const CreateCompanyForm = (props) => {
     const { regions } = useContext(AppContext);
 
-    const [selectedRegion, setSelectedRegion] = useState({});
-    const [selectedCountry, setSelectedCountry] = useState({});
-    const [selectedCity, setSelectedCity] = useState({});
+    const [selectedRegion, setSelectedRegion] = useState({
+        _id: "",
+        countries: [],
+    });
+    const [selectedCountry, setSelectedCountry] = useState({
+        _id: "",
+        cities: [],
+    });
+    // const [selectedCity, setSelectedCity] = useState({});
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
         const regionFound = regions.find((region) => region._id === regionId);
         setSelectedRegion(regionFound);
-        setSelectedCountry({});
-        setSelectedCity({});
+        setSelectedCountry({
+            cities: [],
+        });
+        // setSelectedCity({});
     };
 
     const countryOnChange = (e) => {
@@ -43,11 +51,10 @@ export const CreateCompanyForm = (props) => {
             (country) => country._id === countryId
         );
         setSelectedCountry(countryFound);
-        setSelectedCity({});
+        // setSelectedCity({});
     };
 
     const [state, setState] = useState({
-        profileInputValue: "",
         formError: false,
         dialogOpen: false,
         errorMessage: "",
@@ -86,10 +93,8 @@ export const CreateCompanyForm = (props) => {
         }),
 
         onSubmit: async (values) => {
-            console.log(values);
             try {
                 const response = await postCompany(values);
-                console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,

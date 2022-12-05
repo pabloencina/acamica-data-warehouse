@@ -44,7 +44,7 @@ export const ContactListToolbar = (props) => {
             <Box sx={{ mt: 3 }}>
                 <Card>
                     <CardContent>
-                        <Box sx={{ maxWidth: 500 }}>
+                        <Box sx={{ maxWidth: 250 }}>
                             <TextField
                                 fullWidth
                                 InputProps={{

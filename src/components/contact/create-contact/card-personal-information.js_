@@ -1,0 +1,346 @@
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    CardHeader,
+    Divider,
+    Grid,
+    MenuItem,
+    TextField,
+} from "@mui/material";
+import React, { useContext } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { useState } from "react";
+import AddChannelDialog from "../channel-alert-dialog";
+import TableAddChannels from "../table-add-channels";
+import { AppContext } from "src/utils/app-context-provider";
+
+const CardPersonalInformation = (props) => {
+    const { regions } = useContext(AppContext);
+
+    const [selectedRegion, setSelectedRegion] = useState({});
+    const [selectedCountry, setSelectedCountry] = useState({});
+    const [selectedCity, setSelectedCity] = useState({});
+
+    const regionOnChange = (e) => {
+        const regionId = e.target.value;
+        const regionFound = regions.find((region) => region._id === regionId);
+        setSelectedRegion(regionFound);
+        setSelectedCountry({});
+        setSelectedCity({});
+    };
+    console.log(regionOnChange);
+
+    const optionsInterest = [
+        {
+            value: 0,
+            label: "0%",
+        },
+        {
+            value: 25,
+            label: "25%",
+        },
+        {
+            value: 50,
+            label: "50%",
+        },
+        {
+            value: 75,
+            label: "75%",
+        },
+        {
+            value: 100,
+            label: "100%",
+        },
+    ];
+
+    const [state, setState] = useState({
+        profileInputValue: "",
+        formError: false,
+        dialogOpen: false,
+        errorMessage: "",
+        error: false,
+    });
+    const formikPersonalInformation = useFormik({
+        initialValues: {
+            name: "",
+            surname: "",
+            email: "",
+            position: "",
+            city: "",
+            address: "",
+            interest: optionsInterest[2].value,
+        },
+        validationSchema: Yup.object({
+            name: Yup.string().max(10).min(3).required("Name is required"),
+            surname: Yup.string().max(15).min(3).required("Surname is required"),
+            email: Yup.string()
+                .email("Must be a valid email")
+                .max(40)
+                .min(10)
+                .required("Email is required"),
+            position: Yup.mixed()
+                //.oneOf(optionsPreference, "Position must be one of the options")
+                .required("Position is required"),
+            company: Yup.string().max(15).min(3).required("Company is required"),
+        }),
+    });
+
+    return (
+        <Card sx={{ marginLeft: -20, width: 1050 }}>
+            <CardHeader title="New contact" />
+            <Divider />
+            <CardContent>
+                <Grid container spacing={3} sx={{ display: "flex", justifyContent: "center" }}>
+                    <Grid item md={2} s={12}>
+                        <TextField
+                            fullWidth
+                            label="Name"
+                            name="name"
+                            max="10"
+                            min="3"
+                            onChange={formikPersonalInformation.handleChange}
+                            onBlur={formikPersonalInformation.handleBlur}
+                            required
+                            value={formikPersonalInformation.values.name}
+                            variant="outlined"
+                            error={Boolean(
+                                formikPersonalInformation.touched.name &&
+                                    formikPersonalInformation.errors.name
+                            )}
+                            helperText={
+                                formikPersonalInformation.touched.name &&
+                                formikPersonalInformation.errors.name
+                            }
+                        />
+                    </Grid>
+                    <Grid item md={2} xs={12}>
+                        <TextField
+                            fullWidth
+                            label="Surname"
+                            name="surname"
+                            //initialValues
+                            onBlur={formikPersonalInformation.handleBlur}
+                            required
+                            value={formikPersonalInformation.values.surname}
+                            variant="outlined"
+                            error={Boolean(
+                                formikPersonalInformation.touched.surname &&
+                                    formikPersonalInformation.errors.surname
+                            )}
+                            helperText={
+                                formikPersonalInformation.touched.surname &&
+                                formikPersonalInformation.errors.surname
+                            }
+                        />
+                    </Grid>
+                    <Grid item md={2} xs={12}>
+                        <TextField
+                            error={Boolean(
+                                formikPersonalInformation.touched.email &&
+                                    formikPersonalInformation.errors.email
+                            )}
+                            fullWidth
+                            helperText={
+                                formikPersonalInformation.touched.email &&
+                                formikPersonalInformation.errors.email
+                            }
+                            label="Email"
+                            name="email"
+                            type="email"
+                            onChange={formikPersonalInformation.handleChange}
+                            onBlur={formikPersonalInformation.handleBlur}
+                            required
+                            value={formikPersonalInformation.values.email}
+                            variant="outlined"
+                        />
+                    </Grid>
+                    <Grid item md={2} xs={12}>
+                        <TextField
+                            error={Boolean(
+                                formikPersonalInformation.touched.position &&
+                                    formikPersonalInformation.errors.position
+                            )}
+                            helperText={
+                                formikPersonalInformation.touched.position &&
+                                formikPersonalInformation.errors.position
+                            }
+                            label="Position"
+                            name="position"
+                            //type="email"
+                            onChange={formikPersonalInformation.handleChange}
+                            onBlur={formikPersonalInformation.handleBlur}
+                            required
+                            value={formikPersonalInformation.values.position}
+                            variant="outlined"
+                        />
+                    </Grid>
+
+                    <Grid item md={2} xs={12}>
+                        <TextField
+                            error={Boolean(
+                                formikPersonalInformation.touched.company &&
+                                    formikPersonalInformation.errors.company
+                            )}
+                            fullWidth
+                            helperText={
+                                formikPersonalInformation.touched.company &&
+                                formikPersonalInformation.errors.company
+                            }
+                            label="Company"
+                            name="company"
+                            select
+                            onChange={formikPersonalInformation.handleChange}
+                            onBlur={formikPersonalInformation.handleBlur}
+                            //type="company"
+                            variant="outlined"
+                            required
+                        />
+                    </Grid>
+                </Grid>
+            </CardContent>
+            <Divider />
+            <Card>
+                <CardContent>
+                    <Grid container spacing={3} sx={{ display: "flex", justifyContent: "center" }}>
+                        <Grid item md={2.5} s={12}>
+                            <TextField
+                                value={formikPersonalInformation.values.region}
+                                name="region"
+                                select="true"
+                                fullWidth="true"
+                                variant="outlined"
+                                label="Region"
+                                placeholder="Select region"
+                                onChange={regionOnChange}
+                                inputValue={state.profileInputValue}
+                                onInputChange={(event, newInputValue) => {
+                                    setState({
+                                        ...state,
+                                        profileInputValue: newInputValue,
+                                    });
+                                }}
+                            />
+                        </Grid>
+                        <Grid item md={2.5} xs={12}>
+                            <TextField
+                                value={formikPersonalInformation.values.country}
+                                name="country"
+                                select
+                                label="Country"
+                                placeholder="Select country"
+                                fullWidth
+                                variant="outlined"
+                                onBlur={formikPersonalInformation.handleBlur}
+                                onChange={(e, value) =>
+                                    formikPersonalInformation.setFieldValue("country", value)
+                                }
+                                inputValue={state.profileInputValue}
+                                onInputChange={(event, newInputValue) => {
+                                    setState({
+                                        ...state,
+                                        profileInputValue: newInputValue,
+                                    });
+                                }}
+                            />
+                        </Grid>
+                        <Grid item md={2.5} xs={12}>
+                            <TextField
+                                value={formikPersonalInformation.values.city}
+                                name="city"
+                                select
+                                label="City"
+                                //placeholder="Select city"
+                                fullWidth
+                                variant="outlined"
+                                onBlur={formikPersonalInformation.handleBlur}
+                                onChange={formikPersonalInformation.handleChange}
+                                error={Boolean(
+                                    formikPersonalInformation.touched.city &&
+                                        formikPersonalInformation.errors.city
+                                )}
+                                helperText={
+                                    formikPersonalInformation.touched.city &&
+                                    formikPersonalInformation.errors.city
+                                }
+                            />
+                        </Grid>
+                        <Grid item md={2.5} xs={12}>
+                            <TextField
+                                fullWidth
+                                label="Address"
+                                name="address"
+                                placeholder="Enter an address"
+                                max="10"
+                                min="3"
+                                onChange={formikPersonalInformation.handleChange}
+                                onBlur={formikPersonalInformation.handleBlur}
+                                required
+                                value={formikPersonalInformation.values.address}
+                                variant="outlined"
+                                error={Boolean(
+                                    formikPersonalInformation.touched.address &&
+                                        formikPersonalInformation.errors.address
+                                )}
+                                helperText={
+                                    formikPersonalInformation.touched.address &&
+                                    formikPersonalInformation.errors.address
+                                }
+                            />
+                        </Grid>
+                        <Grid item md={2.5} xs={12}>
+                            <TextField
+                                value={formikPersonalInformation.values.interest}
+                                name="interest"
+                                select="true"
+                                label="Interest"
+                                fullWidth="true"
+                                variant="outlined"
+                                onChange={(event) => {
+                                    formikPersonalInformation.setFieldValue(
+                                        "interest",
+                                        event.target.value
+                                    );
+                                }}
+                            >
+                                {optionsInterest.map((option) => {
+                                    return <MenuItem value={option.value}>{option.label}</MenuItem>;
+                                })}
+                            </TextField>
+                        </Grid>
+                        <Divider />
+                    </Grid>
+                </CardContent>
+                <Divider />
+                <Box sx={{ display: "flex", justifyContent: "end", mr: 15, mt: 2 }}>
+                    <AddChannelDialog />
+                </Box>
+                <Box sx={{ mt: 2 }}>
+                    <TableAddChannels />
+                </Box>
+
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "end",
+                        p: 5,
+                    }}
+                >
+                    <Button
+                        sx={{}}
+                        color="primary"
+                        disabled={formikPersonalInformation.isSubmitting}
+                        variant="contained"
+                        underline="hover"
+                        type="submit"
+                    >
+                        Create
+                    </Button>
+                </Box>
+            </Card>
+        </Card>
+    );
+};
+export default CardPersonalInformation;

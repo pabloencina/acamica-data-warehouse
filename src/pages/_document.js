@@ -1,10 +1,7 @@
-import { Children, useContext, useEffect } from "react";
-import Document, { Html, Head, Main, NextScript } from "next/document";
 import createEmotionServer from "@emotion/server/create-instance";
+import Document, { Head, Html, Main, NextScript } from "next/document";
+import { Children } from "react";
 import { createEmotionCache } from "../utils/create-emotion-cache";
-import { BrowserRouter } from "react-router-dom";
-import { getAllRegions } from "src/services/regionsService";
-import { AppContext } from "src/utils/app-context-provider";
 
 class CustomDocument extends Document {
     render() {

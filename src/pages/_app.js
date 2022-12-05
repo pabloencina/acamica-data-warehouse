@@ -1,14 +1,12 @@
-import Head from "next/head";
 import { CacheProvider } from "@emotion/react";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
-import { createEmotionCache } from "../utils/create-emotion-cache";
+import Head from "next/head";
+import { AppProvider } from "src/utils/app-context-provider";
 import { theme } from "../theme";
-import { AppContext, AppProvider } from "src/utils/app-context-provider";
-import { useContext, useEffect } from "react";
-import { getAllRegions } from "src/services/regionsService";
+import { createEmotionCache } from "../utils/create-emotion-cache";
 
 const clientSideEmotionCache = createEmotionCache();
 
