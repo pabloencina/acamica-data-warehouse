@@ -39,7 +39,7 @@ const NotFound = () => (
                             style={{
                                 marginTop: 50,
                                 display: "inline-block",
-                                maxWidth: "100%",
+                                maxWidth: "xl",
                                 width: 560,
                             }}
                         />

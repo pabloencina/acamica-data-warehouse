@@ -1,6 +1,5 @@
-import { useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import PropTypes from "prop-types";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
     Box,
     Button,
@@ -16,10 +15,9 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRouter } from "next/router";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import AlertDeleteCompany from "./alert-delete-company";
 //import AlertDeleteContact from "./alert-delete-contact";
 

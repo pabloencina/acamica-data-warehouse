@@ -65,83 +65,82 @@ export const UserListResults = ({ users: users, ...rest }) => {
 
     return (
         <Card {...rest}>
-            <PerfectScrollbar>
-                <Box sx={{ minWidth: 1050 }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
+            <Box>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell padding="checkbox">
+                                <Checkbox
+                                    checked={selectedUserIds.length === users.length}
+                                    color="primary"
+                                    indeterminate={
+                                        selectedUserIds.length > 0 &&
+                                        selectedUserIds.length < users.length
+                                    }
+                                    onChange={handleSelectAll}
+                                />
+                            </TableCell>
+
+                            <TableCell>
+                                Name
+                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                            </TableCell>
+                            <TableCell>
+                                Surname
+                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                            </TableCell>
+                            <TableCell>
+                                Email
+                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                            </TableCell>
+
+                            <TableCell>
+                                Profile
+                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                            </TableCell>
+
+                            <TableCell>
+                                Actions
+                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                            </TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {users.slice(0, limit).map((user) => (
+                            <TableRow
+                                hover
+                                key={user.id}
+                                selected={selectedUserIds.indexOf(user.id) !== -1}
+                            >
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        checked={selectedUserIds.length === users.length}
-                                        color="primary"
-                                        indeterminate={
-                                            selectedUserIds.length > 0 &&
-                                            selectedUserIds.length < users.length
-                                        }
-                                        onChange={handleSelectAll}
+                                        checked={selectedUserIds.indexOf(user.id) !== -1}
+                                        onChange={(event) => handleSelectOne(event, user.id)}
+                                        value="true"
                                     />
                                 </TableCell>
-
                                 <TableCell>
-                                    Name
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
+                                    <Box
+                                        sx={{
+                                            alignItems: "center",
+                                            display: "flex",
+                                        }}
+                                    >
+                                        <Typography color="textPrimary" variant="body1">
+                                            {user.name}
+                                        </Typography>
+                                    </Box>
                                 </TableCell>
-                                <TableCell>
-                                    Surname
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Email
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                                </TableCell>
-
-                                <TableCell>
-                                    Profile
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                                </TableCell>
-
-                                <TableCell>
-                                    Actions
-                                    <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                                </TableCell>
+                                <TableCell>{user.surname}</TableCell>
+                                <TableCell>{`${user.email}`}</TableCell>
+                                <TableCell>{user.profile}</TableCell>
+                                <TableCell>{user.actions}</TableCell>
                             </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {users.slice(0, limit).map((user) => (
-                                <TableRow
-                                    hover
-                                    key={user.id}
-                                    selected={selectedUserIds.indexOf(user.id) !== -1}
-                                >
-                                    <TableCell padding="checkbox">
-                                        <Checkbox
-                                            checked={selectedUserIds.indexOf(user.id) !== -1}
-                                            onChange={(event) => handleSelectOne(event, user.id)}
-                                            value="true"
-                                        />
-                                    </TableCell>
-                                    <TableCell>
-                                        <Box
-                                            sx={{
-                                                alignItems: "center",
-                                                display: "flex",
-                                            }}
-                                        >
-                                            <Typography color="textPrimary" variant="body1">
-                                                {user.name}
-                                            </Typography>
-                                        </Box>
-                                    </TableCell>
-                                    <TableCell>{user.surname}</TableCell>
-                                    <TableCell>{`${user.email}`}</TableCell>
-                                    <TableCell>{user.profile}</TableCell>
-                                    <TableCell>{user.actions}</TableCell>
-                                </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </Box>
-            </PerfectScrollbar>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Box>
+
             <TablePagination
                 component="div"
                 count={users.length}

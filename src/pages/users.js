@@ -6,6 +6,7 @@ import { UserTable } from "src/components/user/user-table";
 import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
 import { getAllUsers } from "src/services/usersService";
+import DataGridDemo from "src/components/user/table2";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
@@ -31,9 +32,9 @@ const Users = () => {
                     py: 8,
                 }}
             >
-                <Container maxWidth={true}>
+                <Container>
                     <UserListToolbar />
-                    <Box sx={{ mt: 3 }}>
+                    <Box>
                         <Card>
                             <CardContent>
                                 <UserTable users={users} setUsers={setUsers} />

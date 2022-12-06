@@ -18,7 +18,6 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useContext, useState } from "react";
-import Companies from "src/pages/companies";
 import { postContact } from "src/services/contactsService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
@@ -27,6 +26,13 @@ import TableAddChannels from "./table-add-channels";
 
 export const CreateContactForm = (props) => {
     const { regions, companies } = useContext(AppContext);
+    console.log(companies.data);
+
+    const [channels, setChannels] = useState([]);
+
+    const addChannel = (newChannel) => {
+        setChannels([...channels, newChannel]);
+    };
 
     const [selectedRegion, setSelectedRegion] = useState({
         _id: "",
@@ -272,7 +278,9 @@ export const CreateContactForm = (props) => {
                                 >
                                     {companies.data.map((company) => {
                                         return (
-                                            <MenuItem value={company._id}>{company.name}</MenuItem>
+                                            <MenuItem key={company._id} value={company._id}>
+                                                {company.name}
+                                            </MenuItem>
                                         );
                                     })}
                                 </TextField>
@@ -318,8 +326,6 @@ export const CreateContactForm = (props) => {
                                         name="country"
                                         select
                                         onChange={countryOnChange}
-                                        //onChange={formik.handleChange}
-                                        //onBlur={formik.handleBlur}
                                         required
                                         value={formikCreateContact.values.country}
                                         variant="outlined"
@@ -420,10 +426,10 @@ export const CreateContactForm = (props) => {
                         </CardContent>
                         <Divider />
                         <Box sx={{ display: "flex", justifyContent: "end", mr: 5, mt: 2 }}>
-                            <AddChannelDialog />
+                            <AddChannelDialog addChannel={addChannel} />
                         </Box>
                         <Box sx={{ mt: 2 }}>
-                            <TableAddChannels />
+                            <TableAddChannels channels={channels} />
                         </Box>
 
                         <Box

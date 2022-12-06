@@ -14,33 +14,32 @@ export const UserTable = (params) => {
         {
             field: "name",
             headerName: "Name",
-            with: 250,
             height: 100,
         },
         {
             field: "surname",
             headerName: "Surname",
-            width: 250,
+            // maxWidth: "xl",
             height: 100,
         },
         {
             field: "email",
             headerName: "Email",
             type: "email",
-            width: 150,
+            // maxWidth: "xl",
             height: 100,
         },
         {
             field: "profile",
             headerName: "Profile",
             sortable: true,
-            width: 150,
+            // maxWidth: "xl",
             height: 100,
         },
         {
             field: "action",
             headerName: "Action",
-            width: 200,
+            // maxWidth: "xl",
             sortable: false,
             renderCell: (params) => {
                 const onClick = (e) => {
@@ -96,6 +95,7 @@ export const UserTable = (params) => {
     return (
         <Box style={{ height: 400 }}>
             <DataGrid
+                style={{ height: 400 }}
                 rows={users}
                 columns={columns}
                 getRowId={(row) => row._id}

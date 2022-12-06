@@ -1,25 +1,17 @@
-import * as React from "react";
+import { IconButton, Tooltip } from "@mui/material";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 
-// function createData(name, calories, fat, carbs, protein) {
-//     return { name, calories, fat, carbs, protein };
-// }
-
-// const rows = [
-//     createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-//     createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//     createData("Eclair", 262, 16.0, 24, 6.0),
-//     createData("Cupcake", 305, 3.7, 67, 4.3),
-//     createData("Gingerbread", 356, 16.0, 49, 3.9),
-// ];
-
-export default function TableAddChannels() {
+export default function TableAddChannels(props) {
+    const { channels } = props;
+    console.log(channels);
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -31,7 +23,28 @@ export default function TableAddChannels() {
                         <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
-                <TableBody>{}</TableBody>
+                <TableBody>
+                    {channels.map((channel) => {
+                        return (
+                            <TableRow>
+                                <TableCell align="center">{channel.channel}</TableCell>
+                                <TableCell align="center">{channel.account}</TableCell>
+                                <TableCell align="center">{channel.preference}</TableCell>
+                                <TableCell align="center">
+                                    <Tooltip title="Delete Channel">
+                                        <IconButton
+                                            onClick={() => {
+                                                handleClickOpen();
+                                            }}
+                                        >
+                                            <DeleteOutlineIcon />
+                                        </IconButton>
+                                    </Tooltip>
+                                </TableCell>
+                            </TableRow>
+                        );
+                    })}
+                </TableBody>
             </Table>
         </TableContainer>
     );
