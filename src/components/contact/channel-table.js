@@ -6,12 +6,12 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { getChannelOption, getPreferenceOption } from "./constants";
 
-export default function TableAddChannels(props) {
-    const { channels } = props;
-    console.log(channels);
+export default function ChannelTable(props) {
+    const { channels, deleteChannel } = props;
+
     return (
         <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,14 +27,18 @@ export default function TableAddChannels(props) {
                     {channels.map((channel) => {
                         return (
                             <TableRow>
-                                <TableCell align="center">{channel.channel}</TableCell>
+                                <TableCell align="center">
+                                    {getChannelOption(channel.channel).label}
+                                </TableCell>
                                 <TableCell align="center">{channel.account}</TableCell>
-                                <TableCell align="center">{channel.preference}</TableCell>
+                                <TableCell align="center">
+                                    {getPreferenceOption(channel.preference).label}
+                                </TableCell>
                                 <TableCell align="center">
                                     <Tooltip title="Delete Channel">
                                         <IconButton
                                             onClick={() => {
-                                                handleClickOpen();
+                                                deleteChannel(channel._id);
                                             }}
                                         >
                                             <DeleteOutlineIcon />

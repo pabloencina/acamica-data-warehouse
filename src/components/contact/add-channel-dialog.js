@@ -4,10 +4,10 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
-import { useFormik } from "formik";
 import * as React from "react";
 import { useState } from "react";
-import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
+import { optionsChannel, optionsPreference } from "./constants";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -16,52 +16,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 export default function AddChannelDialog(props) {
     const { addChannel } = props;
 
-    const optionsPreference = [
-        {
-            value: "NO_PREFERENCE",
-            label: "No Preference",
-        },
-        {
-            value: "FAVORITE_CHANNEL",
-            label: "Favorite Channel",
-        },
-        {
-            value: "DO_NOT_DISTURB",
-            label: "Don't Disturb",
-        },
-    ];
-
-    const optionsChannel = [
-        {
-            value: "TWITTER",
-            label: "Twitter",
-        },
-        {
-            value: "INSTAGRAM",
-            label: "Instagram",
-        },
-        {
-            value: "FACEBOOK",
-            label: "Facebook",
-        },
-        {
-            value: "WHATSAPP",
-            label: "WhatsApp",
-        },
-        {
-            value: "PHONE",
-            label: "Phone",
-        },
-    ];
-
     const [open, setOpen] = useState(false);
-
-    // const [state, setState] = useState({
-    //     formError: false,
-    //     dialogOpen: false,
-    //     errorMessage: "",
-    //     error: false,
-    // });
 
     const [state, setState] = useState({
         channel: optionsChannel[0].value,
@@ -80,6 +35,7 @@ export default function AddChannelDialog(props) {
     const handleConfirm = () => {
         addChannel({
             ...state,
+            _id: uuidv4(),
         });
         setOpen(false);
     };
@@ -122,11 +78,14 @@ export default function AddChannelDialog(props) {
                                     });
                                 }}
                             >
-                                <MenuItem value={"TWITTER"}>Twitter</MenuItem>
+                                {/* <MenuItem value={"TWITTER"}>Twitter</MenuItem>
                                 <MenuItem value={"INSTAGRAM"}>Instagram</MenuItem>
                                 <MenuItem value={"FACEBOOK"}>Facebook</MenuItem>
                                 <MenuItem value={"WHATSAPP"}>WhatsApp</MenuItem>
-                                <MenuItem value={"PHONE"}>Phone</MenuItem>
+                                <MenuItem value={"PHONE"}>Phone</MenuItem> */}
+                                {optionsChannel.map((option) => {
+                                    return <MenuItem value={option.value}>{option.label}</MenuItem>;
+                                })}
                             </TextField>
                         </Grid>
                         <Grid item md={12} xs={12}>
@@ -159,9 +118,9 @@ export default function AddChannelDialog(props) {
                                     });
                                 }}
                             >
-                                <MenuItem value={"NO_PREFERENCE"}>No Preference</MenuItem>
-                                <MenuItem value={"FAVORITE_CHANNEL"}>Favorite Channel</MenuItem>
-                                <MenuItem value={"DO_NOT_DISTURB"}>Don't Disturb</MenuItem>
+                                {optionsPreference.map((option) => {
+                                    return <MenuItem value={option.value}>{option.label}</MenuItem>;
+                                })}
                             </TextField>
                         </Grid>
                     </Grid>

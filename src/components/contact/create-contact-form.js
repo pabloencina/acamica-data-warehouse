@@ -21,8 +21,8 @@ import { useContext, useState } from "react";
 import { postContact } from "src/services/contactsService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
-import AddChannelDialog from "./channel-alert-dialog";
-import TableAddChannels from "./table-add-channels";
+import AddChannelDialog from "./add-channel-dialog";
+import ChannelTable from "./channel-table";
 
 export const CreateContactForm = (props) => {
     const { regions, companies } = useContext(AppContext);
@@ -32,6 +32,13 @@ export const CreateContactForm = (props) => {
 
     const addChannel = (newChannel) => {
         setChannels([...channels, newChannel]);
+    };
+
+    const deleteChannel = (id) => {
+        const filteredChannels = channels.filter((channel) => {
+            return channel._id !== id;
+        });
+        setChannels(filteredChannels);
     };
 
     const [selectedRegion, setSelectedRegion] = useState({
@@ -429,7 +436,7 @@ export const CreateContactForm = (props) => {
                             <AddChannelDialog addChannel={addChannel} />
                         </Box>
                         <Box sx={{ mt: 2 }}>
-                            <TableAddChannels channels={channels} />
+                            <ChannelTable channels={channels} deleteChannel={deleteChannel} />
                         </Box>
 
                         <Box
