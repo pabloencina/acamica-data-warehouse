@@ -54,3 +54,9 @@ export const editContact = async (id, contactToEdit) => {
     }
     return null;
 };
+
+export const deleteContact = async (id) => {
+    const response = await axios.delete(`${contactURL}/${id}`);
+    console.log(response.data);
+    return response.data;
+};

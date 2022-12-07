@@ -7,16 +7,16 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import { IconButton, Tooltip } from "@mui/material";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { deleteUser, getAllUsers } from "src/services/usersService";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
+import { deleteContact, getAllContacts } from "src/services/contactsService";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function AlertDeleteContact(params) {
-    const { contact, setContacts } = params;
+    const { contact, onContactDeleted } = params;
 
     const [open, setOpen] = React.useState(false);
 
@@ -39,25 +39,24 @@ export default function AlertDeleteContact(params) {
     };
 
     const handleDelete = async (e) => {
-        deleteUser(contact._id) //Elimina un usuario por ID
-            .then(() => {
-                getAllUsers().then((response) => {
-                    // Trae a todos los usuarios.
+        try {
+            await deleteContact(contact._id); //Elimina un usuario por ID
+            onContactDeleted();
+        } catch (error) {
+            setSnackbarOpen(true);
+        }
 
-                    setContacts(response.data); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
-                });
-            })
-            .catch((e) => {
-                setSnackbarOpen(true);
-                // TODO: mostrar un toast en caso de error
-            });
         handleClose();
     };
 
     return (
         <>
             <Tooltip title="Delete Contact">
-                <IconButton onClick={() => {}}>
+                <IconButton
+                    onClick={() => {
+                        handleClickOpen();
+                    }}
+                >
                     <DeleteOutlineIcon />
                 </IconButton>
             </Tooltip>
@@ -70,7 +69,7 @@ export default function AlertDeleteContact(params) {
                 <DialogTitle id="alert-dialog-title"></DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete {contact}?
+                        Are you sure you want to delete {contact.name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -83,7 +82,7 @@ export default function AlertDeleteContact(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {contact}
+                    Cannot delete user {contact.name}
                 </Alert>
             </Snackbar>
         </>

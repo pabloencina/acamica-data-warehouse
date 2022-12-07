@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
+import { getAllContacts } from "src/services/contactsService";
 import AlertDeleteContact from "./alert-delete-contact";
 
 const Impexpicons = SwapVertIcon;
@@ -69,6 +70,14 @@ export const ContactListResults = (params) => {
 
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
+    };
+
+    const onContactDeleted = () => {
+        getAllContacts().then((response) => {
+            // Trae a todos los usuarios.
+
+            setContacts(response); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
+        });
     };
 
     return (
@@ -158,7 +167,11 @@ export const ContactListResults = (params) => {
                                     <TableCell>
                                         <Box>
                                             <Stack direction="row" spacing={2}>
-                                                <AlertDeleteContact setContacts={setContacts} />
+                                                <AlertDeleteContact
+                                                    setContacts={setContacts}
+                                                    contact={contact}
+                                                    onContactDeleted={onContactDeleted}
+                                                />
                                                 <Tooltip title="Edit Contact">
                                                     <IconButton
                                                         onClick={() => {
