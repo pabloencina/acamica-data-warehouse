@@ -17,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
 export default function AlertDeleteContact(params) {
     const { contact, setContacts } = params;
-    console.log(params);
+
     const [open, setOpen] = React.useState(false);
 
     const [snackbarOpen, setSnackbarOpen] = React.useState(false);
@@ -48,7 +48,6 @@ export default function AlertDeleteContact(params) {
                 });
             })
             .catch((e) => {
-                //console.log("se produjo un error al eliminar el usuario");
                 setSnackbarOpen(true);
                 // TODO: mostrar un toast en caso de error
             });

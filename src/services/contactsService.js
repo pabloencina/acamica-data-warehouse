@@ -8,6 +8,28 @@ export const getAllContacts = () => {
 };
 //console.log(getAllContacts);
 
+export const postContact = async (contactToCreate) => {
+    if (contactToCreate) {
+        const body = {
+            name: contactToCreate.name,
+            surname: contactToCreate.surname,
+            email: contactToCreate.email,
+            position: contactToCreate.position,
+            company: contactToCreate.company,
+            city: contactToCreate.city,
+            address: contactToCreate.address,
+            channels: contactToCreate.channels,
+            interest: contactToCreate.interest,
+        };
+        const postContactResponse = await axios.post(contactURL, body);
+        console.log(postContactResponse);
+
+        return postContactResponse;
+    }
+
+    return null;
+};
+
 export const getContactById = async (id) => {
     const response = await axios.get(`${contactURL}/${id}`);
     return response.data;

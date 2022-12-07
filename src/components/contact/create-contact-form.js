@@ -26,7 +26,6 @@ import ChannelTable from "./channel-table";
 
 export const CreateContactForm = (props) => {
     const { regions, companies } = useContext(AppContext);
-    console.log(companies.data);
 
     const [channels, setChannels] = useState([]);
 
@@ -139,8 +138,10 @@ export const CreateContactForm = (props) => {
 
         onSubmit: async (values) => {
             try {
+                console.log(values);
+                console.log(channels);
                 const response = await postContact(values);
-
+                console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,
@@ -160,7 +161,6 @@ export const CreateContactForm = (props) => {
                 } else {
                     message += " Can't connect with the server. Please try again later...";
                 }
-                console.log(error.response);
                 setState({
                     ...state,
                     errorMessage: message,

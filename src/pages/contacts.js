@@ -50,7 +50,7 @@ const Contacts = () => {
                     py: 8,
                 }}
             >
-                <Container maxWidth={true}>
+                <Container>
                     <ContactListToolbar />
                     <Box sx={{ mt: 3 }}>
                         <ContactListResults contacts={contacts} setContacts={setContacts} />

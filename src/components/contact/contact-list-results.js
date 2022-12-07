@@ -1,6 +1,5 @@
-import { useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import PropTypes from "prop-types";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
     Box,
     Button,
@@ -16,17 +15,17 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
 import AlertDeleteContact from "./alert-delete-contact";
 
 const Impexpicons = SwapVertIcon;
 
 export const ContactListResults = (params) => {
     const { contacts, setContacts } = params;
-    console.log(contacts);
+
     const router = useRouter();
     const [selectedContactIds, setSelectedContactIds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -166,7 +165,11 @@ export const ContactListResults = (params) => {
                                     <TableCell>
                                         <Box>
                                             {contact.channels.map((channel) => {
-                                                return <div>{channel.channel}</div>;
+                                                return (
+                                                    <div key={channel.channel}>
+                                                        {channel.channel}
+                                                    </div>
+                                                );
                                             })}
                                         </Box>
                                     </TableCell>
@@ -181,7 +184,6 @@ export const ContactListResults = (params) => {
                                                     onClick={() => {
                                                         // https://github.com/vercel/next.js/discussions/17008
                                                         router.push("/edit-contact");
-                                                        console.log(params.row);
                                                     }}
                                                 >
                                                     <EditOutlinedIcon fontSize="big" />
