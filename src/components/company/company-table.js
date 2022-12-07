@@ -15,11 +15,11 @@ import {
     Tooltip,
     Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import AlertDeleteCompany from "./alert-delete-company";
-//import AlertDeleteContact from "./alert-delete-contact";
 
 const Impexpicons = SwapVertIcon;
 
@@ -36,7 +36,7 @@ export const CompanyTable = (params) => {
 
         if (event.target.checked) {
             console.log(event.target.checked);
-            newSelectedCompanyIds = companies.map((company) => company.id);
+            newSelectedCompanyIds = companies.map((company) => company._id);
         } else {
             newSelectedCompanyIds = [];
         }
@@ -75,7 +75,7 @@ export const CompanyTable = (params) => {
     return (
         <Card>
             <PerfectScrollbar>
-                <Box sx={{ minWidth: 1000 }}>
+                <Box>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -92,26 +92,11 @@ export const CompanyTable = (params) => {
                                     />
                                 </TableCell>
 
-                                <TableCell>
-                                    Name
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Email
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Phone
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Address
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    City
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Phone</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell>City</TableCell>
 
                                 <TableCell>Actions</TableCell>
                             </TableRow>
@@ -133,17 +118,7 @@ export const CompanyTable = (params) => {
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <Box
-                                            sx={{
-                                                // alignItems: "center",
-                                                display: "flex",
-                                                width: 175,
-                                            }}
-                                        >
-                                            <Typography color="textPrimary">
-                                                <>{company.name}</>
-                                            </Typography>
-                                        </Box>
+                                        <Box>{company.name}</Box>
                                     </TableCell>
                                     <TableCell>
                                         <Box>{company.email}</Box>
@@ -203,5 +178,5 @@ export const CompanyTable = (params) => {
 };
 
 CompanyTable.propTypes = {
-    // contacts: PropTypes.array.isRequired,
+    companies: PropTypes.array.isRequired,
 };

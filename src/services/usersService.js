@@ -3,8 +3,9 @@ import axios from "axios";
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
 const userURL = `${baseUrl}/users`;
 
-export const getAllUsers = () => {
-    return axios.get(userURL);
+export const getAllUsers = async () => {
+    const response = await axios.get(userURL);
+    return response.data;
 };
 
 export const getUserById = async (id) => {

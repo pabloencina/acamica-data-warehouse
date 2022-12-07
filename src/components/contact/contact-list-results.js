@@ -6,6 +6,7 @@ import {
     Card,
     Checkbox,
     IconButton,
+    Stack,
     Table,
     TableBody,
     TableCell,
@@ -25,7 +26,6 @@ const Impexpicons = SwapVertIcon;
 
 export const ContactListResults = (params) => {
     const { contacts, setContacts } = params;
-
     const router = useRouter();
     const [selectedContactIds, setSelectedContactIds] = useState([]);
     const [limit, setLimit] = useState(10);
@@ -35,7 +35,7 @@ export const ContactListResults = (params) => {
         let newSelectedContactIds;
 
         if (event.target.checked) {
-            newSelectedContactIds = contacts.map((contact) => contact.id);
+            newSelectedContactIds = contacts.map((contact) => contact._id);
         } else {
             newSelectedContactIds = [];
         }
@@ -74,7 +74,7 @@ export const ContactListResults = (params) => {
     return (
         <Card>
             <PerfectScrollbar>
-                <Box sx={{ minWidth: 1000 }}>
+                <Box>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -91,31 +91,12 @@ export const ContactListResults = (params) => {
                                     />
                                 </TableCell>
 
-                                <TableCell>
-                                    Contact
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Position
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Company
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Address
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-                                <TableCell>
-                                    Channels
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
-
-                                <TableCell>
-                                    Interest
-                                    <Button startIcon={<Impexpicons />}></Button>
-                                </TableCell>
+                                <TableCell>Contact</TableCell>
+                                <TableCell>Position</TableCell>
+                                <TableCell>Company</TableCell>
+                                <TableCell>Address</TableCell>
+                                <TableCell>Channels</TableCell>
+                                <TableCell>Interest</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
                         </TableHead>
@@ -123,30 +104,26 @@ export const ContactListResults = (params) => {
                             {contacts.slice(0, limit).map((contact) => (
                                 <TableRow
                                     hover
-                                    key={contact.id}
-                                    selected={selectedContactIds.indexOf(contact.id) !== -1}
+                                    key={contact._id}
+                                    selected={selectedContactIds.indexOf(contact._id) !== -1}
                                 >
                                     <TableCell padding="checkbox">
                                         <Checkbox
-                                            checked={selectedContactIds.indexOf(contact.id) !== -1}
-                                            onChange={(event) => handleSelectOne(event, contact.id)}
+                                            checked={selectedContactIds.indexOf(contact._id) !== -1}
+                                            onChange={(event) =>
+                                                handleSelectOne(event, contact._id)
+                                            }
                                             value="true"
                                         />
                                     </TableCell>
                                     <TableCell>
-                                        <Box
-                                            sx={{
-                                                // alignItems: "center",
-                                                display: "flex",
-                                                width: 175,
-                                            }}
-                                        >
-                                            <Typography color="textPrimary">
-                                                <>
-                                                    {contact.name}, {contact.surname}{" "}
-                                                    {contact.email}
-                                                </>
-                                            </Typography>
+                                        <Box>
+                                            <Stack>
+                                                <div>
+                                                    {contact.name}, {contact.surname}
+                                                </div>
+                                                <div>{contact.email}</div>
+                                            </Stack>
                                         </Box>
                                     </TableCell>
                                     <TableCell>
@@ -157,9 +134,11 @@ export const ContactListResults = (params) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
-                                            <div>
-                                                {contact.city.name}, {contact.address}
-                                            </div>
+                                            <Stack>
+                                                <div>{contact.address},</div>
+                                                <div>{contact.city.name}</div>
+                                            </Stack>
+                                            {/* {`${contact.address}, ${contact.city.name}`} */}
                                         </Box>
                                     </TableCell>
                                     <TableCell>
@@ -178,17 +157,19 @@ export const ContactListResults = (params) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
-                                            <AlertDeleteContact setContacts={setContacts} />
-                                            <Tooltip title="Edit Contact">
-                                                <IconButton
-                                                    onClick={() => {
-                                                        // https://github.com/vercel/next.js/discussions/17008
-                                                        router.push("/edit-contact");
-                                                    }}
-                                                >
-                                                    <EditOutlinedIcon fontSize="big" />
-                                                </IconButton>
-                                            </Tooltip>
+                                            <Stack direction="row" spacing={2}>
+                                                <AlertDeleteContact setContacts={setContacts} />
+                                                <Tooltip title="Edit Contact">
+                                                    <IconButton
+                                                        onClick={() => {
+                                                            // https://github.com/vercel/next.js/discussions/17008
+                                                            router.push("/edit-contact");
+                                                        }}
+                                                    >
+                                                        <EditOutlinedIcon fontSize="big" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Stack>
                                         </Box>
                                     </TableCell>
                                 </TableRow>

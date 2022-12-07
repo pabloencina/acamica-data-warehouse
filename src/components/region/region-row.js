@@ -1,17 +1,18 @@
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import { Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import PropTypes from "prop-types";
 import * as React from "react";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import IconButton from "@mui/material/IconButton";
-import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
-import CountryRow from "./country-row";
 import CreateCountryDialog from "src/components/region/create-region-country-city/create-country-dialog";
+import CountryRow from "./country-row";
 import EditRegionDialog from "./edit-region-country-city/edit-region-dialog";
 
 export default function RegionRow(props) {
@@ -33,8 +34,13 @@ export default function RegionRow(props) {
                 </TableCell>
                 <TableCell scope="row">{region.name}</TableCell>
                 <TableCell scope="row">
-                    <EditRegionDialog refreshRegions={refreshRegions} />
-                    <CreateCountryDialog regionId={region._id} refreshRegions={refreshRegions} />
+                    <Stack direction="row" spacing={2}>
+                        <EditRegionDialog refreshRegions={refreshRegions} />
+                        <CreateCountryDialog
+                            regionId={region._id}
+                            refreshRegions={refreshRegions}
+                        />
+                    </Stack>
                 </TableCell>
             </TableRow>
 

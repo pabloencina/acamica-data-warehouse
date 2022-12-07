@@ -1,38 +1,44 @@
-import { useState } from "react";
-import PerfectScrollbar from "react-perfect-scrollbar";
-import PropTypes from "prop-types";
+import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import {
     Box,
-    Button,
     Card,
     Checkbox,
+    IconButton,
+    Stack,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TablePagination,
     TableRow,
-    Typography,
+    Tooltip,
 } from "@mui/material";
-import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { useState } from "react";
+import PerfectScrollbar from "react-perfect-scrollbar";
+import { getAllUsers } from "src/services/usersService";
+import AlertDeleteUser from "./alert-delete-user";
 
-const Impexpicons = SwapVertIcon;
+export const UserListResults = (params) => {
+    const { users, setUsers } = params;
+    console.log(users);
 
-export const UserListResults = ({ users: users, ...rest }) => {
+    const router = useRouter();
     const [selectedUserIds, setSelectedUserIds] = useState([]);
     const [limit, setLimit] = useState(10);
     const [page, setPage] = useState(0);
 
     const handleSelectAll = (event) => {
-        let newSelectedUserIds;
+        let newSelectedUsersIds;
 
         if (event.target.checked) {
-            newSelectedUserIds = users.map((user) => user.id);
+            newSelectedUsersIds = users.map((user) => user._id);
         } else {
-            newSelectedUserIds = [];
+            newSelectedUsersIds = [];
         }
 
-        setSelectedUserIds(newSelectedUserIds);
+        setSelectedUserIds(newSelectedUsersIds);
     };
 
     const handleSelectOne = (event, id) => {
@@ -63,84 +69,106 @@ export const UserListResults = ({ users: users, ...rest }) => {
         setPage(newPage);
     };
 
+    const onUserDeleted = () => {
+        getAllUsers().then((response) => {
+            // Trae a todos los usuarios.
+
+            setUsers(response); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
+        });
+    };
+
     return (
-        <Card {...rest}>
-            <Box>
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell padding="checkbox">
-                                <Checkbox
-                                    checked={selectedUserIds.length === users.length}
-                                    color="primary"
-                                    indeterminate={
-                                        selectedUserIds.length > 0 &&
-                                        selectedUserIds.length < users.length
-                                    }
-                                    onChange={handleSelectAll}
-                                />
-                            </TableCell>
-
-                            <TableCell>
-                                Name
-                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                            </TableCell>
-                            <TableCell>
-                                Surname
-                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                            </TableCell>
-                            <TableCell>
-                                Email
-                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                            </TableCell>
-
-                            <TableCell>
-                                Profile
-                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                            </TableCell>
-
-                            <TableCell>
-                                Actions
-                                <Button startIcon={<Impexpicons />} sx={{ mr: 1 }}></Button>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {users.slice(0, limit).map((user) => (
-                            <TableRow
-                                hover
-                                key={user.id}
-                                selected={selectedUserIds.indexOf(user.id) !== -1}
-                            >
+        <Card>
+            <PerfectScrollbar>
+                <Box>
+                    <Table>
+                        <TableHead>
+                            <TableRow key={"header"}>
                                 <TableCell padding="checkbox">
                                     <Checkbox
-                                        checked={selectedUserIds.indexOf(user.id) !== -1}
-                                        onChange={(event) => handleSelectOne(event, user.id)}
-                                        value="true"
+                                        checked={selectedUserIds.length === users.length}
+                                        color="primary"
+                                        indeterminate={
+                                            selectedUserIds.length > 0 &&
+                                            selectedUserIds.length < users.length
+                                        }
+                                        onChange={handleSelectAll}
+                                        sx={{ mr: 1 }}
                                     />
                                 </TableCell>
-                                <TableCell>
-                                    <Box
-                                        sx={{
-                                            alignItems: "center",
-                                            display: "flex",
-                                        }}
-                                    >
-                                        <Typography color="textPrimary" variant="body1">
-                                            {user.name}
-                                        </Typography>
-                                    </Box>
-                                </TableCell>
-                                <TableCell>{user.surname}</TableCell>
-                                <TableCell>{`${user.email}`}</TableCell>
-                                <TableCell>{user.profile}</TableCell>
-                                <TableCell>{user.actions}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Box>
 
+                                <TableCell>Name</TableCell>
+                                <TableCell>Surname</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell>Profile</TableCell>
+                                <TableCell>Action</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {users.slice(0, limit).map((user) => (
+                                <TableRow
+                                    hover
+                                    key={user._id}
+                                    selected={selectedUserIds.indexOf(user._id) !== -1}
+                                >
+                                    <TableCell padding="checkbox">
+                                        <Checkbox
+                                            checked={selectedUserIds.indexOf(user._id) !== -1}
+                                            onChange={(event) => handleSelectOne(event, user._id)}
+                                            value="true"
+                                        />
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>
+                                            <Stack>
+                                                <div>{user.name}</div>
+                                            </Stack>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>
+                                            <Stack>
+                                                <div>{user.surname}</div>
+                                            </Stack>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>{user.email}</Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Box>{user.profile}</Box>
+                                    </TableCell>
+
+                                    <TableCell>
+                                        <Box>
+                                            <Tooltip title="Edit user">
+                                                <IconButton
+                                                    onClick={() => {
+                                                        // https://github.com/vercel/next.js/discussions/17008
+                                                        router.push({
+                                                            pathname: "/edit-user",
+                                                            query: {
+                                                                id: user._id,
+                                                            },
+                                                        });
+                                                    }}
+                                                >
+                                                    <EditOutlinedIcon fontSize="big" />
+                                                </IconButton>
+                                            </Tooltip>
+                                            <AlertDeleteUser
+                                                user={user}
+                                                onUserDeleted={onUserDeleted}
+                                            />
+                                        </Box>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+                <Box></Box>
+            </PerfectScrollbar>
             <TablePagination
                 component="div"
                 count={users.length}
@@ -156,4 +184,5 @@ export const UserListResults = ({ users: users, ...rest }) => {
 
 UserListResults.propTypes = {
     users: PropTypes.array.isRequired,
+    setUsers: PropTypes.func.isRequired,
 };

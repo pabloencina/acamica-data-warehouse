@@ -1,19 +1,16 @@
-import * as React from "react";
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import Collapse from "@mui/material/Collapse";
-import Box from "@mui/material/Box";
-import Table from "@mui/material/Table";
-import TableHead from "@mui/material/TableHead";
-import TableBody from "@mui/material/TableBody";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { IconButton, Tooltip } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import AddLocationOutlinedIcon from "@mui/icons-material/AddLocationOutlined";
-import CityRow from "./city-row";
-import CreateCountryDialog from "src/components/region/create-region-country-city/create-city-dialog";
+import { IconButton, Stack } from "@mui/material";
+import Box from "@mui/material/Box";
+import Collapse from "@mui/material/Collapse";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import * as React from "react";
 import CreateCityDialog from "src/components/region/create-region-country-city/create-city-dialog";
+import CityRow from "./city-row";
 import EditCountryDialog from "./edit-region-country-city/edit-country-dialog";
 
 export default function CountryRow(props) {
@@ -34,8 +31,10 @@ export default function CountryRow(props) {
                 </TableCell>
                 <TableCell scope="row">{country.name}</TableCell>
                 <TableCell scope="row">
-                    <EditCountryDialog refreshRegions={refreshRegions} />
-                    <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
+                    <Stack direction="row" spacing={2}>
+                        <EditCountryDialog refreshRegions={refreshRegions} />
+                        <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
+                    </Stack>
                 </TableCell>
             </TableRow>
 

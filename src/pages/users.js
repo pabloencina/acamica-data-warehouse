@@ -1,23 +1,27 @@
+import { Box, Card, CardContent, Container } from "@mui/material";
 import Head from "next/head";
-import { Box, Container, Card, CardContent } from "@mui/material";
 
-import { UserListToolbar } from "src/components/user/user-list-toolbar";
-import { UserTable } from "src/components/user/user-table";
-import { DashboardLayout } from "../components/dashboard-layout";
 import { useEffect, useState } from "react";
+import { UserListResults } from "src/components/user/user-list-result";
+import { UserListToolbar } from "src/components/user/user-list-toolbar";
 import { getAllUsers } from "src/services/usersService";
-import DataGridDemo from "src/components/user/table2";
+import { DashboardLayout } from "../components/dashboard-layout";
 
 const Users = () => {
     const [users, setUsers] = useState([]);
 
+    const init = async () => {
+        try {
+            const result = await getAllUsers();
+            console.log(result);
+            setUsers(result);
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     useEffect(() => {
-        getAllUsers()
-            .then((response) => {
-                let usersResponse = response.data;
-                setUsers(usersResponse);
-            })
-            .catch((e) => {});
+        init();
     }, []);
 
     return (
@@ -37,7 +41,7 @@ const Users = () => {
                     <Box>
                         <Card>
                             <CardContent>
-                                <UserTable users={users} setUsers={setUsers} />
+                                <UserListResults users={users} setUsers={setUsers} />
                             </CardContent>
                         </Card>
                     </Box>
