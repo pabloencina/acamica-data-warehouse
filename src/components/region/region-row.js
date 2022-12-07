@@ -13,6 +13,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import CreateCountryDialog from "src/components/region/create-region-country-city/create-country-dialog";
 import CountryRow from "./country-row";
+import DeleteRegionDialog from "./delete-region-country-city/delete-region-dialog";
 import EditRegionDialog from "./edit-region-country-city/edit-region-dialog";
 
 export default function RegionRow(props) {
@@ -40,6 +41,7 @@ export default function RegionRow(props) {
                             regionId={region._id}
                             refreshRegions={refreshRegions}
                         />
+                        <DeleteRegionDialog region={region} />
                     </Stack>
                 </TableCell>
             </TableRow>

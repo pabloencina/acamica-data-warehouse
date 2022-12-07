@@ -11,6 +11,7 @@ import TableRow from "@mui/material/TableRow";
 import * as React from "react";
 import CreateCityDialog from "src/components/region/create-region-country-city/create-city-dialog";
 import CityRow from "./city-row";
+import DeleteCountryDialog from "./delete-region-country-city/delete-country-dialog";
 import EditCountryDialog from "./edit-region-country-city/edit-country-dialog";
 
 export default function CountryRow(props) {
@@ -34,6 +35,7 @@ export default function CountryRow(props) {
                     <Stack direction="row" spacing={2}>
                         <EditCountryDialog refreshRegions={refreshRegions} />
                         <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
+                        <DeleteCountryDialog country={country} />
                     </Stack>
                 </TableCell>
             </TableRow>

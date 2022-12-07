@@ -15,8 +15,8 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
-export default function AlertDeleteUser(params) {
-    const { user, onUserDeleted } = params;
+export default function DeleteCityDialog(params) {
+    const { city } = params;
 
     const [open, setOpen] = React.useState(false);
 
@@ -26,7 +26,7 @@ export default function AlertDeleteUser(params) {
         if (reason === "clickaway") {
             return;
         }
-        <Tooltip title="Delete user">
+        <Tooltip title="Delete City">
             <IconButton
                 onClick={() => {
                     handleClickOpen();
@@ -48,7 +48,7 @@ export default function AlertDeleteUser(params) {
 
     const handleDelete = async (e) => {
         try {
-            await deleteUser(user._id); //Elimina un usuario por ID
+            await deleteUser(city._id); //Elimina un usuario por ID
             onUserDeleted();
         } catch (e) {
             console.log(e);
@@ -59,7 +59,7 @@ export default function AlertDeleteUser(params) {
 
     return (
         <>
-            <Tooltip title="Delete user">
+            <Tooltip title="Delete City">
                 <IconButton
                     onClick={() => {
                         handleClickOpen();
@@ -77,7 +77,7 @@ export default function AlertDeleteUser(params) {
                 <DialogTitle id="alert-dialog-title"></DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete {user.name}?
+                        Are you sure you want to delete {city.name}?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
@@ -90,7 +90,7 @@ export default function AlertDeleteUser(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {user.name}
+                    Cannot delete user {city.name}
                 </Alert>
             </Snackbar>
         </>
