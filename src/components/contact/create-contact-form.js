@@ -49,8 +49,6 @@ export const CreateContactForm = (props) => {
         cities: [],
     });
 
-    //const [selectedCompany, setSelectedCompany] = useState({});
-
     const optionsInterest = [
         {
             value: 0,
@@ -81,7 +79,6 @@ export const CreateContactForm = (props) => {
         setSelectedCountry({
             cities: [],
         });
-        // setSelectedCity({});
     };
 
     const countryOnChange = (e) => {
@@ -90,7 +87,6 @@ export const CreateContactForm = (props) => {
             (country) => country._id === countryId
         );
         setSelectedCountry(countryFound);
-        // setSelectedCity({});
     };
 
     const [state, setState] = useState({
@@ -255,7 +251,7 @@ export const CreateContactForm = (props) => {
                                     //type="email"
                                     onChange={formikCreateContact.handleChange}
                                     onBlur={formikCreateContact.handleBlur}
-                                    requiredformikCreateContact
+                                    required
                                     value={formikCreateContact.values.position}
                                     variant="outlined"
                                 />
@@ -458,8 +454,6 @@ export const CreateContactForm = (props) => {
                     </Card>
                 </Card>
                 <Divider />
-
-                {/* <CardRegionInformation /> */}
             </form>
 
             <Dialog

@@ -174,7 +174,12 @@ export const ContactListResults = (params) => {
                                                     <IconButton
                                                         onClick={() => {
                                                             // https://github.com/vercel/next.js/discussions/17008
-                                                            router.push("/edit-contact");
+                                                            router.push({
+                                                                pathname: "/edit-contact",
+                                                                query: {
+                                                                    id: contact._id,
+                                                                },
+                                                            });
                                                         }}
                                                     >
                                                         <EditOutlinedIcon fontSize="big" />
