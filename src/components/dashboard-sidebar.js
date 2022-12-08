@@ -1,51 +1,51 @@
-import { useEffect } from "react";
+import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
+import { useEffect } from "react";
 import { Cog as CogIcon } from "../icons/cog";
 import { Lock as LockIcon } from "../icons/lock";
 import { company as ShoppingBagIcon } from "../icons/shopping-bag";
 import { User as UserIcon } from "../icons/user";
-import { UserAdd as UserAddIcon } from "../icons/user-add";
 import { Users as UsersIcon } from "../icons/users";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 
-const items = [
-    {
-        href: "/contacts",
-        icon: <UsersIcon fontSize="small" />,
-        title: "Contacts",
-    },
-    {
-        href: "/companies",
-        icon: <ShoppingBagIcon fontSize="small" />,
-        title: "Companies",
-    },
-    {
-        href: "/users",
-        icon: <UserIcon fontSize="small" />,
-        title: "Users",
-    },
-    {
-        href: "/regions",
-        icon: <CogIcon fontSize="small" />,
-        title: "Regions",
-    },
-    {
-        href: "/register",
-        icon: <UserAddIcon fontSize="small" />,
-        title: "Register",
-    },
-    {
-        href: "/login",
-        icon: <LockIcon fontSize="small" />,
-        title: "Login",
-    },
-];
-
 export const DashboardSidebar = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, user } = props;
+
+    const items = [
+        {
+            href: "/contacts",
+            icon: <UsersIcon fontSize="small" />,
+            title: "Contacts",
+            show: true,
+        },
+        {
+            href: "/companies",
+            icon: <ShoppingBagIcon fontSize="small" />,
+            title: "Companies",
+            show: true,
+        },
+        {
+            href: "/regions",
+            icon: <CogIcon fontSize="small" />,
+            title: "Regions",
+            show: true,
+        },
+        {
+            href: "/login",
+            icon: <LockIcon fontSize="small" />,
+            title: "Login",
+            show: true,
+        },
+        {
+            href: "/users",
+            icon: <UserIcon fontSize="small" />,
+            title: "Users",
+            show: user.profile === "ADMIN",
+        },
+    ];
+
     const router = useRouter();
     const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
         defaultMatches: true,
@@ -103,6 +103,7 @@ export const DashboardSidebar = (props) => {
                             icon={item.icon}
                             href={item.href}
                             title={item.title}
+                            show={item.show}
                         />
                     ))}
                 </Box>

@@ -7,7 +7,6 @@ export const getAllContacts = async () => {
     const response = await axios.get(contactURL);
     return response.data;
 };
-//console.log(getAllContacts);
 
 export const postContact = async (contactToCreate) => {
     if (contactToCreate) {
@@ -44,9 +43,6 @@ export const editContact = async (id, contactToEdit) => {
             email: contactToEdit.email,
             position: contactToEdit.position,
             company: contactToEdit.company,
-            //region: contactToEdit.region,
-            //country: contactToEdit.country,
-            //city: contactToEdit.city,
             address: contactToEdit.address,
         };
         const contactEdited = await axios.put(`${contactURL}/${id}`, body);
