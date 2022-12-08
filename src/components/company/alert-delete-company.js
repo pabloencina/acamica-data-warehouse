@@ -1,23 +1,22 @@
-import * as React from "react";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { IconButton, Tooltip } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { IconButton, Tooltip } from "@mui/material";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { deleteCompany, getAllCompanies } from "src/services/companiesService";
 import Snackbar from "@mui/material/Snackbar";
-import MuiAlert from "@mui/material/Alert";
+import * as React from "react";
+import { deleteCompany } from "src/services/companiesService";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 
 export default function AlertDeleteCompany(params) {
-    console.log(params);
-    const { company, setCompanies } = params;
+    const { company, onCompanyDeleted } = params;
 
     const [open, setOpen] = React.useState(false);
 
@@ -27,7 +26,6 @@ export default function AlertDeleteCompany(params) {
         if (reason === "clickaway") {
             return;
         }
-
         setSnackbarOpen(false);
     };
 
@@ -40,19 +38,13 @@ export default function AlertDeleteCompany(params) {
     };
 
     const handleDelete = async (e) => {
-        deleteCompany(company._id) //Elimina un usuario por ID
-            .then(() => {
-                getAllCompanies().then((response) => {
-                    // Trae a todos los usuarios.
+        try {
+            await deleteCompany(company._id); //Elimina un usuario por ID
+            onCompanyDeleted();
+        } catch (error) {
+            setSnackbarOpen(true);
+        }
 
-                    setCompanies(response.data); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
-                });
-            })
-            .catch((e) => {
-                //console.log("se produjo un error al eliminar el usuario");
-                setSnackbarOpen(true);
-                // TODO: mostrar un toast en caso de error
-            });
         handleClose();
     };
 
@@ -89,7 +81,7 @@ export default function AlertDeleteCompany(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {company.name}
+                    Cannot delete company {company.name}. It references other system objects.
                 </Alert>
             </Snackbar>
         </>

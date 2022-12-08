@@ -283,7 +283,7 @@ export const CreateContactForm = (props) => {
                                     variant="outlined"
                                     required
                                 >
-                                    {companies.data.map((company) => {
+                                    {companies.map((company) => {
                                         return (
                                             <MenuItem key={company._id} value={company._id}>
                                                 {company.name}

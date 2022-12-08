@@ -72,8 +72,6 @@ export const ContactListResults = (params) => {
 
     const onContactDeleted = async () => {
         getAllContacts().then((response) => {
-            // Trae a todos los usuarios.
-
             setContacts(response); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
         });
     };
@@ -164,10 +162,6 @@ export const ContactListResults = (params) => {
                                     <TableCell>
                                         <Box>
                                             <Stack direction="row" spacing={2}>
-                                                <AlertDeleteContact
-                                                    contact={contact}
-                                                    onContactDeleted={onContactDeleted}
-                                                />
                                                 <Tooltip title="Edit Contact">
                                                     <IconButton
                                                         onClick={() => {
@@ -178,6 +172,10 @@ export const ContactListResults = (params) => {
                                                         <EditOutlinedIcon fontSize="big" />
                                                     </IconButton>
                                                 </Tooltip>
+                                                <AlertDeleteContact
+                                                    contact={contact}
+                                                    onContactDeleted={onContactDeleted}
+                                                />
                                             </Stack>
                                         </Box>
                                     </TableCell>

@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import AlertDeleteCompany from "./alert-delete-company";
+import { getAllCompanies } from "src/services/companiesService";
 
 const Impexpicons = SwapVertIcon;
 
@@ -70,6 +71,12 @@ export const CompanyTable = (params) => {
 
     const handlePageChange = (event, newPage) => {
         setPage(newPage);
+    };
+
+    const onCompanyDeleted = async () => {
+        getAllCompanies().then((response) => {
+            setCompanies(response); // Modifica la lista trayendo a todos los usuarios menos el usuario eliminado
+        });
     };
 
     return (
@@ -153,8 +160,8 @@ export const CompanyTable = (params) => {
                                             </Tooltip>
                                             <AlertDeleteCompany
                                                 company={company}
-                                                companyId={company._id}
-                                                setCompanies={setCompanies}
+                                                //companyId={company._id}
+                                                onCompanyDeleted={onCompanyDeleted}
                                             />
                                         </Box>
                                     </TableCell>

@@ -33,8 +33,8 @@ export default function CountryRow(props) {
                 <TableCell scope="row">{country.name}</TableCell>
                 <TableCell scope="row">
                     <Stack direction="row" spacing={2}>
-                        <EditCountryDialog refreshRegions={refreshRegions} />
                         <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
+                        <EditCountryDialog refreshRegions={refreshRegions} />
                         <DeleteCountryDialog country={country} />
                     </Stack>
                 </TableCell>

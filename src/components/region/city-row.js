@@ -1,12 +1,9 @@
-import * as React from "react";
-import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
-import IconButton from "@mui/material/IconButton";
-import { Tooltip } from "@mui/material";
-import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
-import EditCityDialog from "./edit-region-country-city/edit-city-dialog";
-import DeleteCityDialog from "./delete-region-country-city/delete-city-dialog";
+import TableRow from "@mui/material/TableRow";
 import { Stack } from "@mui/system";
+import * as React from "react";
+import DeleteCityDialog from "./delete-region-country-city/delete-city-dialog";
+import EditCityDialog from "./edit-region-country-city/edit-city-dialog";
 
 export default function CityRow(props) {
     const { city, refreshRegions } = props;

@@ -7,7 +7,6 @@ import { CompanyTable } from "src/components/company/company-table";
 import { getAllCompanies } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import { getAllRegions } from "src/services/regionsService";
-import { getAllCountries } from "src/services/countriesService";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
@@ -23,7 +22,7 @@ const Companies = () => {
 
     const fetchCompanies = async () => {
         const companiesResponse = await getAllCompanies();
-        setCompanies(companiesResponse.data);
+        setCompanies(companiesResponse);
     };
 
     useEffect(() => {
