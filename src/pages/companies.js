@@ -1,12 +1,12 @@
+import { Box, Card, CardContent, Container } from "@mui/material";
 import Head from "next/head";
-import { Box, Container, Card, CardContent } from "@mui/material";
-import { DashboardLayout } from "../components/dashboard-layout";
 import { useContext, useEffect, useState } from "react";
 import { CompanyListToolbar } from "src/components/company/company-list-toolbar";
 import { CompanyTable } from "src/components/company/company-table";
 import { getAllCompanies } from "src/services/companiesService";
-import { AppContext } from "src/utils/app-context-provider";
 import { getAllRegions } from "src/services/regionsService";
+import { AppContext } from "src/utils/app-context-provider";
+import { DashboardLayout } from "../components/dashboard-layout";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
