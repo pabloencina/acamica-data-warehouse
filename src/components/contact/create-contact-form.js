@@ -138,8 +138,7 @@ export const CreateContactForm = (props) => {
 
         onSubmit: async (values) => {
             try {
-                console.log(values);
-                console.log(channels);
+                values.channels = channels;
                 const response = await postContact(values);
                 console.log(response);
                 setState({

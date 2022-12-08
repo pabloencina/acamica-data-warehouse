@@ -6,7 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import Slide from "@mui/material/Slide";
 import * as React from "react";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import * as ObjectID from "bson-objectid";
 import { optionsChannel, optionsPreference } from "./constants";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -35,7 +35,7 @@ export default function AddChannelDialog(props) {
     const handleConfirm = () => {
         addChannel({
             ...state,
-            _id: uuidv4(),
+            _id: ObjectID(),
         });
         setOpen(false);
     };

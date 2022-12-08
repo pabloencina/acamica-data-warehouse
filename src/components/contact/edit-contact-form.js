@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
     Alert,
-    Box,
     Button,
-    Card,
-    CardContent,
-    CardHeader,
-    Divider,
-    Grid,
-    TextField,
     Dialog,
-    DialogTitle,
-    DialogContent,
     DialogActions,
+    DialogContent,
     DialogContentText,
+    DialogTitle,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { getContactById } from "src/services/contactsService";
 import * as Yup from "yup";
-import { editContact, getContactById } from "src/services/contactsService";
 
 export const EditContactForm = (props) => {
     // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
@@ -41,9 +33,9 @@ export const EditContactForm = (props) => {
     }
 
     useEffect(() => {
-        getContactById(id).then((user) => {
-            const { name, surname, password, email, profile } = user;
-            formik.setValues({ name, surname, password, profile, email });
+        getContactById(id).then((contact) => {
+            const { name, surname, email, position, company, address } = contact;
+            formik.setValues({ name, surname, email, position, company, address });
         });
     }, []);
 
@@ -90,6 +82,7 @@ export const EditContactForm = (props) => {
                     dialogOpen: true,
                     formError: false,
                 });
+                return response;
             } catch (error) {
                 let message = "Contact creation failed.";
                 if (error.response) {

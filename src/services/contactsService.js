@@ -22,6 +22,7 @@ export const postContact = async (contactToCreate) => {
             channels: contactToCreate.channels,
             interest: contactToCreate.interest,
         };
+        console.log(body);
         const postContactResponse = await axios.post(contactURL, body);
         console.log(postContactResponse);
 

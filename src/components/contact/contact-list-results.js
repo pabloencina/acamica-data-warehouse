@@ -5,6 +5,7 @@ import {
     Card,
     Checkbox,
     IconButton,
+    MenuItem,
     Stack,
     Table,
     TableBody,
@@ -20,6 +21,7 @@ import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { getAllContacts } from "src/services/contactsService";
 import AlertDeleteContact from "./alert-delete-contact";
+import { getChannelOption, optionsChannel } from "./constants";
 
 const Impexpicons = SwapVertIcon;
 
@@ -147,10 +149,16 @@ export const ContactListResults = (params) => {
                                     </TableCell>
                                     <TableCell>
                                         <Box>
+                                            {/* {optionsChannel.map((option) => {
+                                                return (
+                                                    
+                                                    <div value={option.value}>{option.label}</div>
+                                                );
+                                            })} */}
                                             {contact.channels.map((channel) => {
                                                 return (
-                                                    <div key={channel.channel}>
-                                                        {channel.channel}
+                                                    <div>
+                                                        {getChannelOption(channel.channel).label}
                                                     </div>
                                                 );
                                             })}
