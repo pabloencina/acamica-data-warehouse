@@ -29,7 +29,7 @@ const Contacts = () => {
 
     const fetchContacts = async () => {
         const result = await getAllContacts();
-        setContacts(result.data);
+        setContacts(result);
     };
 
     useEffect(() => {

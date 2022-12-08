@@ -2,7 +2,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
     Box,
-    Button,
     Card,
     Checkbox,
     IconButton,
@@ -14,7 +13,6 @@ import {
     TablePagination,
     TableRow,
     Tooltip,
-    Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
@@ -72,7 +70,7 @@ export const ContactListResults = (params) => {
         setPage(newPage);
     };
 
-    const onContactDeleted = () => {
+    const onContactDeleted = async () => {
         getAllContacts().then((response) => {
             // Trae a todos los usuarios.
 
@@ -147,7 +145,6 @@ export const ContactListResults = (params) => {
                                                 <div>{contact.address},</div>
                                                 <div>{contact.city.name}</div>
                                             </Stack>
-                                            {/* {`${contact.address}, ${contact.city.name}`} */}
                                         </Box>
                                     </TableCell>
                                     <TableCell>
@@ -168,7 +165,6 @@ export const ContactListResults = (params) => {
                                         <Box>
                                             <Stack direction="row" spacing={2}>
                                                 <AlertDeleteContact
-                                                    setContacts={setContacts}
                                                     contact={contact}
                                                     onContactDeleted={onContactDeleted}
                                                 />
