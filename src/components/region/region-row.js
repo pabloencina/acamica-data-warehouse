@@ -21,6 +21,10 @@ export default function RegionRow(props) {
 
     const [openCountry, setOpenCountry] = React.useState(false);
 
+    const onRegionDeleted = () => {
+        refreshRegions();
+    };
+
     return (
         <React.Fragment>
             <TableRow>
@@ -41,7 +45,7 @@ export default function RegionRow(props) {
                             refreshRegions={refreshRegions}
                         />
                         <EditRegionDialog refreshRegions={refreshRegions} />
-                        <DeleteRegionDialog region={region} />
+                        <DeleteRegionDialog region={region} onRegionDeleted={onRegionDeleted} />
                     </Stack>
                 </TableCell>
             </TableRow>

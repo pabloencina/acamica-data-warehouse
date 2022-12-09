@@ -28,9 +28,15 @@ export const editRegion = async (id, regionToEdit) => {
         const body = {
             name: regionToEdit.name,
         };
-        const regionEdited = await axios.put(`${userURL}/${id}`, body);
+        const regionEdited = await axios.put(`${regionURL}/${id}`, body);
         console.log(regionEdited.data);
         return regionEdited;
     }
     return null;
+};
+
+export const deleteRegion = async (id) => {
+    const response = await axios.delete(`${regionURL}/${id}`);
+    console.log(response.data);
+    return response.data;
 };

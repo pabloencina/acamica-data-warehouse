@@ -21,3 +21,9 @@ export const postCity = async (cityToCreate) => {
 
     return null;
 };
+
+export const deleteCity = async (id) => {
+    const response = await axios.delete(`${cityURL}/${id}`);
+    console.log(response.data);
+    return response.data;
+};

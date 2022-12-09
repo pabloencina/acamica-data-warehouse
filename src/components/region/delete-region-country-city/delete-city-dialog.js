@@ -9,6 +9,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Snackbar from "@mui/material/Snackbar";
 import * as React from "react";
+import { deleteCity } from "src/services/citiesService";
 import { deleteUser } from "src/services/usersService";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -16,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function DeleteCityDialog(params) {
-    const { city } = params;
+    const { city, onCityDeleted } = params;
 
     const [open, setOpen] = React.useState(false);
 
@@ -48,8 +49,8 @@ export default function DeleteCityDialog(params) {
 
     const handleDelete = async (e) => {
         try {
-            await deleteUser(city._id); //Elimina un usuario por ID
-            onUserDeleted();
+            await deleteCity(city._id); //Elimina un usuario por ID
+            onCityDeleted();
         } catch (e) {
             console.log(e);
             setSnackbarOpen(true);
