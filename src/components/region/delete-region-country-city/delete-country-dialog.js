@@ -91,7 +91,7 @@ export default function DeleteCountryDialog(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {country.name}
+                    Cannot delete country {country.name}. It has children.
                 </Alert>
             </Snackbar>
         </>

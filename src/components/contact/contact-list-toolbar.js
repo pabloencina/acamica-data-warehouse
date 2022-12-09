@@ -10,12 +10,39 @@ import {
 } from "@mui/material";
 import { Search as SearchIcon } from "../../icons/search";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 export const ContactListToolbar = (props) => {
+    const { contactList, setContacts } = props;
+    // console.log(contacts);
+
     const router = useRouter();
 
+    const searchContact = (e) => {
+        console.log(e.target.value);
+
+        filterContact(e.target.value);
+    };
+
+    const filterContact = (search) => {
+        const filtered = contactList.filter((contact) => {
+            if (
+                contact.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.surname.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.email.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.address.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.city.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.company.name.toString().toLowerCase().includes(search.toLowerCase())
+            ) {
+                return true;
+            }
+        });
+        setContacts(filtered);
+    };
+
     return (
-        <Box {...props}>
+        <Box>
             <Box
                 sx={{
                     alignItems: "center",
@@ -56,13 +83,19 @@ export const ContactListToolbar = (props) => {
                                         </InputAdornment>
                                     ),
                                 }}
-                                placeholder="Search contact by name"
+                                placeholder="Search contact"
                                 variant="outlined"
-                            />
+                                onChange={searchContact}
+                            ></TextField>
                         </Box>
                     </CardContent>
                 </Card>
             </Box>
         </Box>
     );
+};
+
+ContactListToolbar.propTypes = {
+    contactList: PropTypes.array.isRequired,
+    setContacts: PropTypes.func.isRequired,
 };

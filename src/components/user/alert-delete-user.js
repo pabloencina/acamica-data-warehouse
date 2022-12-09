@@ -90,7 +90,7 @@ export default function AlertDeleteUser(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {user.name}
+                    Cannot delete user {user.name}.
                 </Alert>
             </Snackbar>
         </>

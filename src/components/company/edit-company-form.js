@@ -23,7 +23,7 @@ import { editCompany, getCompanyById } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import { useContext } from "react";
 
-export const EditCompanyForm = (props) => {
+export const EditCompanyForm = () => {
     const { regions } = useContext(AppContext);
 
     const [selectedRegion, setSelectedRegion] = useState({
@@ -157,7 +157,7 @@ export const EditCompanyForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Card>
                     <CardHeader title="Profile" />
                     <Divider />

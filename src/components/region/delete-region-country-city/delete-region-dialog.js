@@ -91,7 +91,7 @@ export default function DeleteRegionDialog(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {region.name}
+                    Cannot delete region {region.name}. It has children.
                 </Alert>
             </Snackbar>
         </>

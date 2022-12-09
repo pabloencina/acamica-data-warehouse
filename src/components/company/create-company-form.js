@@ -22,7 +22,7 @@ import { postCompany } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 
-export const CreateCompanyForm = (props) => {
+export const CreateCompanyForm = () => {
     const { regions } = useContext(AppContext);
 
     const [selectedRegion, setSelectedRegion] = useState({
@@ -126,7 +126,7 @@ export const CreateCompanyForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Card>
                     <CardHeader title="Company" />
                     <Divider />

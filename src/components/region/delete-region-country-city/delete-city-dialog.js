@@ -91,7 +91,7 @@ export default function DeleteCityDialog(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {city.name}
+                    Cannot delete city {city.name}. It references other system objects.
                 </Alert>
             </Snackbar>
         </>

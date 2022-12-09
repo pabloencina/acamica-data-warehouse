@@ -82,7 +82,7 @@ export default function AlertDeleteContact(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {contact.name}
+                    Cannot delete contact {contact.name}.
                 </Alert>
             </Snackbar>
         </>
