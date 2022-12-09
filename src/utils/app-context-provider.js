@@ -6,11 +6,11 @@ export const AppContext = createContext({
     handleRegionUpdate: () => {},
     companies: [],
     handleCompanyUpdate: () => {},
-    user: {
+    loggedUser: {
         email: "",
         profile: "",
     },
-    handleUserChange: (user) => {},
+    handleLoggedUserChange: (user) => {},
 });
 
 export const AppProvider = ({ children }) => {
@@ -20,7 +20,7 @@ export const AppProvider = ({ children }) => {
 
     const [companies, setCompanies] = useState([]);
 
-    const [user, setUser] = useState({
+    const [loggedUser, setLoggedUser] = useState({
         email,
         profile,
     });
@@ -33,8 +33,8 @@ export const AppProvider = ({ children }) => {
         setCompanies(companyArray);
     };
 
-    const handleUserChange = (user) => {
-        setUser(user);
+    const handleLoggedUserChange = (user) => {
+        setLoggedUser(user);
     };
 
     return (
@@ -44,8 +44,8 @@ export const AppProvider = ({ children }) => {
                 handleRegionUpdate: handleRegionUpdate,
                 companies: companies,
                 handleCompanyUpdate: handleCompanyUpdate,
-                user: user,
-                handleUserChange: handleUserChange,
+                loggedUser: loggedUser,
+                handleLoggedUserChange: handleLoggedUserChange,
             }}
         >
             {children}

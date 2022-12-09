@@ -2,14 +2,14 @@ import { Alert, Box, Button, Container, TextField, Typography } from "@mui/mater
 import { useFormik } from "formik";
 import Head from "next/head";
 import { useContext, useState } from "react";
-import { decodeJwt, postLogin } from "src/services/loginService";
+import { decodeJwt, postLogin, setTokenInCookie } from "src/services/loginService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 
 import { useRouter } from "next/router";
 
 const Login = () => {
-    const { handleUserChange } = useContext(AppContext);
+    const { handleLoggedUserChange } = useContext(AppContext);
 
     const [state, setState] = useState({
         errorMessage: "",
@@ -35,13 +35,14 @@ const Login = () => {
         onSubmit: async (values) => {
             try {
                 const token = await postLogin(values.email, values.password);
+                setTokenInCookie(token);
                 const { email, profile } = decodeJwt(token);
-                handleUserChange({ email, profile });
+                handleLoggedUserChange({ email, profile });
                 setState({ ...state, formError: false });
-                router.push("/contacts");
+                router.push("/");
             } catch (e) {
                 const errorMessage = "Cannot authenticate user.";
-                window.localStorage.setItem("token", "");
+
                 setState({ ...state, formError: true, errorMessage });
             }
         },

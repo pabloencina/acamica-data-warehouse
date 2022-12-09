@@ -1,17 +1,17 @@
+import BusinessIcon from "@mui/icons-material/Business";
+import PublicIcon from "@mui/icons-material/Public";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import { Cog as CogIcon } from "../icons/cog";
 import { Lock as LockIcon } from "../icons/lock";
-import { company as ShoppingBagIcon } from "../icons/shopping-bag";
 import { User as UserIcon } from "../icons/user";
 import { Users as UsersIcon } from "../icons/users";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 
 export const DashboardSidebar = (props) => {
-    const { open, onClose, user } = props;
+    const { open, onClose, loggedUser } = props;
 
     const items = [
         {
@@ -22,13 +22,13 @@ export const DashboardSidebar = (props) => {
         },
         {
             href: "/companies",
-            icon: <ShoppingBagIcon fontSize="small" />,
+            icon: <BusinessIcon fontSize="small" />,
             title: "Companies",
             show: true,
         },
         {
             href: "/regions",
-            icon: <CogIcon fontSize="small" />,
+            icon: <PublicIcon fontSize="small" />,
             title: "Regions",
             show: true,
         },
@@ -42,7 +42,7 @@ export const DashboardSidebar = (props) => {
             href: "/users",
             icon: <UserIcon fontSize="small" />,
             title: "Users",
-            show: user.profile === "ADMIN",
+            show: loggedUser.profile === "ADMIN",
         },
     ];
 

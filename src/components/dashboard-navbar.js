@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
-import SearchIcon from "@mui/icons-material/Search";
-import { AppBar, Badge, Box, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Tooltip } from "@mui/material";
+import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Bell as BellIcon } from "../icons/bell";
-import { Users as UsersIcon } from "../icons/users";
+import { useContext } from "react";
+import { deleteTokenFromCookie } from "src/services/loginService";
+import { AppContext } from "src/utils/app-context-provider";
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
@@ -12,7 +14,17 @@ const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
 }));
 
 export const DashboardNavbar = (props) => {
+    const { handleLoggedUserChange } = useContext(AppContext);
+
     const { onSidebarOpen, ...other } = props;
+
+    const router = useRouter();
+
+    const handleLogOut = (event) => {
+        deleteTokenFromCookie();
+        handleLoggedUserChange({});
+        router.push("/login");
+    };
 
     return (
         <>
@@ -43,22 +55,10 @@ export const DashboardNavbar = (props) => {
                     >
                         <MenuIcon fontSize="small" />
                     </IconButton>
-                    <Tooltip title="Search">
-                        <IconButton sx={{ ml: 1 }}>
-                            <SearchIcon fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
                     <Box sx={{ flexGrow: 1 }} />
-                    <Tooltip title="Contacts">
-                        <IconButton sx={{ ml: 1 }}>
-                            <UsersIcon fontSize="small" />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Notifications">
-                        <IconButton sx={{ ml: 1 }}>
-                            <Badge badgeContent={4} color="primary" variant="dot">
-                                <BellIcon fontSize="small" />
-                            </Badge>
+                    <Tooltip title="Log out">
+                        <IconButton sx={{ ml: 1 }} onClick={handleLogOut}>
+                            <LogoutIcon fontSize="small" />
                         </IconButton>
                     </Tooltip>
                 </Toolbar>

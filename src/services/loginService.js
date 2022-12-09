@@ -14,11 +14,18 @@ export const postLogin = async (email, password) => {
 
         const loginResponse = await axios.post(loginURL, body);
 
-        Cookies.set("token", loginResponse.data);
         return loginResponse.data;
     }
 
     return null;
+};
+
+export const setTokenInCookie = (token) => {
+    Cookies.set("token", token);
+};
+
+export const deleteTokenFromCookie = () => {
+    Cookies.remove("token");
 };
 
 export const getAuthRequestConfig = () => {
