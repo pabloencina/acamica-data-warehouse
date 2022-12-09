@@ -231,7 +231,6 @@ export const EditCompanyForm = (props) => {
                                     name="region"
                                     select
                                     onChange={regionOnChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={selectedRegion._id}
                                     variant="outlined"
@@ -254,8 +253,6 @@ export const EditCompanyForm = (props) => {
                                     name="country"
                                     select
                                     onChange={countryOnChange}
-                                    //onChange={formik.handleChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={selectedCountry._id}
                                     variant="outlined"

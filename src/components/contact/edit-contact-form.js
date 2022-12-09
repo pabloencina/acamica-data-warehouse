@@ -18,6 +18,7 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
+import { getCompanyById } from "src/services/companiesService";
 import { editContact, getContactById } from "src/services/contactsService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
@@ -79,6 +80,7 @@ export const EditContactForm = (props) => {
         setSelectedCountry({
             cities: [],
         });
+        formik.setFieldValue("city", "");
     };
 
     const countryOnChange = (e) => {
@@ -87,6 +89,7 @@ export const EditContactForm = (props) => {
             (country) => country._id === countryId
         );
         setSelectedCountry(countryFound);
+        formik.setFieldValue("city", "");
     };
     const [state, setState] = useState({
         formError: false,
@@ -103,12 +106,34 @@ export const EditContactForm = (props) => {
     }
 
     useEffect(() => {
-        getContactById(id).then((contact) => {
-            const { name, surname, email, position, company, address, channels } = contact;
-            formikEditContact.setValues({ name, surname, email, position, company, address });
-            setChannels(channels);
-        });
+        fetchContact();
     }, []);
+
+    const fetchContact = async () => {
+        const contact = await getContactById(id);
+        console.log(contact);
+        const { name, surname, email, position, company, address, channels, city, interest } =
+            contact;
+
+        const regionFound = regions.find((r) => r._id === city.country.region._id);
+        setSelectedRegion(regionFound);
+
+        const countryFound = regionFound.countries.find((c) => c._id === city.country._id);
+        setSelectedCountry(countryFound);
+
+        formikEditContact.setValues({
+            name,
+            surname,
+            email,
+            position,
+            company: company._id,
+            address,
+            channels,
+            city: city._id,
+            interest,
+        });
+        setChannels(channels);
+    };
 
     const router = useRouter();
 
@@ -308,7 +333,7 @@ export const EditContactForm = (props) => {
                             <Grid container spacing={3}>
                                 <Grid item md={6} s={12}>
                                     <TextField
-                                        value={formikEditContact.values.region}
+                                        value={selectedRegion._id}
                                         name="region"
                                         select
                                         fullWidth
@@ -342,7 +367,7 @@ export const EditContactForm = (props) => {
                                         select
                                         onChange={countryOnChange}
                                         required
-                                        value={formikEditContact.values.country}
+                                        value={selectedCountry._id}
                                         variant="outlined"
                                         error={Boolean(
                                             formikEditContact.touched.country &&

@@ -134,5 +134,5 @@ const Login = () => {
         </>
     );
 };
-
+Login.getLayout = (page) => <Login>{page}</Login>;
 export default Login;
