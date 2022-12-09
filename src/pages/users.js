@@ -13,7 +13,7 @@ const Users = () => {
     const init = async () => {
         try {
             const result = await getAllUsers();
-            console.log(result);
+
             setUsers(result);
         } catch (e) {
             console.log(e);
@@ -38,7 +38,7 @@ const Users = () => {
             >
                 <Container>
                     <UserListToolbar />
-                    <Box>
+                    <Box sx={{ mt: 3 }}>
                         <Card>
                             <CardContent>
                                 <UserListResults users={users} setUsers={setUsers} />

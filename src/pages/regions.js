@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Box, Container } from "@mui/material";
+import { Box, Card, CardContent, Container } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import RegionTable from "src/components/region/region-table";
 import { getAllRegions } from "src/services/regionsService";
@@ -29,10 +29,8 @@ const Regions = () => {
                     py: 8,
                 }}
             >
-                <Container maxWidth={false}>
-                    <Box sx={{ mt: 3 }}>
-                        <RegionTable regions={regions} refreshRegions={refreshRegions} />
-                    </Box>
+                <Container>
+                    <RegionTable regions={regions} refreshRegions={refreshRegions} />
                 </Container>
             </Box>
         </>

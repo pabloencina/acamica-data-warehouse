@@ -23,7 +23,6 @@ export const postUser = async (userToCreate) => {
             password: userToCreate.password,
         };
         const postUserResponse = await axios.post(userURL, body);
-        console.log(postUserResponse);
 
         return postUserResponse;
     }
@@ -41,7 +40,7 @@ export const editUser = async (id, userToEdit) => {
             password: userToEdit.password,
         };
         const userEdited = await axios.put(`${userURL}/${id}`, body);
-        console.log(userEdited.data);
+
         return userEdited;
     }
     return null;
@@ -49,6 +48,6 @@ export const editUser = async (id, userToEdit) => {
 
 export const deleteUser = async (id) => {
     const response = await axios.delete(`${userURL}/${id}`);
-    console.log(response.data);
+
     return response.data;
 };

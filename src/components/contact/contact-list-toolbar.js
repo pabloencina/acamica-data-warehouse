@@ -3,25 +3,22 @@ import {
     Button,
     Card,
     CardContent,
-    TextField,
+    Grid,
     InputAdornment,
     SvgIcon,
+    TextField,
     Typography,
 } from "@mui/material";
-import { Search as SearchIcon } from "../../icons/search";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
 import PropTypes from "prop-types";
+import { Search as SearchIcon } from "../../icons/search";
 
 export const ContactListToolbar = (props) => {
     const { contactList, setContacts } = props;
-    // console.log(contacts);
 
     const router = useRouter();
 
     const searchContact = (e) => {
-        console.log(e.target.value);
-
         filterContact(e.target.value);
     };
 
@@ -71,7 +68,7 @@ export const ContactListToolbar = (props) => {
             <Box sx={{ mt: 3 }}>
                 <Card>
                     <CardContent>
-                        <Box sx={{ maxWidth: 250 }}>
+                        <Grid item md={6} xs={12}>
                             <TextField
                                 fullWidth
                                 InputProps={{
@@ -87,7 +84,7 @@ export const ContactListToolbar = (props) => {
                                 variant="outlined"
                                 onChange={searchContact}
                             ></TextField>
-                        </Box>
+                        </Grid>
                     </CardContent>
                 </Card>
             </Box>

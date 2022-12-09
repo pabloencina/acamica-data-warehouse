@@ -42,7 +42,7 @@ const Companies = () => {
                     py: 8,
                 }}
             >
-                <Container maxWidth={false}>
+                <Container>
                     <CompanyListToolbar />
                     <Box sx={{ mt: 3 }}>
                         <Card>

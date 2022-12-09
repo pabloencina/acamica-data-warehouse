@@ -2,7 +2,6 @@ import EditOutlinedIcon from "@mui/icons-material/EditOutlined";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
 import {
     Box,
-    Button,
     Card,
     Checkbox,
     IconButton,
@@ -13,14 +12,13 @@ import {
     TablePagination,
     TableRow,
     Tooltip,
-    Typography,
 } from "@mui/material";
-import PropTypes from "prop-types";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
-import AlertDeleteCompany from "./alert-delete-company";
 import { getAllCompanies } from "src/services/companiesService";
+import AlertDeleteCompany from "./alert-delete-company";
 
 const Impexpicons = SwapVertIcon;
 
@@ -36,7 +34,6 @@ export const CompanyTable = (params) => {
         let newSelectedCompanyIds;
 
         if (event.target.checked) {
-            console.log(event.target.checked);
             newSelectedCompanyIds = companies.map((company) => company._id);
         } else {
             newSelectedCompanyIds = [];

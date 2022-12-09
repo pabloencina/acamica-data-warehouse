@@ -8,16 +8,6 @@ import axios from "axios";
 import React from "react";
 
 const Login = () => {
-    //const router = useRouter();
-    // const [email, setEmail] = useState("");
-    // const [password, setPassword] = useState("");
-    // const [user, setUser] = useState(null);
-
-    // useEffect(() => {
-    //   console.log(email);
-    //   console.log(password);
-    // }, []);
-
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -37,9 +27,8 @@ const Login = () => {
                 email: values.email,
                 password: values.password,
             });
-            console.log(loginResponse);
+
             window.localStorage.setItem("token", loginResponse.data);
-            // let myToken = window.localStorage.getItem('token');
         },
     });
 

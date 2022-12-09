@@ -13,7 +13,6 @@ export const postRegion = async (regionToCreate) => {
         const body = {
             name: regionToCreate.name,
         };
-        console.log(body);
 
         const postRegionResponse = await axios.post(regionURL, body);
 
@@ -29,7 +28,7 @@ export const editRegion = async (id, regionToEdit) => {
             name: regionToEdit.name,
         };
         const regionEdited = await axios.put(`${regionURL}/${id}`, body);
-        console.log(regionEdited.data);
+
         return regionEdited;
     }
     return null;
@@ -37,6 +36,6 @@ export const editRegion = async (id, regionToEdit) => {
 
 export const deleteRegion = async (id) => {
     const response = await axios.delete(`${regionURL}/${id}`);
-    console.log(response.data);
+
     return response.data;
 };

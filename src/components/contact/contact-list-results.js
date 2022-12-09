@@ -5,7 +5,6 @@ import {
     Card,
     Checkbox,
     IconButton,
-    MenuItem,
     Stack,
     Table,
     TableBody,
@@ -21,7 +20,7 @@ import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { getAllContacts } from "src/services/contactsService";
 import AlertDeleteContact from "./alert-delete-contact";
-import { getChannelOption, optionsChannel } from "./constants";
+import { getChannelOption } from "./constants";
 
 const Impexpicons = SwapVertIcon;
 

@@ -38,7 +38,7 @@ export default function CreateCountryDialog(props) {
     const handleConfirmedCountry = async (event) => {
         try {
             const response = await postCountry({ name: countryName, region: regionId });
-            console.log(response);
+
             setState({
                 ...state,
                 formError: false,

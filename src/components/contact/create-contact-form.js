@@ -23,8 +23,9 @@ import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 import AddChannelDialog from "./add-channel-dialog";
 import ChannelTable from "./channel-table";
+import { optionsInterest } from "./constants";
 
-export const CreateContactForm = (props) => {
+export const CreateContactForm = () => {
     const { regions, companies } = useContext(AppContext);
 
     const [channels, setChannels] = useState([]);
@@ -48,29 +49,6 @@ export const CreateContactForm = (props) => {
         _id: "",
         cities: [],
     });
-
-    const optionsInterest = [
-        {
-            value: 0,
-            label: "0%",
-        },
-        {
-            value: 25,
-            label: "25%",
-        },
-        {
-            value: 50,
-            label: "50%",
-        },
-        {
-            value: 75,
-            label: "75%",
-        },
-        {
-            value: 100,
-            label: "100%",
-        },
-    ];
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
@@ -136,7 +114,7 @@ export const CreateContactForm = (props) => {
             try {
                 values.channels = channels;
                 const response = await postContact(values);
-                console.log(response);
+
                 setState({
                     ...state,
                     dialogOpen: true,
@@ -167,13 +145,13 @@ export const CreateContactForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formikCreateContact.handleSubmit}>
+            <form onSubmit={formikCreateContact.handleSubmit}>
                 <Card>
                     <CardHeader title="New contact" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item md={6} s={12}>
+                            <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Name"
@@ -238,6 +216,7 @@ export const CreateContactForm = (props) => {
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <TextField
+                                    fullWidth
                                     error={Boolean(
                                         formikCreateContact.touched.position &&
                                             formikCreateContact.errors.position
@@ -293,7 +272,7 @@ export const CreateContactForm = (props) => {
                     <Card>
                         <CardContent>
                             <Grid container spacing={3}>
-                                <Grid item md={6} s={12}>
+                                <Grid item md={6} xs={12}>
                                     <TextField
                                         value={formikCreateContact.values.region}
                                         name="region"
@@ -314,7 +293,7 @@ export const CreateContactForm = (props) => {
                                     >
                                         {regions.map((region) => {
                                             return (
-                                                <MenuItem value={region._id}>
+                                                <MenuItem value={region._id} key={region._id}>
                                                     {region.name}
                                                 </MenuItem>
                                             );
@@ -342,7 +321,7 @@ export const CreateContactForm = (props) => {
                                     >
                                         {selectedRegion?.countries?.map((country) => {
                                             return (
-                                                <MenuItem value={country._id}>
+                                                <MenuItem value={country._id} key={country._id}>
                                                     {country.name}
                                                 </MenuItem>
                                             );
@@ -371,7 +350,9 @@ export const CreateContactForm = (props) => {
                                     >
                                         {selectedCountry?.cities?.map((city) => {
                                             return (
-                                                <MenuItem value={city._id}>{city.name}</MenuItem>
+                                                <MenuItem value={city._id} key={city._id}>
+                                                    {city.name}
+                                                </MenuItem>
                                             );
                                         })}
                                     </TextField>
@@ -405,7 +386,7 @@ export const CreateContactForm = (props) => {
                                         name="interest"
                                         select="true"
                                         label="Interest"
-                                        fullWidth="true"
+                                        fullWidth
                                         variant="outlined"
                                         onChange={(event) => {
                                             formikCreateContact.setFieldValue(
@@ -416,7 +397,7 @@ export const CreateContactForm = (props) => {
                                     >
                                         {optionsInterest.map((option) => {
                                             return (
-                                                <MenuItem value={option.value}>
+                                                <MenuItem value={option.value} key={option.value}>
                                                     {option.label}
                                                 </MenuItem>
                                             );

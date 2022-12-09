@@ -68,7 +68,6 @@ export const CreateUserForm = () => {
             try {
                 const response = await postUser(values);
 
-                //console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,
@@ -104,7 +103,7 @@ export const CreateUserForm = () => {
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item md={6} s={12}>
+                            <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Name"

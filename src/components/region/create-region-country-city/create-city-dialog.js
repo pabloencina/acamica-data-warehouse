@@ -13,7 +13,7 @@ import { useState } from "react";
 
 export default function CreateCityDialog(props) {
     const { refreshRegions, countryId } = props;
-    console.log(refreshRegions);
+
     const [open, setOpen] = React.useState(false);
     const [cityName, setCityName] = useState("");
 
@@ -37,11 +37,9 @@ export default function CreateCityDialog(props) {
     };
 
     const handleConfirmedCity = async (values) => {
-        console.log(values);
         try {
             const response = await postCity({ name: cityName, country: countryId });
 
-            console.log(response);
             setState({
                 ...state,
                 formError: false,

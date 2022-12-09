@@ -24,8 +24,9 @@ import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 import AddChannelDialog from "./add-channel-dialog";
 import ChannelTable from "./channel-table";
+import { optionsInterest } from "./constants";
 
-export const EditContactForm = (props) => {
+export const EditContactForm = () => {
     const { regions, companies } = useContext(AppContext);
 
     const [channels, setChannels] = useState([]);
@@ -49,29 +50,6 @@ export const EditContactForm = (props) => {
         _id: "",
         cities: [],
     });
-
-    const optionsInterest = [
-        {
-            value: 0,
-            label: "0%",
-        },
-        {
-            value: 25,
-            label: "25%",
-        },
-        {
-            value: 50,
-            label: "50%",
-        },
-        {
-            value: 75,
-            label: "75%",
-        },
-        {
-            value: 100,
-            label: "100%",
-        },
-    ];
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
@@ -111,7 +89,7 @@ export const EditContactForm = (props) => {
 
     const fetchContact = async () => {
         const contact = await getContactById(id);
-        console.log(contact);
+
         const { name, surname, email, position, company, address, channels, city, interest } =
             contact;
 
@@ -205,13 +183,13 @@ export const EditContactForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formikEditContact.handleSubmit}>
+            <form onSubmit={formikEditContact.handleSubmit}>
                 <Card>
                     <CardHeader title="New contact" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item md={6} s={12}>
+                            <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Name"
@@ -276,6 +254,7 @@ export const EditContactForm = (props) => {
                             </Grid>
                             <Grid item md={6} xs={12}>
                                 <TextField
+                                    fullWidth
                                     error={Boolean(
                                         formikEditContact.touched.position &&
                                             formikEditContact.errors.position
@@ -331,7 +310,7 @@ export const EditContactForm = (props) => {
                     <Card>
                         <CardContent>
                             <Grid container spacing={3}>
-                                <Grid item md={6} s={12}>
+                                <Grid item md={6} xs={12}>
                                     <TextField
                                         value={selectedRegion._id}
                                         name="region"
@@ -486,15 +465,13 @@ export const EditContactForm = (props) => {
                                 underline="hover"
                                 type="submit"
                             >
-                                Create
+                                Save
                             </Button>
                         </Box>
                     </Card>
                 </Card>
                 <Divider />
             </form>
-            {/* <CardPersonalInformation /> */}
-            {/* <CardRegionInformation /> */}
             <Dialog
                 open={state.dialogOpen}
                 onClose={handleDialogClose}

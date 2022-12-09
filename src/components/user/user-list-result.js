@@ -22,7 +22,6 @@ import AlertDeleteUser from "./alert-delete-user";
 
 export const UserListResults = (params) => {
     const { users, setUsers } = params;
-    console.log(users);
 
     const router = useRouter();
     const [selectedUserIds, setSelectedUserIds] = useState([]);
