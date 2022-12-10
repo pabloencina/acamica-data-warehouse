@@ -22,9 +22,8 @@ export const postCompany = async (companyToCreate) => {
             address: companyToCreate.address,
             city: companyToCreate.city,
         };
-        console.log(body);
+
         const postCompanyResponse = await axios.post(companyURL, body);
-        console.log(postCompanyResponse);
 
         return postCompanyResponse;
     }
@@ -42,7 +41,7 @@ export const editCompany = async (id, companyToEdit) => {
             city: companyToEdit.city,
         };
         const companyEdited = await axios.put(`${companyURL}/${id}`, body);
-        console.log(companyEdited.data);
+
         return companyEdited;
     }
     return null;
@@ -50,6 +49,6 @@ export const editCompany = async (id, companyToEdit) => {
 
 export const deleteCompany = async (id) => {
     const response = await axios.delete(`${companyURL}/${id}`);
-    console.log(response.data);
+
     return response.data;
 };

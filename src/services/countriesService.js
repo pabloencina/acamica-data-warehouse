@@ -20,3 +20,9 @@ export const postCountry = async (countryToCreate) => {
 
     return null;
 };
+
+export const deleteCountry = async (id) => {
+    const response = await axios.delete(`${countryURL}/${id}`);
+
+    return response.data;
+};

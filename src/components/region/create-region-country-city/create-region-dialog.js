@@ -36,7 +36,6 @@ export default function CreateRegionDialog(props) {
         try {
             const response = await postRegion({ name });
 
-            console.log(response);
             setState({
                 ...state,
                 formError: false,
@@ -64,7 +63,7 @@ export default function CreateRegionDialog(props) {
     };
 
     return (
-        <div>
+        <>
             <Button
                 sx={{ m: 1 }}
                 color="primary"
@@ -94,6 +93,6 @@ export default function CreateRegionDialog(props) {
                     <Button onClick={handleConfirmedRegion}>Confirm</Button>
                 </DialogActions>
             </Dialog>
-        </div>
+        </>
     );
 }

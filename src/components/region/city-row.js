@@ -8,6 +8,10 @@ import EditCityDialog from "./edit-region-country-city/edit-city-dialog";
 export default function CityRow(props) {
     const { city, refreshRegions } = props;
 
+    const onCityDeleted = () => {
+        refreshRegions();
+    };
+
     return (
         <React.Fragment>
             <TableRow>
@@ -16,7 +20,7 @@ export default function CityRow(props) {
                 <TableCell scope="row">
                     <Stack direction="row" spacing={2}>
                         <EditCityDialog refreshRegions={refreshRegions} />
-                        <DeleteCityDialog city={city} />
+                        <DeleteCityDialog city={city} onCityDeleted={onCityDeleted} />
                     </Stack>
                 </TableCell>
             </TableRow>

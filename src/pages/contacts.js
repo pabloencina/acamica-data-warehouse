@@ -11,6 +11,7 @@ import { DashboardLayout } from "../components/dashboard-layout";
 
 const Contacts = () => {
     const [contacts, setContacts] = useState([]);
+    const [contactList, setContactList] = useState([]);
     const { regions, handleRegionUpdate, companies, handleCompanyUpdate } = useContext(AppContext);
 
     const verifyRegions = async () => {
@@ -30,6 +31,7 @@ const Contacts = () => {
     const fetchContacts = async () => {
         const result = await getAllContacts();
         setContacts(result);
+        setContactList(result);
     };
 
     useEffect(() => {
@@ -51,7 +53,7 @@ const Contacts = () => {
                 }}
             >
                 <Container>
-                    <ContactListToolbar />
+                    <ContactListToolbar contactList={contactList} setContacts={setContacts} />
                     <Box sx={{ mt: 3 }}>
                         <ContactListResults contacts={contacts} setContacts={setContacts} />
                     </Box>

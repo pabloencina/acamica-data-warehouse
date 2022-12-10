@@ -21,8 +21,8 @@ export const postContact = async (contactToCreate) => {
             channels: contactToCreate.channels,
             interest: contactToCreate.interest,
         };
+
         const postContactResponse = await axios.post(contactURL, body);
-        console.log(postContactResponse);
 
         return postContactResponse;
     }
@@ -32,6 +32,7 @@ export const postContact = async (contactToCreate) => {
 
 export const getContactById = async (id) => {
     const response = await axios.get(`${contactURL}/${id}`);
+
     return response.data;
 };
 
@@ -43,10 +44,12 @@ export const editContact = async (id, contactToEdit) => {
             email: contactToEdit.email,
             position: contactToEdit.position,
             company: contactToEdit.company,
+            city: contactToEdit.city,
             address: contactToEdit.address,
+            channels: contactToEdit.channels,
         };
         const contactEdited = await axios.put(`${contactURL}/${id}`, body);
-        console.log(contactEdited.data);
+
         return contactEdited;
     }
     return null;
@@ -54,6 +57,6 @@ export const editContact = async (id, contactToEdit) => {
 
 export const deleteContact = async (id) => {
     const response = await axios.delete(`${contactURL}/${id}`);
-    console.log(response.data);
+
     return response.data;
 };

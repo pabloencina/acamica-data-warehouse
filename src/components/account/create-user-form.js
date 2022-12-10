@@ -21,7 +21,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { postUser } from "src/services/usersService";
 
-export const CreateUserForm = (props) => {
+export const CreateUserForm = () => {
     const options = ["ADMIN", "BASIC"];
     const [state, setState] = useState({
         profileInputValue: "",
@@ -68,7 +68,6 @@ export const CreateUserForm = (props) => {
             try {
                 const response = await postUser(values);
 
-                //console.log(response);
                 setState({
                     ...state,
                     dialogOpen: true,
@@ -98,13 +97,13 @@ export const CreateUserForm = (props) => {
     });
     return (
         <>
-            <form {...props} onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Card>
                     <CardHeader title="Profile" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item md={6} s={12}>
+                            <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Name"

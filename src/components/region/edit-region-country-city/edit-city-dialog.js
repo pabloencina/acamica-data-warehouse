@@ -39,7 +39,6 @@ export default function EditCityDialog(props) {
         try {
             const response = await postRegion({ name });
 
-            console.log(response);
             setState({
                 ...state,
                 formError: false,

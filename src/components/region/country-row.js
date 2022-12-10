@@ -18,6 +18,10 @@ export default function CountryRow(props) {
     const { country, refreshRegions } = props;
     const [openCity, setOpenCity] = React.useState(false);
 
+    const onCountryDeleted = () => {
+        refreshRegions();
+    };
+
     return (
         <React.Fragment>
             <TableRow>
@@ -35,7 +39,10 @@ export default function CountryRow(props) {
                     <Stack direction="row" spacing={2}>
                         <CreateCityDialog refreshRegions={refreshRegions} countryId={country._id} />
                         <EditCountryDialog refreshRegions={refreshRegions} />
-                        <DeleteCountryDialog country={country} />
+                        <DeleteCountryDialog
+                            country={country}
+                            onCountryDeleted={onCountryDeleted}
+                        />
                     </Stack>
                 </TableCell>
             </TableRow>

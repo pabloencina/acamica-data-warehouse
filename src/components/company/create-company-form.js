@@ -22,7 +22,7 @@ import { postCompany } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 
-export const CreateCompanyForm = (props) => {
+export const CreateCompanyForm = () => {
     const { regions } = useContext(AppContext);
 
     const [selectedRegion, setSelectedRegion] = useState({
@@ -126,13 +126,13 @@ export const CreateCompanyForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Card>
                     <CardHeader title="Company" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
-                            <Grid item md={6} s={12}>
+                            <Grid item md={6} xs={12}>
                                 <TextField
                                     fullWidth
                                     label="Company name"
@@ -198,7 +198,6 @@ export const CreateCompanyForm = (props) => {
                                     name="region"
                                     select
                                     onChange={regionOnChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.region}
                                     variant="outlined"
@@ -207,7 +206,9 @@ export const CreateCompanyForm = (props) => {
                                 >
                                     {regions.map((region) => {
                                         return (
-                                            <MenuItem value={region._id}>{region.name}</MenuItem>
+                                            <MenuItem value={region._id} key={region._id}>
+                                                {region.name}
+                                            </MenuItem>
                                         );
                                     })}
                                 </TextField>
@@ -219,8 +220,6 @@ export const CreateCompanyForm = (props) => {
                                     name="country"
                                     select
                                     onChange={countryOnChange}
-                                    //onChange={formik.handleChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={formik.values.country}
                                     variant="outlined"
@@ -229,7 +228,9 @@ export const CreateCompanyForm = (props) => {
                                 >
                                     {selectedRegion?.countries?.map((country) => {
                                         return (
-                                            <MenuItem value={country._id}>{country.name}</MenuItem>
+                                            <MenuItem value={country._id} key={country._id}>
+                                                {country.name}
+                                            </MenuItem>
                                         );
                                     })}
                                 </TextField>
@@ -249,7 +250,11 @@ export const CreateCompanyForm = (props) => {
                                     helperText={formik.touched.city && formik.errors.city}
                                 >
                                     {selectedCountry?.cities?.map((city) => {
-                                        return <MenuItem value={city._id}>{city.name}</MenuItem>;
+                                        return (
+                                            <MenuItem value={city._id} key={city._id}>
+                                                {city.name}
+                                            </MenuItem>
+                                        );
                                     })}
                                 </TextField>
                             </Grid>

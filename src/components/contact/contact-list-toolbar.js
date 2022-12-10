@@ -3,19 +3,43 @@ import {
     Button,
     Card,
     CardContent,
-    TextField,
+    Grid,
     InputAdornment,
     SvgIcon,
+    TextField,
     Typography,
 } from "@mui/material";
-import { Search as SearchIcon } from "../../icons/search";
 import { useRouter } from "next/router";
+import PropTypes from "prop-types";
+import { Search as SearchIcon } from "../../icons/search";
 
 export const ContactListToolbar = (props) => {
+    const { contactList, setContacts } = props;
+
     const router = useRouter();
 
+    const searchContact = (e) => {
+        filterContact(e.target.value);
+    };
+
+    const filterContact = (search) => {
+        const filtered = contactList.filter((contact) => {
+            if (
+                contact.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.surname.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.email.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.address.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.city.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.company.name.toString().toLowerCase().includes(search.toLowerCase())
+            ) {
+                return true;
+            }
+        });
+        setContacts(filtered);
+    };
+
     return (
-        <Box {...props}>
+        <Box>
             <Box
                 sx={{
                     alignItems: "center",
@@ -44,7 +68,7 @@ export const ContactListToolbar = (props) => {
             <Box sx={{ mt: 3 }}>
                 <Card>
                     <CardContent>
-                        <Box sx={{ maxWidth: 250 }}>
+                        <Grid item md={6} xs={12}>
                             <TextField
                                 fullWidth
                                 InputProps={{
@@ -56,13 +80,19 @@ export const ContactListToolbar = (props) => {
                                         </InputAdornment>
                                     ),
                                 }}
-                                placeholder="Search contact by name"
+                                placeholder="Search contact"
                                 variant="outlined"
-                            />
-                        </Box>
+                                onChange={searchContact}
+                            ></TextField>
+                        </Grid>
                     </CardContent>
                 </Card>
             </Box>
         </Box>
     );
+};
+
+ContactListToolbar.propTypes = {
+    contactList: PropTypes.array.isRequired,
+    setContacts: PropTypes.func.isRequired,
 };

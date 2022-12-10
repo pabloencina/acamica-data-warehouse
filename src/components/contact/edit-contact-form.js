@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
     Alert,
     Box,
@@ -7,26 +5,71 @@ import {
     Card,
     CardContent,
     CardHeader,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     Divider,
     Grid,
+    MenuItem,
     TextField,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    DialogContentText,
 } from "@mui/material";
-import Autocomplete from "@mui/material/Autocomplete";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
+import { getCompanyById } from "src/services/companiesService";
 import { editContact, getContactById } from "src/services/contactsService";
+import { AppContext } from "src/utils/app-context-provider";
+import * as Yup from "yup";
+import AddChannelDialog from "./add-channel-dialog";
+import ChannelTable from "./channel-table";
+import { optionsInterest } from "./constants";
 
-export const EditContactForm = (props) => {
-    // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
-    // TODO: Si lo anterior no se puede, hay que llamar de nuevo al Back End y pedirle los datos, tomando el ID que aparece en la URL.
-    //const options = ["ADMIN", "BASIC"];
+export const EditContactForm = () => {
+    const { regions, companies } = useContext(AppContext);
+
+    const [channels, setChannels] = useState([]);
+
+    const addChannel = (newChannel) => {
+        setChannels([...channels, newChannel]);
+    };
+
+    const deleteChannel = (id) => {
+        const filteredChannels = channels.filter((channel) => {
+            return channel._id !== id;
+        });
+        setChannels(filteredChannels);
+    };
+
+    const [selectedRegion, setSelectedRegion] = useState({
+        _id: "",
+        countries: [],
+    });
+    const [selectedCountry, setSelectedCountry] = useState({
+        _id: "",
+        cities: [],
+    });
+
+    const regionOnChange = (e) => {
+        const regionId = e.target.value;
+        const regionFound = regions.find((region) => region._id === regionId);
+        setSelectedRegion(regionFound);
+        setSelectedCountry({
+            cities: [],
+        });
+        formik.setFieldValue("city", "");
+    };
+
+    const countryOnChange = (e) => {
+        const countryId = e.target.value;
+        const countryFound = selectedRegion?.countries?.find(
+            (country) => country._id === countryId
+        );
+        setSelectedCountry(countryFound);
+        formik.setFieldValue("city", "");
+    };
     const [state, setState] = useState({
-        profileInputValue: "",
         formError: false,
         dialogOpen: false,
         errorMessage: "",
@@ -41,11 +84,34 @@ export const EditContactForm = (props) => {
     }
 
     useEffect(() => {
-        getContactById(id).then((user) => {
-            const { name, surname, password, email, profile } = user;
-            formik.setValues({ name, surname, password, profile, email });
-        });
+        fetchContact();
     }, []);
+
+    const fetchContact = async () => {
+        const contact = await getContactById(id);
+
+        const { name, surname, email, position, company, address, channels, city, interest } =
+            contact;
+
+        const regionFound = regions.find((r) => r._id === city.country.region._id);
+        setSelectedRegion(regionFound);
+
+        const countryFound = regionFound.countries.find((c) => c._id === city.country._id);
+        setSelectedCountry(countryFound);
+
+        formikEditContact.setValues({
+            name,
+            surname,
+            email,
+            position,
+            company: company._id,
+            address,
+            channels,
+            city: city._id,
+            interest,
+        });
+        setChannels(channels);
+    };
 
     const router = useRouter();
 
@@ -57,18 +123,22 @@ export const EditContactForm = (props) => {
         router.push("/contacts");
     };
 
-    const formikPersonalInformation = useFormik({
+    const formikEditContact = useFormik({
         initialValues: {
-            region: "",
-            country: "",
+            name: "",
+            surname: "",
+            email: "",
+            position: "",
+            company: "",
             city: "",
-            direction: "",
-            interest: "75%",
+            address: "",
+            interest: optionsInterest[2].value,
         },
 
         validationSchema: Yup.object({
             name: Yup.string().max(10).min(3).required("Name is required"),
             surname: Yup.string().max(15).min(3).required("Surname is required"),
+            address: Yup.string().max(15).min(3).required("Address is required"),
             email: Yup.string()
                 .email("Must be a valid email")
                 .max(40)
@@ -77,19 +147,17 @@ export const EditContactForm = (props) => {
             position: Yup.mixed()
                 //.oneOf(optionsPreference, "Position must be one of the options")
                 .required("Position is required"),
-            company: Yup.string().max(15).min(3).required("Company is required"),
         }),
 
         onSubmit: async (values) => {
             try {
-                const response = await postContact(values);
-
-                //console.log(response);
+                const response = await editContact(id, values);
                 setState({
                     ...state,
                     dialogOpen: true,
                     formError: false,
                 });
+                return response;
             } catch (error) {
                 let message = "Contact creation failed.";
                 if (error.response) {
@@ -115,9 +183,295 @@ export const EditContactForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formikPersonalInformation.handleSubmit}></form>
-            {/* <CardPersonalInformation /> */}
-            {/* <CardRegionInformation /> */}
+            <form onSubmit={formikEditContact.handleSubmit}>
+                <Card>
+                    <CardHeader title="New contact" />
+                    <Divider />
+                    <CardContent>
+                        <Grid container spacing={3}>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Name"
+                                    name="name"
+                                    max="10"
+                                    min="3"
+                                    onChange={formikEditContact.handleChange}
+                                    onBlur={formikEditContact.handleBlur}
+                                    required
+                                    value={formikEditContact.values.name}
+                                    variant="outlined"
+                                    error={Boolean(
+                                        formikEditContact.touched.name &&
+                                            formikEditContact.errors.name
+                                    )}
+                                    helperText={
+                                        formikEditContact.touched.name &&
+                                        formikEditContact.errors.name
+                                    }
+                                />
+                            </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
+                                    label="Surname"
+                                    name="surname"
+                                    onChange={formikEditContact.handleChange}
+                                    onBlur={formikEditContact.handleBlur}
+                                    required
+                                    value={formikEditContact.values.surname}
+                                    variant="outlined"
+                                    error={Boolean(
+                                        formikEditContact.touched.surname &&
+                                            formikEditContact.errors.surname
+                                    )}
+                                    helperText={
+                                        formikEditContact.touched.surname &&
+                                        formikEditContact.errors.surname
+                                    }
+                                />
+                            </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    error={Boolean(
+                                        formikEditContact.touched.email &&
+                                            formikEditContact.errors.email
+                                    )}
+                                    fullWidth
+                                    helperText={
+                                        formikEditContact.touched.email &&
+                                        formikEditContact.errors.email
+                                    }
+                                    label="Email"
+                                    name="email"
+                                    type="email"
+                                    onChange={formikEditContact.handleChange}
+                                    onBlur={formikEditContact.handleBlur}
+                                    required
+                                    value={formikEditContact.values.email}
+                                    variant="outlined"
+                                />
+                            </Grid>
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    fullWidth
+                                    error={Boolean(
+                                        formikEditContact.touched.position &&
+                                            formikEditContact.errors.position
+                                    )}
+                                    helperText={
+                                        formikEditContact.touched.position &&
+                                        formikEditContact.errors.position
+                                    }
+                                    label="Position"
+                                    name="position"
+                                    //type="email"
+                                    onChange={formikEditContact.handleChange}
+                                    onBlur={formikEditContact.handleBlur}
+                                    required
+                                    value={formikEditContact.values.position}
+                                    variant="outlined"
+                                />
+                            </Grid>
+
+                            <Grid item md={6} xs={12}>
+                                <TextField
+                                    value={formikEditContact.values.company}
+                                    error={Boolean(
+                                        formikEditContact.touched.company &&
+                                            formikEditContact.errors.company
+                                    )}
+                                    fullWidth
+                                    helperText={
+                                        formikEditContact.touched.company &&
+                                        formikEditContact.errors.company
+                                    }
+                                    label="Company"
+                                    name="company"
+                                    select
+                                    onChange={formikEditContact.handleChange}
+                                    onBlur={formikEditContact.handleBlur}
+                                    //type="company"
+                                    variant="outlined"
+                                    required
+                                >
+                                    {companies.map((company) => {
+                                        return (
+                                            <MenuItem key={company._id} value={company._id}>
+                                                {company.name}
+                                            </MenuItem>
+                                        );
+                                    })}
+                                </TextField>
+                            </Grid>
+                        </Grid>
+                    </CardContent>
+                    <Divider />
+                    <Card>
+                        <CardContent>
+                            <Grid container spacing={3}>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        value={selectedRegion._id}
+                                        name="region"
+                                        select
+                                        fullWidth
+                                        variant="outlined"
+                                        label="Region"
+                                        placeholder="Select region"
+                                        onChange={regionOnChange}
+                                        error={Boolean(
+                                            formikEditContact.touched.region &&
+                                                formikEditContact.errors.region
+                                        )}
+                                        helperText={
+                                            formikEditContact.touched.region &&
+                                            formikEditContact.errors.region
+                                        }
+                                    >
+                                        {regions.map((region) => {
+                                            return (
+                                                <MenuItem value={region._id}>
+                                                    {region.name}
+                                                </MenuItem>
+                                            );
+                                        })}
+                                    </TextField>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Country"
+                                        name="country"
+                                        select
+                                        onChange={countryOnChange}
+                                        required
+                                        value={selectedCountry._id}
+                                        variant="outlined"
+                                        error={Boolean(
+                                            formikEditContact.touched.country &&
+                                                formikEditContact.errors.country
+                                        )}
+                                        helperText={
+                                            formikEditContact.touched.country &&
+                                            formikEditContact.errors.country
+                                        }
+                                    >
+                                        {selectedRegion?.countries?.map((country) => {
+                                            return (
+                                                <MenuItem value={country._id}>
+                                                    {country.name}
+                                                </MenuItem>
+                                            );
+                                        })}
+                                    </TextField>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        label="City"
+                                        name="city"
+                                        select
+                                        fullWidth
+                                        onChange={formikEditContact.handleChange}
+                                        onBlur={formikEditContact.handleBlur}
+                                        required
+                                        value={formikEditContact.values.city}
+                                        variant="outlined"
+                                        error={Boolean(
+                                            formikEditContact.touched.city &&
+                                                formikEditContact.errors.city
+                                        )}
+                                        helperText={
+                                            formikEditContact.touched.city &&
+                                            formikEditContact.errors.city
+                                        }
+                                    >
+                                        {selectedCountry?.cities?.map((city) => {
+                                            return (
+                                                <MenuItem value={city._id}>{city.name}</MenuItem>
+                                            );
+                                        })}
+                                    </TextField>
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        fullWidth
+                                        label="Address"
+                                        name="address"
+                                        placeholder="Enter an address"
+                                        max="10"
+                                        min="3"
+                                        onChange={formikEditContact.handleChange}
+                                        onBlur={formikEditContact.handleBlur}
+                                        required
+                                        value={formikEditContact.values.address}
+                                        variant="outlined"
+                                        error={Boolean(
+                                            formikEditContact.touched.address &&
+                                                formikEditContact.errors.address
+                                        )}
+                                        helperText={
+                                            formikEditContact.touched.address &&
+                                            formikEditContact.errors.address
+                                        }
+                                    />
+                                </Grid>
+                                <Grid item md={6} xs={12}>
+                                    <TextField
+                                        value={formikEditContact.values.interest}
+                                        name="interest"
+                                        select="true"
+                                        label="Interest"
+                                        fullWidth="true"
+                                        variant="outlined"
+                                        onChange={(event) => {
+                                            formikEditContact.setFieldValue(
+                                                "interest",
+                                                event.target.value
+                                            );
+                                        }}
+                                    >
+                                        {optionsInterest.map((option) => {
+                                            return (
+                                                <MenuItem value={option.value}>
+                                                    {option.label}
+                                                </MenuItem>
+                                            );
+                                        })}
+                                    </TextField>
+                                </Grid>
+                                <Divider />
+                            </Grid>
+                        </CardContent>
+                        <Divider />
+                        <Box sx={{ display: "flex", justifyContent: "end", mr: 5, mt: 2 }}>
+                            <AddChannelDialog addChannel={addChannel} />
+                        </Box>
+                        <Box sx={{ mt: 2 }}>
+                            <ChannelTable channels={channels} deleteChannel={deleteChannel} />
+                        </Box>
+
+                        <Box
+                            sx={{
+                                display: "flex",
+                                justifyContent: "end",
+                                p: 5,
+                            }}
+                        >
+                            <Button
+                                color="primary"
+                                disabled={formikEditContact.isSubmitting}
+                                variant="contained"
+                                underline="hover"
+                                type="submit"
+                            >
+                                Save
+                            </Button>
+                        </Box>
+                    </Card>
+                </Card>
+                <Divider />
+            </form>
             <Dialog
                 open={state.dialogOpen}
                 onClose={handleDialogClose}

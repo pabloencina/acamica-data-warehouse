@@ -9,6 +9,7 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Snackbar from "@mui/material/Snackbar";
 import * as React from "react";
+import { deleteRegion } from "src/services/regionsService";
 import { deleteUser } from "src/services/usersService";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
@@ -16,7 +17,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 export default function DeleteRegionDialog(params) {
-    const { region } = params;
+    const { region, onRegionDeleted } = params;
 
     const [open, setOpen] = React.useState(false);
 
@@ -48,8 +49,8 @@ export default function DeleteRegionDialog(params) {
 
     const handleDelete = async (e) => {
         try {
-            await deleteUser(region._id); //Elimina un usuario por ID
-            onUserDeleted();
+            await deleteRegion(region._id); //Elimina un usuario por ID
+            onRegionDeleted();
         } catch (e) {
             console.log(e);
             setSnackbarOpen(true);
@@ -90,7 +91,7 @@ export default function DeleteRegionDialog(params) {
             </Dialog>
             <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleSnackbarClose}>
                 <Alert onClose={handleSnackbarClose} severity="error" sx={{ width: "100%" }}>
-                    Cannot delete user {region.name}
+                    Cannot delete region {region.name}. It has children.
                 </Alert>
             </Snackbar>
         </>

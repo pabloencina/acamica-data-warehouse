@@ -20,6 +20,7 @@ import { useState } from "react";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { getAllContacts } from "src/services/contactsService";
 import AlertDeleteContact from "./alert-delete-contact";
+import { getChannelOption } from "./constants";
 
 const Impexpicons = SwapVertIcon;
 
@@ -82,7 +83,7 @@ export const ContactListResults = (params) => {
                 <Box>
                     <Table>
                         <TableHead>
-                            <TableRow>
+                            <TableRow key={"contact-header"}>
                                 <TableCell padding="checkbox">
                                     <Checkbox
                                         checked={selectedContactIds.length === contacts.length}
@@ -149,8 +150,8 @@ export const ContactListResults = (params) => {
                                         <Box>
                                             {contact.channels.map((channel) => {
                                                 return (
-                                                    <div key={channel.channel}>
-                                                        {channel.channel}
+                                                    <div key={contact._id + "-" + channel.channel}>
+                                                        {getChannelOption(channel.channel).label}
                                                     </div>
                                                 );
                                             })}
@@ -166,7 +167,12 @@ export const ContactListResults = (params) => {
                                                     <IconButton
                                                         onClick={() => {
                                                             // https://github.com/vercel/next.js/discussions/17008
-                                                            router.push("/edit-contact");
+                                                            router.push({
+                                                                pathname: "/edit-contact",
+                                                                query: {
+                                                                    id: contact._id,
+                                                                },
+                                                            });
                                                         }}
                                                     >
                                                         <EditOutlinedIcon fontSize="big" />
@@ -200,4 +206,5 @@ export const ContactListResults = (params) => {
 
 ContactListResults.propTypes = {
     contacts: PropTypes.array.isRequired,
+    setContacts: PropTypes.func.isRequired,
 };

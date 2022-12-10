@@ -23,7 +23,7 @@ import { editCompany, getCompanyById } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
 import { useContext } from "react";
 
-export const EditCompanyForm = (props) => {
+export const EditCompanyForm = () => {
     const { regions } = useContext(AppContext);
 
     const [selectedRegion, setSelectedRegion] = useState({
@@ -157,7 +157,7 @@ export const EditCompanyForm = (props) => {
 
     return (
         <>
-            <form {...props} onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit}>
                 <Card>
                     <CardHeader title="Profile" />
                     <Divider />
@@ -231,7 +231,6 @@ export const EditCompanyForm = (props) => {
                                     name="region"
                                     select
                                     onChange={regionOnChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={selectedRegion._id}
                                     variant="outlined"
@@ -254,8 +253,6 @@ export const EditCompanyForm = (props) => {
                                     name="country"
                                     select
                                     onChange={countryOnChange}
-                                    //onChange={formik.handleChange}
-                                    //onBlur={formik.handleBlur}
                                     required
                                     value={selectedCountry._id}
                                     variant="outlined"

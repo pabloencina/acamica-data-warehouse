@@ -24,6 +24,7 @@
     "@mui/styles": "^5.0.2",
     "@mui/x-data-grid": "^5.5.1",
     "axios": "^0.25.0",
+    "bson-objectid": "^2.0.4",
     "chart.js": "^3.5.1",
     "cp-react-tree-table": "^1.1.1",
     "date-fns": "^2.25.0",
@@ -43,7 +44,6 @@
     "react-perfect-scrollbar": "^1.5.8",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.2",
-    "uuid": "^8.3.2",
     "yup": "^0.32.9"
   },
   "devDependencies": {
