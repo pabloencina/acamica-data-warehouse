@@ -1,19 +1,23 @@
 import axios from "axios";
+import { getAuthRequestConfig } from "./loginService";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
 const userURL = `${baseUrl}/users`;
 
 export const getAllUsers = async () => {
-    const response = await axios.get(userURL);
+    const config = getAuthRequestConfig();
+    const response = await axios.get(userURL, config);
     return response.data;
 };
 
 export const getUserById = async (id) => {
-    const response = await axios.get(`${userURL}/${id}`);
+    const config = getAuthRequestConfig();
+    const response = await axios.get(`${userURL}/${id}`, config);
     return response.data;
 };
 
 export const postUser = async (userToCreate) => {
+    const config = getAuthRequestConfig();
     if (userToCreate) {
         const body = {
             name: userToCreate.name,
@@ -22,7 +26,7 @@ export const postUser = async (userToCreate) => {
             profile: userToCreate.profile,
             password: userToCreate.password,
         };
-        const postUserResponse = await axios.post(userURL, body);
+        const postUserResponse = await axios.post(userURL, body, config);
 
         return postUserResponse;
     }
@@ -31,6 +35,7 @@ export const postUser = async (userToCreate) => {
 };
 
 export const editUser = async (id, userToEdit) => {
+    const config = getAuthRequestConfig();
     if (userToEdit && id) {
         const body = {
             name: userToEdit.name,
@@ -39,7 +44,7 @@ export const editUser = async (id, userToEdit) => {
             profile: userToEdit.profile,
             password: userToEdit.password,
         };
-        const userEdited = await axios.put(`${userURL}/${id}`, body);
+        const userEdited = await axios.put(`${userURL}/${id}`, body, config);
 
         return userEdited;
     }
@@ -47,7 +52,8 @@ export const editUser = async (id, userToEdit) => {
 };
 
 export const deleteUser = async (id) => {
-    const response = await axios.delete(`${userURL}/${id}`);
+    const config = getAuthRequestConfig();
+    const response = await axios.delete(`${userURL}/${id}`, config);
 
     return response.data;
 };

@@ -7,6 +7,7 @@ import { EditContactForm } from "src/components/contact/edit-contact-form";
 
 const EditContact = () => {
     const router = useRouter();
+
     return (
         <>
             <Head>
@@ -24,7 +25,7 @@ const EditContact = () => {
                         component="a"
                         startIcon={<ArrowBackIcon fontSize="small" />}
                         onClick={() => {
-                            router.push("/contacts");
+                            router.push("/");
                         }}
                     >
                         Back

@@ -1,20 +1,23 @@
 import axios from "axios";
+import { getAuthRequestConfig } from "./loginService";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
 const regionURL = `${baseUrl}/regions`;
 
 export const getAllRegions = async () => {
-    const response = await axios.get(regionURL);
+    const config = getAuthRequestConfig();
+    const response = await axios.get(regionURL, config);
     return response.data;
 };
 
 export const postRegion = async (regionToCreate) => {
+    const config = getAuthRequestConfig();
     if (regionToCreate) {
         const body = {
             name: regionToCreate.name,
         };
 
-        const postRegionResponse = await axios.post(regionURL, body);
+        const postRegionResponse = await axios.post(regionURL, body, config);
 
         return postRegionResponse;
     }
@@ -23,11 +26,12 @@ export const postRegion = async (regionToCreate) => {
 };
 
 export const editRegion = async (id, regionToEdit) => {
+    const config = getAuthRequestConfig();
     if (regionToEdit && id) {
         const body = {
             name: regionToEdit.name,
         };
-        const regionEdited = await axios.put(`${regionURL}/${id}`, body);
+        const regionEdited = await axios.put(`${regionURL}/${id}`, body, config);
 
         return regionEdited;
     }
@@ -35,7 +39,8 @@ export const editRegion = async (id, regionToEdit) => {
 };
 
 export const deleteRegion = async (id) => {
-    const response = await axios.delete(`${regionURL}/${id}`);
+    const config = getAuthRequestConfig();
+    const response = await axios.delete(`${regionURL}/${id}`, config);
 
     return response.data;
 };

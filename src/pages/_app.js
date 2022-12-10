@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import Head from "next/head";
 import { AppProvider } from "src/utils/app-context-provider";
 import { AuthGuard } from "src/utils/auth-guard";
+import { ContextGuard } from "src/utils/context-guard";
 import { theme } from "../theme";
 import { createEmotionCache } from "../utils/create-emotion-cache";
 
@@ -25,10 +26,12 @@ const App = (props) => {
             <AppProvider>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <AuthGuard>
-                        <ThemeProvider theme={theme}>
-                            <CssBaseline />
-                            {getLayout(<Component {...pageProps} />)}
-                        </ThemeProvider>
+                        <ContextGuard>
+                            <ThemeProvider theme={theme}>
+                                <CssBaseline />
+                                {getLayout(<Component {...pageProps} />)}
+                            </ThemeProvider>
+                        </ContextGuard>
                     </AuthGuard>
                 </LocalizationProvider>
             </AppProvider>

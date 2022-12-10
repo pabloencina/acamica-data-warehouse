@@ -30,7 +30,8 @@ export const ContactListToolbar = (props) => {
                 contact.email.toString().toLowerCase().includes(search.toLowerCase()) ||
                 contact.address.toString().toLowerCase().includes(search.toLowerCase()) ||
                 contact.city.name.toString().toLowerCase().includes(search.toLowerCase()) ||
-                contact.company.name.toString().toLowerCase().includes(search.toLowerCase())
+                contact.company.name.toString().toLowerCase().includes(search.toLowerCase()) ||
+                contact.position.toString().toLowerCase().includes(search.toLowerCase())
             ) {
                 return true;
             }

@@ -26,6 +26,8 @@ import AddChannelDialog from "./add-channel-dialog";
 import ChannelTable from "./channel-table";
 import { optionsInterest } from "./constants";
 
+import CircularProgress from "@mui/material/CircularProgress";
+
 export const EditContactForm = () => {
     const { regions, companies } = useContext(AppContext);
 
@@ -84,8 +86,10 @@ export const EditContactForm = () => {
     }
 
     useEffect(() => {
-        fetchContact();
-    }, []);
+        if (regions.length) {
+            fetchContact();
+        }
+    }, [regions]);
 
     const fetchContact = async () => {
         const contact = await getContactById(id);
@@ -185,7 +189,7 @@ export const EditContactForm = () => {
         <>
             <form onSubmit={formikEditContact.handleSubmit}>
                 <Card>
-                    <CardHeader title="New contact" />
+                    <CardHeader title="Edit contact" />
                     <Divider />
                     <CardContent>
                         <Grid container spacing={3}>
@@ -422,7 +426,7 @@ export const EditContactForm = () => {
                                         name="interest"
                                         select="true"
                                         label="Interest"
-                                        fullWidth="true"
+                                        fullWidth
                                         variant="outlined"
                                         onChange={(event) => {
                                             formikEditContact.setFieldValue(

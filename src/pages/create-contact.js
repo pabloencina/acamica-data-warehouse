@@ -25,7 +25,7 @@ const CreateContact = () => {
                         component="a"
                         startIcon={<ArrowBackIcon fontSize="small" />}
                         onClick={() => {
-                            router.push("/contacts");
+                            router.push("/");
                         }}
                     >
                         Back

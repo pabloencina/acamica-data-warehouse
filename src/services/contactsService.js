@@ -1,14 +1,17 @@
 import axios from "axios";
+import { getAuthRequestConfig } from "./loginService";
 
 const baseUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3500";
 const contactURL = `${baseUrl}/contacts`;
 
 export const getAllContacts = async () => {
-    const response = await axios.get(contactURL);
+    const config = getAuthRequestConfig();
+    const response = await axios.get(contactURL, config);
     return response.data;
 };
 
 export const postContact = async (contactToCreate) => {
+    const config = getAuthRequestConfig();
     if (contactToCreate) {
         const body = {
             name: contactToCreate.name,
@@ -22,7 +25,7 @@ export const postContact = async (contactToCreate) => {
             interest: contactToCreate.interest,
         };
 
-        const postContactResponse = await axios.post(contactURL, body);
+        const postContactResponse = await axios.post(contactURL, body, config);
 
         return postContactResponse;
     }
@@ -31,12 +34,14 @@ export const postContact = async (contactToCreate) => {
 };
 
 export const getContactById = async (id) => {
-    const response = await axios.get(`${contactURL}/${id}`);
+    const config = getAuthRequestConfig();
+    const response = await axios.get(`${contactURL}/${id}`, config);
 
     return response.data;
 };
 
 export const editContact = async (id, contactToEdit) => {
+    const config = getAuthRequestConfig();
     if (contactToEdit && id) {
         const body = {
             name: contactToEdit.name,
@@ -48,7 +53,7 @@ export const editContact = async (id, contactToEdit) => {
             address: contactToEdit.address,
             channels: contactToEdit.channels,
         };
-        const contactEdited = await axios.put(`${contactURL}/${id}`, body);
+        const contactEdited = await axios.put(`${contactURL}/${id}`, body, config);
 
         return contactEdited;
     }
@@ -56,7 +61,8 @@ export const editContact = async (id, contactToEdit) => {
 };
 
 export const deleteContact = async (id) => {
-    const response = await axios.delete(`${contactURL}/${id}`);
+    const config = getAuthRequestConfig();
+    const response = await axios.delete(`${contactURL}/${id}`, config);
 
     return response.data;
 };
