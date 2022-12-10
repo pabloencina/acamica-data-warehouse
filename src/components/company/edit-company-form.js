@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
 import {
     Alert,
     Box,
@@ -7,21 +5,22 @@ import {
     Card,
     CardContent,
     CardHeader,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
     Divider,
     Grid,
-    TextField,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    DialogContentText,
     MenuItem,
+    TextField,
 } from "@mui/material";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useRouter } from "next/router";
+import { useContext, useEffect, useState } from "react";
 import { editCompany, getCompanyById } from "src/services/companiesService";
 import { AppContext } from "src/utils/app-context-provider";
-import { useContext } from "react";
+import * as Yup from "yup";
 
 export const EditCompanyForm = () => {
     const { regions } = useContext(AppContext);
@@ -56,7 +55,6 @@ export const EditCompanyForm = () => {
     };
 
     const [state, setState] = useState({
-        profileInputValue: "",
         formError: false,
         dialogOpen: false,
         errorMessage: "",
@@ -84,8 +82,10 @@ export const EditCompanyForm = () => {
     };
 
     useEffect(() => {
-        fetchCompany();
-    }, []);
+        if (regions.length) {
+            fetchCompany();
+        }
+    }, [regions]);
 
     const router = useRouter();
 

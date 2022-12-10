@@ -153,4 +153,5 @@ export const DashboardSidebar = (props) => {
 DashboardSidebar.propTypes = {
     onClose: PropTypes.func,
     open: PropTypes.bool,
+    loggedUser: PropTypes.object.isRequired,
 };

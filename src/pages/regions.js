@@ -3,14 +3,17 @@ import { Box, Card, CardContent, Container } from "@mui/material";
 import { DashboardLayout } from "../components/dashboard-layout";
 import RegionTable from "src/components/region/region-table";
 import { getAllRegions } from "src/services/regionsService";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "src/utils/app-context-provider";
 
 const Regions = () => {
     const [regions, setRegions] = useState([]);
+    const { handleRegionUpdate } = useContext(AppContext);
 
     const refreshRegions = async () => {
         const regions = await getAllRegions();
         setRegions(regions);
+        handleRegionUpdate(regions);
     };
 
     useEffect(() => {

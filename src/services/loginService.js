@@ -31,7 +31,9 @@ export const deleteTokenFromCookie = () => {
 export const getAuthRequestConfig = () => {
     const token = Cookies.get("token");
     return {
-        Authorization: "Bearer " + token,
+        headers: {
+            Authorization: "Bearer " + token,
+        },
     };
 };
 

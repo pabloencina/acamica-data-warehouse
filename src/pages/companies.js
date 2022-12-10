@@ -4,29 +4,20 @@ import { useContext, useEffect, useState } from "react";
 import { CompanyListToolbar } from "src/components/company/company-list-toolbar";
 import { CompanyTable } from "src/components/company/company-table";
 import { getAllCompanies } from "src/services/companiesService";
-import { getAllRegions } from "src/services/regionsService";
 import { AppContext } from "src/utils/app-context-provider";
 import { DashboardLayout } from "../components/dashboard-layout";
 
 const Companies = () => {
     const [companies, setCompanies] = useState([]);
-
-    const { regions, handleRegionUpdate } = useContext(AppContext);
-
-    const verifyRegions = async () => {
-        if (regions.length === 0) {
-            const result = await getAllRegions();
-            handleRegionUpdate(result);
-        }
-    };
+    const { handleCompanyUpdate } = useContext(AppContext);
 
     const fetchCompanies = async () => {
         const companiesResponse = await getAllCompanies();
         setCompanies(companiesResponse);
+        handleCompanyUpdate(companiesResponse);
     };
 
     useEffect(() => {
-        verifyRegions();
         fetchCompanies();
     }, []);
 

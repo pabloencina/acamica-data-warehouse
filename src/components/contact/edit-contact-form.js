@@ -18,15 +18,12 @@ import {
 import { useFormik } from "formik";
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
-import { getCompanyById } from "src/services/companiesService";
 import { editContact, getContactById } from "src/services/contactsService";
 import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
 import AddChannelDialog from "./add-channel-dialog";
 import ChannelTable from "./channel-table";
 import { optionsInterest } from "./constants";
-
-import CircularProgress from "@mui/material/CircularProgress";
 
 export const EditContactForm = () => {
     const { regions, companies } = useContext(AppContext);
@@ -58,6 +55,7 @@ export const EditContactForm = () => {
         const regionFound = regions.find((region) => region._id === regionId);
         setSelectedRegion(regionFound);
         setSelectedCountry({
+            _id: "",
             cities: [],
         });
         formik.setFieldValue("city", "");
@@ -71,6 +69,7 @@ export const EditContactForm = () => {
         setSelectedCountry(countryFound);
         formik.setFieldValue("city", "");
     };
+
     const [state, setState] = useState({
         formError: false,
         dialogOpen: false,
@@ -84,12 +83,6 @@ export const EditContactForm = () => {
         const searchParams = new URLSearchParams(search);
         id = searchParams.get("id");
     }
-
-    useEffect(() => {
-        if (regions.length) {
-            fetchContact();
-        }
-    }, [regions]);
 
     const fetchContact = async () => {
         const contact = await getContactById(id);
@@ -116,6 +109,12 @@ export const EditContactForm = () => {
         });
         setChannels(channels);
     };
+
+    useEffect(() => {
+        if (regions.length) {
+            fetchContact();
+        }
+    }, [regions]);
 
     const router = useRouter();
 

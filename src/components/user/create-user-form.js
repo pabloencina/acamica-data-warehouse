@@ -61,7 +61,7 @@ export const CreateUserForm = () => {
             profile: Yup.mixed()
                 .oneOf(options, "Profile must be one of the options")
                 .required("Profile is required"),
-            password: Yup.string().max(15).min(3).required("Password is required"),
+            password: Yup.string().max(16).min(8).required("Password is required"),
         }),
 
         onSubmit: async (values) => {

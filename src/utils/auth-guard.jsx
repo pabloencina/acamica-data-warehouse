@@ -8,8 +8,7 @@ export const AuthGuard = ({ children }) => {
     const router = useRouter();
 
     const verifyLoggedUser = (loggedUser) => {
-        console.log(loggedUser);
-        if (loggedUser.email) {
+        if (loggedUser.email && loggedUser.profile) {
             return;
         }
         router.push("/login");
