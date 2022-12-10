@@ -1,51 +1,44 @@
-import { useEffect } from "react";
+import BusinessIcon from "@mui/icons-material/Business";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import PersonIcon from "@mui/icons-material/Person";
+import PublicIcon from "@mui/icons-material/Public";
+import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Box, Divider, Drawer, Typography, useMediaQuery } from "@mui/material";
-import { Cog as CogIcon } from "../icons/cog";
-import { Lock as LockIcon } from "../icons/lock";
-import { company as ShoppingBagIcon } from "../icons/shopping-bag";
-import { User as UserIcon } from "../icons/user";
-import { UserAdd as UserAddIcon } from "../icons/user-add";
-import { Users as UsersIcon } from "../icons/users";
+import { useEffect } from "react";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 
-const items = [
-    {
-        href: "/contacts",
-        icon: <UsersIcon fontSize="small" />,
-        title: "Contacts",
-    },
-    {
-        href: "/companies",
-        icon: <ShoppingBagIcon fontSize="small" />,
-        title: "Companies",
-    },
-    {
-        href: "/users",
-        icon: <UserIcon fontSize="small" />,
-        title: "Users",
-    },
-    {
-        href: "/regions",
-        icon: <CogIcon fontSize="small" />,
-        title: "Regions",
-    },
-    {
-        href: "/register",
-        icon: <UserAddIcon fontSize="small" />,
-        title: "Register",
-    },
-    {
-        href: "/login",
-        icon: <LockIcon fontSize="small" />,
-        title: "Login",
-    },
-];
-
 export const DashboardSidebar = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, loggedUser } = props;
+
+    const items = [
+        {
+            href: "/",
+            icon: <ContactsIcon fontSize="small" />,
+            title: "Contacts",
+            show: true,
+        },
+        {
+            href: "/companies",
+            icon: <BusinessIcon fontSize="small" />,
+            title: "Companies",
+            show: true,
+        },
+        {
+            href: "/regions",
+            icon: <PublicIcon fontSize="small" />,
+            title: "Regions",
+            show: true,
+        },
+        {
+            href: "/users",
+            icon: <PersonIcon fontSize="small" />,
+            title: "Users",
+            show: loggedUser.profile === "ADMIN",
+        },
+    ];
+
     const router = useRouter();
     const lgUp = useMediaQuery((theme) => theme.breakpoints.up("lg"), {
         defaultMatches: true,
@@ -103,6 +96,7 @@ export const DashboardSidebar = (props) => {
                             icon={item.icon}
                             href={item.href}
                             title={item.title}
+                            show={item.show}
                         />
                     ))}
                 </Box>

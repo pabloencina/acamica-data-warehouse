@@ -1,6 +1,5 @@
 import { Box, Card, CardContent, Container } from "@mui/material";
 import Head from "next/head";
-
 import { useEffect, useState } from "react";
 import { UserListResults } from "src/components/user/user-list-result";
 import { UserListToolbar } from "src/components/user/user-list-toolbar";

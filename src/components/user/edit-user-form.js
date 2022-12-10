@@ -22,8 +22,6 @@ import * as Yup from "yup";
 import { editUser, getUserById } from "src/services/usersService";
 
 export const EditUserForm = () => {
-    // TODO: Las props llegan vacías. Hay que buscar una forma de, al moverse a una pagina nueva, enviarle los datos a esa nueva página, para que no tenga que ir al backend a buscarlos nuevamente: useRouter de React*
-    // TODO: Si lo anterior no se puede, hay que llamar de nuevo al Back End y pedirle los datos, tomando el ID que aparece en la URL.
     const options = ["ADMIN", "BASIC"];
     const [state, setState] = useState({
         profileInputValue: "",

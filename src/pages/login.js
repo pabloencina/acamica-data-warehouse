@@ -1,13 +1,23 @@
-import Head from "next/head";
-import NextLink from "next/link";
+import { Alert, Box, Button, Container, TextField, Typography } from "@mui/material";
 import { useFormik } from "formik";
+import Head from "next/head";
+import { useContext, useState } from "react";
+import { decodeJwt, postLogin, setTokenInCookie } from "src/services/loginService";
+import { AppContext } from "src/utils/app-context-provider";
 import * as Yup from "yup";
-import { Box, Button, Container, Grid, Link, TextField, Typography } from "@mui/material";
-//import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import axios from "axios";
-import React from "react";
+
+import { useRouter } from "next/router";
 
 const Login = () => {
+    const { handleLoggedUserChange } = useContext(AppContext);
+
+    const [state, setState] = useState({
+        errorMessage: "",
+        formError: false,
+    });
+
+    const router = useRouter();
+
     const formik = useFormik({
         initialValues: {
             email: "",
@@ -23,12 +33,18 @@ const Login = () => {
         }),
 
         onSubmit: async (values) => {
-            const loginResponse = await axios.post("http://localhost:3500/login", {
-                email: values.email,
-                password: values.password,
-            });
+            try {
+                const token = await postLogin(values.email, values.password);
+                setTokenInCookie(token);
+                const { email, profile } = decodeJwt(token);
+                handleLoggedUserChange({ email, profile });
+                setState({ ...state, formError: false });
+                router.push("/");
+            } catch (e) {
+                const errorMessage = "Cannot authenticate user.";
 
-            window.localStorage.setItem("token", loginResponse.data);
+                setState({ ...state, formError: true, errorMessage });
+            }
         },
     });
 
@@ -47,22 +63,17 @@ const Login = () => {
                 }}
             >
                 <Container maxWidth="sm">
+                    <Box sx={{ my: 3 }}>
+                        <Typography color="textPrimary" variant="h3">
+                            Acamica Datawarehouse
+                        </Typography>
+                    </Box>
                     <form onSubmit={formik.handleSubmit}>
                         <Box sx={{ my: 3 }}>
-                            <Typography color="textPrimary" variant="h4">
+                            <Typography color="textPrimary" variant="h5">
                                 Login
                             </Typography>
                         </Box>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} md={6}></Grid>
-                            <Grid item xs={12} md={6}></Grid>
-                        </Grid>
-                        <Box
-                            sx={{
-                                pb: 1,
-                                pt: 3,
-                            }}
-                        ></Box>
                         <TextField
                             error={Boolean(formik.touched.email && formik.errors.email)}
                             fullWidth
@@ -97,26 +108,13 @@ const Login = () => {
                                 size="large"
                                 type="submit"
                                 variant="contained"
-                                // href="customers"
                             >
-                                Login now
+                                Login
                             </Button>
                         </Box>
-                        <Typography color="textSecondary" variant="body2">
-                            Don&apos;t have an account?{" "}
-                            <NextLink href="/register">
-                                <Link
-                                    to="/register"
-                                    variant="subtitle2"
-                                    underline="hover"
-                                    sx={{
-                                        cursor: "pointer",
-                                    }}
-                                >
-                                    Sign Up
-                                </Link>
-                            </NextLink>
-                        </Typography>
+                        {state.formError ? (
+                            <Alert severity="error">{state.errorMessage}</Alert>
+                        ) : null}
                     </form>
                 </Container>
             </Box>
