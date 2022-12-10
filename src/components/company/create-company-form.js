@@ -33,7 +33,6 @@ export const CreateCompanyForm = () => {
         _id: "",
         cities: [],
     });
-    // const [selectedCity, setSelectedCity] = useState({});
 
     const regionOnChange = (e) => {
         const regionId = e.target.value;
@@ -42,7 +41,6 @@ export const CreateCompanyForm = () => {
         setSelectedCountry({
             cities: [],
         });
-        // setSelectedCity({});
     };
 
     const countryOnChange = (e) => {
@@ -51,7 +49,6 @@ export const CreateCompanyForm = () => {
             (country) => country._id === countryId
         );
         setSelectedCountry(countryFound);
-        // setSelectedCity({});
     };
 
     const [state, setState] = useState({

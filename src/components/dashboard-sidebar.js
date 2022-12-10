@@ -1,12 +1,11 @@
 import BusinessIcon from "@mui/icons-material/Business";
+import ContactsIcon from "@mui/icons-material/Contacts";
+import PersonIcon from "@mui/icons-material/Person";
 import PublicIcon from "@mui/icons-material/Public";
 import { Box, Divider, Drawer, useMediaQuery } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
 import { useEffect } from "react";
-import { Lock as LockIcon } from "../icons/lock";
-import { User as UserIcon } from "../icons/user";
-import { Users as UsersIcon } from "../icons/users";
 import { Logo } from "./logo";
 import { NavItem } from "./nav-item";
 
@@ -15,8 +14,8 @@ export const DashboardSidebar = (props) => {
 
     const items = [
         {
-            href: "/contacts",
-            icon: <UsersIcon fontSize="small" />,
+            href: "/",
+            icon: <ContactsIcon fontSize="small" />,
             title: "Contacts",
             show: true,
         },
@@ -33,14 +32,8 @@ export const DashboardSidebar = (props) => {
             show: true,
         },
         {
-            href: "/login",
-            icon: <LockIcon fontSize="small" />,
-            title: "Login",
-            show: true,
-        },
-        {
             href: "/users",
-            icon: <UserIcon fontSize="small" />,
+            icon: <PersonIcon fontSize="small" />,
             title: "Users",
             show: loggedUser.profile === "ADMIN",
         },

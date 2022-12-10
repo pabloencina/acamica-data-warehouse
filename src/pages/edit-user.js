@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Box, Button, Container, Grid, Typography } from "@mui/material";
 
-import { EditUserForm } from "src/components/account/edit-user-form";
+import { EditUserForm } from "src/components/user/edit-user-form";
 import { DashboardLayout } from "../components/dashboard-layout";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useRouter } from "next/router";

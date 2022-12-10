@@ -1,3 +1,4 @@
+import SearchIcon from "@mui/icons-material/Search";
 import {
     Box,
     Button,
@@ -11,7 +12,6 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import PropTypes from "prop-types";
-import { Search as SearchIcon } from "../../icons/search";
 
 export const ContactListToolbar = (props) => {
     const { contactList, setContacts } = props;
